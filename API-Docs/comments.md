@@ -1,13 +1,13 @@
 ## Comments
 
-### Get all Comments of Expense Given Expense Id ???
+### Get all Comments of Expense Given Expense Id
 
-Returns all the friends of current user.
+Returns all the comments of an expense given the expense id
 
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /api/friends/current
+  * URL: /api/expenses/:expenseId/comments
   * Body: none
 
 * Successful Response
@@ -18,37 +18,45 @@ Returns all the friends of current user.
 
     ```json
     {
-      "Friends": [
+      "Comments": [
         {
           "id": 1,
-          "first_name": "John",
-          "last_name": "Doe",
-          "username": "johndoe",
-          "nickname": "Johnny",
+          "user_id": 1,
+          "expense_id": 20,
+          "description": "thanks buddy",
+          "date": "2021-11-19",
           "email": "john@doe.com",
           "createdAt": "2021-11-19 20:39:36",
           "updatedAt": "2021-11-19 20:39:36",
-        }
+          "User": {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Doe",
+            "username": "johndoe",
+            "nickname": "Johnny",
+            "email": "john@doe.com",
+          }
+        },
       ]
     }
     ```
 
 
-### Create a Comment ???
+### Create a Comment
 
-Create and return a new booking from a spot specified by id.
+Create and return a new comment from an expense specified by id.
 
 * Require Authentication: true
-* Require proper authorization: Spot must NOT belong to the current user
 * Request
   * Method: POST
-  * URL: /api/spots/:spotId/bookings
+  * URL: /api/expenses/:expenseId/comments
   * Body:
 
     ```json
     {
-      "startDate": "2021-11-19",
-      "endDate": "2021-11-20"
+      "expense_id": 2,
+      "description": "Great",
+      "date": "2021-11-20"
     }
     ```
 
@@ -61,12 +69,21 @@ Create and return a new booking from a spot specified by id.
     ```json
     {
       "id": 1,
-      "spotId": 1,
-      "userId": 2,
-      "startDate": "2021-11-19",
-      "endDate": "2021-11-20",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36"
+          "user_id": 1,
+          "expense_id": 20,
+          "description": "thanks buddy",
+          "date": "2021-11-19",
+          "email": "john@doe.com",
+          "createdAt": "2021-11-19 20:39:36",
+          "updatedAt": "2021-11-19 20:39:36",
+          "User": {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Doe",
+            "username": "johndoe",
+            "nickname": "Johnny",
+            "email": "john@doe.com",
+          }
     }
     ```
 
@@ -81,12 +98,12 @@ Create and return a new booking from a spot specified by id.
       "message": "Validation error",
       "statusCode": 400,
       "errors": {
-        "endDate": "endDate cannot be on or before startDate"
+        "description": "Description is required"
       }
     }
     ```
 
-* Error response: Couldn't find a Spot with the specified id
+* Error response: Couldn't find an expense with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -94,28 +111,28 @@ Create and return a new booking from a spot specified by id.
 
     ```json
     {
-      "message": "Spot couldn't be found",
+      "message": "Expense couldn't be found",
       "statusCode": 404
     }
     ```
 
-### Edit a Comment ???
+### Edit a Comment
 
-Update and return an existing review.
+Update and return an existing comment.
 
 * Require Authentication: true
-* Require proper authorization: Review must belong to the current user
+* Require proper authorization: Comment must belong to the current user
 * Request
   * Method: PUT
-  * URL: /api/reviews/:reviewId
+  * URL: /api/comments/:commentId
   * Headers:
     * Content-Type: application/json
   * Body:
 
     ```json
     {
-      "review": "This was an awesome spot!",
-      "stars": 5,
+      "description": "This was an awesome expense!",
+      "date": null,
     }
     ```
 
@@ -128,10 +145,10 @@ Update and return an existing review.
     ```json
     {
       "id": 1,
-      "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
-      "stars": 5,
+      "user_id": 1,
+      "expense_id": 1,
+      "description": "This was an awesome expense!",
+      "date": null,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-20 10:06:40"
     }
@@ -148,13 +165,12 @@ Update and return an existing review.
       "message": "Validation error",
       "statusCode": 400,
       "errors": {
-        "review": "Review text is required",
-        "stars": "Stars must be an integer from 1 to 5",
+        "description": "Description is required",
       }
     }
     ```
 
-* Error response: Couldn't find a Review with the specified id
+* Error response: Couldn't find an Expense with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -162,21 +178,21 @@ Update and return an existing review.
 
     ```json
     {
-      "message": "Review couldn't be found",
+      "message": "Expense couldn't be found",
       "statusCode": 404
     }
     ```
 
 
-### Delete a Comment ???
+### Delete a Comment
 
-Delete an existing image for a Spot.
+Delete an existing comment for an expense.
 
 * Require Authentication: true
-* Require proper authorization: Spot must belong to the current user
+* Require proper authorization: Comment must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /api/spot-images/:imageId
+  * URL: /api/comments/:commentId
   * Body: none
 
 * Successful Response
@@ -192,7 +208,7 @@ Delete an existing image for a Spot.
     }
     ```
 
-* Error response: Couldn't find a Spot Image with the specified id
+* Error response: Couldn't find a comment with the specified id
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -200,7 +216,7 @@ Delete an existing image for a Spot.
 
     ```json
     {
-      "message": "Spot Image couldn't be found",
+      "message": "Comment couldn't be found",
       "statusCode": 404
     }
     ```

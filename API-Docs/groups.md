@@ -59,6 +59,14 @@ Returns all the group members that belong to a group specified by id.
             "username": "johndoe",
             "nickname": "Johnny",
             "email": "john@doe.com"
+        },
+        {
+            "id": 2,
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "username": "janedoe",
+            "nickname": "Jane",
+            "email": "jane@doe.com"
         }
       ]
     }
@@ -188,20 +196,20 @@ Create and return a new group
 
 ### Add User to Group
 
-Create and return a new review for a spot specified by id.
+Add a user to a group specified by group's id.
 
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /api/spots/:spotId/reviews
+  * URL: /api/groups/:groupId/add_user/
   * Headers:
     * Content-Type: application/json
   * Body:
 
     ```json
     {
-      "review": "This was an awesome spot!",
-      "stars": 5,
+      "user_id": 2,
+      "group_id": 5,
     }
     ```
 
@@ -213,32 +221,31 @@ Create and return a new review for a spot specified by id.
 
     ```json
     {
-      "id": 1,
-      "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
-      "stars": 5,
+      "user_id": 1,
+      "group_id": 1,
       "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36"
+      "updatedAt": "2021-11-19 20:39:36",
+      "message": "User successfully added to group"
     }
     ```
 
-### Leave a Group ???
+### Remove User from Group
 
-Create and return a new review for a spot specified by id.
+
+Remove a user from a group specified by groupId
 
 * Require Authentication: true
 * Request
-  * Method: POST
-  * URL: /api/spots/:spotId/reviews
+  * Method: DELETE
+  * URL: /api/groups/:groupId/remove_user/
   * Headers:
     * Content-Type: application/json
   * Body:
 
     ```json
     {
-      "review": "This was an awesome spot!",
-      "stars": 5,
+      "user_id": 1,
+      "group_id": 5,
     }
     ```
 
@@ -250,32 +257,35 @@ Create and return a new review for a spot specified by id.
 
     ```json
     {
-      "id": 1,
-      "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
-      "stars": 5,
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36"
+      "message": "User successfully deleted from group",
+      "statusCode": 200
     }
     ```
 
-### Add an Expense for a Group ???
+### Add an Expense for a Group
 
-Create and return a new image for a review specified by id.
+Add a new expense to a group specified by groupId
 
 * Require Authentication: true
-* Require proper authorization: Review must belong to the current user
+* Require proper authorization: User must be part of the group
 * Request
   * Method: POST
-  * URL: /api/reviews/:reviewId/images
+  * URL: /api/groups/:groupId/expenses
   * Headers:
     * Content-Type: application/json
   * Body:
 
     ```json
     {
-      "url": "image url"
+      "user_id": 1,
+      "group_id": 1,
+      "recipient_id": 2,
+      "description": "Dinner",
+      "amount": 32.99,
+      "notes": "Thanks for fronting the bill",
+      "date": "2022-12-07",
+      "status": "Pending"
+
     }
     ```
 
@@ -287,12 +297,20 @@ Create and return a new image for a review specified by id.
 
     ```json
     {
-      "id": 1,
-      "url": "image url"
+      "message": "Expense added",
+      "user_id": 1,
+      "group_id": 1,
+      "recipient_id": 2,
+      "description": "Dinner",
+      "amount": 32.99,
+      "notes": "Thanks for fronting the bill",
+      "date": "2022-12-07",
+      "status": "Pending"
+
     }
     ```
 
-* Error response: Couldn't find a Review with the specified id
+* Error response: Couldn't find a user in the group
   * Status Code: 404
   * Headers:
     * Content-Type: application/json
@@ -300,13 +318,12 @@ Create and return a new image for a review specified by id.
 
     ```json
     {
-      "message": "Review couldn't be found",
+      "message": "User couldn't be found in group",
       "statusCode": 404
     }
     ```
 
-* Error response: Cannot add any more images because there is a maximum of 10
-  images per resource
+* Error response: "Logged in user not in group"
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
@@ -314,28 +331,28 @@ Create and return a new image for a review specified by id.
 
     ```json
     {
-      "message": "Maximum number of images for this resource was reached",
+      "message": "Can not create expenses in this group",
       "statusCode": 403
     }
     ```
 
-### Edit a Group ???
+### Edit a Group
 
-Update and return an existing review.
+Update and return an existing Group
 
 * Require Authentication: true
-* Require proper authorization: Review must belong to the current user
+* Require proper authorization: User must be a part of the group
 * Request
   * Method: PUT
-  * URL: /api/reviews/:reviewId
+  * URL: /api/groups/:groupsId
   * Headers:
     * Content-Type: application/json
   * Body:
 
     ```json
     {
-      "review": "This was an awesome spot!",
-      "stars": 5,
+      "name": "Amazing Group",
+      "description": "Amazing"
     }
     ```
 
@@ -347,13 +364,9 @@ Update and return an existing review.
 
     ```json
     {
-      "id": 1,
-      "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
-      "stars": 5,
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-20 10:06:40"
+      "message": "Successfully updated group",
+      "name": "Amazing Group",
+      "description": "Amazing",
     }
     ```
 
@@ -368,34 +381,21 @@ Update and return an existing review.
       "message": "Validation error",
       "statusCode": 400,
       "errors": {
-        "review": "Review text is required",
-        "stars": "Stars must be an integer from 1 to 5",
+        "name": "Name is required",
+        "description": "Description",
       }
     }
     ```
 
-* Error response: Couldn't find a Review with the specified id
-  * Status Code: 404
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+### Delete a Group
 
-    ```json
-    {
-      "message": "Review couldn't be found",
-      "statusCode": 404
-    }
-    ```
-
-### Delete a Group ???
-
-Delete an existing review.
+Delete an existing group.
 
 * Require Authentication: true
-* Require proper authorization: Review must belong to the current user
+* Require proper authorization: Group must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /api/reviews/:reviewId
+  * URL: /api/groups/:groupId
   * Body: none
 
 * Successful Response
@@ -419,7 +419,7 @@ Delete an existing review.
 
     ```json
     {
-      "message": "Review couldn't be found",
+      "message": "Group could not be found",
       "statusCode": 404
     }
     ```
