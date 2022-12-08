@@ -1,6 +1,6 @@
 ## API Documentation
 
-## USER AUTHENTICATION/AUTHORIZATION
+## API Documentation - USER AUTHENTICATION/AUTHORIZATION
 
 ### All endpoints that require authentication
 
@@ -636,7 +636,7 @@ Create and return a new group
     }
     ```
 
-### Join a Group ???
+### Add User to Group
 
 Create and return a new review for a spot specified by id.
 
