@@ -12,3 +12,6 @@ class ExpenseComment(db.Model):
     expense_id = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(50), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=datetime.now())
+
+    user = db.relationship('User', back_populates='comment', foreign_keys=[user_id])
+    expense = db.relationship('Expense', back_populates='comment', foreign_keys=[expense_id])
