@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-class Friends(db.Model):
+class Friend(db.Model):
     __tablename__ = 'friends'
 
     if environment == "production":
@@ -12,4 +12,6 @@ class Friends(db.Model):
     status = db.Column(db.String(20), nullable=False)
     date = db.Column(db.Date, nullable=False)
 
-    
+    user = db.relationship('User', back_populates='friends_user', foreign_keys=[user_id])
+    friend = db.relationship('User', back_populates='friends_friend', foreign_keys=[friend_id])
+
