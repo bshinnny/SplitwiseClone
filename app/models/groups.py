@@ -9,3 +9,6 @@ class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     type = db.Column(db.String, nullable=False)
+
+    expense = db.relationship('Expense', back_populates='group', cascade='all, delete-orphan')
+    user_group = db.relationship('UsersGroup', back_populates='group', cascade='all, delete-orphan')

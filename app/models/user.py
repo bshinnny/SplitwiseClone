@@ -11,13 +11,20 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False) 
+    last_name = db.Column(db.String(50), nullable=False)
     username = db.Column(db.String(40), nullable=False, unique=True)
     nickname = db.Column(db.String(50), nullable=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    created_at = db.Column(db.DateTime, default = db.func.now() )
-    updated_at = db.Column(db.DateTime,server_default=db.func.now(),server_onupdate=db.func.now())
+    created_at = db.Column(db.DateTime, default = db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
+
+    friends_user = db.relationship('Friend', primaryjoin='User.id == Friends.user_id', back_populates='user', cascade='all, delete-orphan')
+    friends_friend = db.relationship('Friend', primaryjoin='User.id == Friends.friend_id', back_populates='friend', cascade='all, delete-orphan')
+    expenses_user = db.relationship('Expense', primaryjoin='User.id == Expenses.user_id', back_populates='user', cascade='all, delete-orphan')
+    expenses_recipient = db.relationship('Expense', primaryjoin='User.id == Expenses.recipient_id', back_populates='recipient', cascade='all, delete-orphan')
+    comment = db.relationship('ExpenseComment', back_populates='user', cascade='all, delete-orphan')
+    user_group = db.relationship('UsersGroup', back_populates='user')
 
     @property
     def password(self):
