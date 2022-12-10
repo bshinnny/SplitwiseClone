@@ -20,11 +20,9 @@ with app.app_context():
         ]
 
     for user in user_seeds:
-        user = User(first_name=user_seeds["first_name"], last_name=user_seeds["last_name"], user_name=user_seeds["username"], nickname=user_seeds["nickname"], email=user_seeds["email"], hashed_password=user_seeds["hashed_password"])
+        data = User(first_name=user["first_name"], last_name=user["last_name"], username=user["username"], nickname=user["nickname"], email=user["email"], hashed_password=user["hashed_password"])
 
-        db.session.add(user)
+        db.session.add(data)
 
 
     db.session.commit()
-
-    

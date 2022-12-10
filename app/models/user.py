@@ -19,12 +19,12 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default = db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
-    friends_user = db.relationship('Friend', primaryjoin='User.id == Friends.user_id', back_populates='user', cascade='all, delete-orphan')
-    friends_friend = db.relationship('Friend', primaryjoin='User.id == Friends.friend_id', back_populates='friend', cascade='all, delete-orphan')
-    expenses_user = db.relationship('Expense', primaryjoin='User.id == Expenses.user_id', back_populates='user', cascade='all, delete-orphan')
-    expenses_recipient = db.relationship('Expense', primaryjoin='User.id == Expenses.recipient_id', back_populates='recipient', cascade='all, delete-orphan')
+    friends_user = db.relationship('Friend', primaryjoin='User.id == Friend.user_id', back_populates='user', cascade='all, delete-orphan')
+    friends_friend = db.relationship('Friend', primaryjoin='User.id == Friend.friend_id', back_populates='friend', cascade='all, delete-orphan')
+    expenses_user = db.relationship('Expense', primaryjoin='User.id == Expense.user_id', back_populates='user', cascade='all, delete-orphan')
+    expenses_recipient = db.relationship('Expense', primaryjoin='User.id == Expense.recipient_id', back_populates='recipient', cascade='all, delete-orphan')
     comment = db.relationship('ExpenseComment', back_populates='user', cascade='all, delete-orphan')
-    user_group = db.relationship('UsersGroup', back_populates='user')
+    user_group = db.relationship('UserGroup', back_populates='user')
 
     @property
     def password(self):
