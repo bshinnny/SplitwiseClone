@@ -14,3 +14,4 @@ class Friend(db.Model):
 
     user = db.relationship('User', back_populates='friends_user', foreign_keys=[user_id])
     friend = db.relationship('User', back_populates='friends_friend', foreign_keys=[friend_id])
+
