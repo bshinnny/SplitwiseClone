@@ -24,8 +24,9 @@ def seed():
     seed_users()
     # Add other seed functions here
     seed_friends()
-    seed_groups()
     seed_expenses()
+    seed_groups()
+    # seed_usergroups()
 
 
 

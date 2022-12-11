@@ -1,8 +1,8 @@
 """create tables
 
-Revision ID: 6f8a43e9454b
+Revision ID: 853bcaceb9fe
 Revises: 
-Create Date: 2022-12-10 17:17:55.113529
+Create Date: 2022-12-10 22:46:09.896567
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6f8a43e9454b'
+revision = '853bcaceb9fe'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('groups',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
-    sa.Column('type', sa.String(), nullable=False),
+    sa.Column('type', sa.String(length=255), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
@@ -64,12 +64,11 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_groups',
-    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('group_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['group_id'], ['groups.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('user_id', 'group_id')
     )
     op.create_table('expense_comments',
     sa.Column('id', sa.Integer(), nullable=False),

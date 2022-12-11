@@ -1,4 +1,4 @@
-from app.models import db, Group, UserGroup, SCHEMA, environment
+from app.models import db, Group, SCHEMA, environment
 
 def seed_groups():
     group1 = Group(
@@ -17,32 +17,11 @@ def seed_groups():
         name = 'The Nerd Herd', type = 'Other'
     )
 
-    user_group1 = UserGroup(
-        user_id = 1, group_id = 1
-    ),
-    user_group2 = UserGroup(
-        user_id = 2, group_id = 2
-    ),
-    user_group3 = UserGroup(
-        user_id = 3, group_id = 3
-    ),
-    user_group4 = UserGroup(
-        user_id = 4, group_id = 4
-    ),
-    user_group5 = UserGroup(
-        user_id = 5, group_id = 5
-    )
-
     db.session.add(group1)
     db.session.add(group2)
     db.session.add(group3)
     db.session.add(group4)
     db.session.add(group5)
-    db.session.add(user_group1)
-    db.session.add(user_group2)
-    db.session.add(user_group3)
-    db.session.add(user_group4)
-    db.session.add(user_group5)
     db.session.commit()
 
 

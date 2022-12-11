@@ -21,3 +21,17 @@ class Expense(db.Model):
     recipient = db.relationship('User', back_populates='expenses_recipient', foreign_keys=[recipient_id])
     group = db.relationship('Group', back_populates='expense', foreign_keys=[group_id])
     comment = db.relationship('ExpenseComment', back_populates='expense', cascade='all, delete-orphan')
+
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "description": self.description,
+            "user_id": self.user_id,
+            "group_id": self.group_id,
+            "recipient_id": self.recipient_id,
+            "amount": self.amount,
+            "date": self.date,
+            "note": self.note,
+            "status": self.status
+        }
