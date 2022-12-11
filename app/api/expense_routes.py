@@ -1,7 +1,9 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User, Expense
+from app.models import User, Expense, Group
 from sqlalchemy.orm import joinedload
+from app.forms import ExpenseForm
+from .auth_routes import validation_errors_to_error_messages
 
 expense_routes = Blueprint('expenses', __name__)
 
@@ -18,7 +20,6 @@ def all_expenses_of_user():
     """
     user = User.query.get(current_user.id)
     user_id = current_user.get_id()
-    print(user, 'userrrrrr')
 
     fronted_expenses = Expense.query.options(joinedload(Expense.recipient)).filter(Expense.user_id == user_id).all()
 
@@ -70,5 +71,20 @@ def all_expenses_of_user():
 
     return {'Receivable Expenses': accounts_receivable, 'Payable Expenses': accounts_payable}
 
+@expense_routes.route("/individual", methods=["POST"])
+@login_required
+def create_expense():
+    """
+    Create a new 1 on 1 Expense
+    """
+    form = ExpenseForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        description = form.data["description"]
+        print(description)
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+    return {'test': 'test'}
