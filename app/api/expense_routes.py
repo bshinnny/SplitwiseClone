@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User, Expense, Group
+from app.models import db, User, Expense, Group
 from sqlalchemy.orm import joinedload
 from app.forms import ExpenseForm
 from .auth_routes import validation_errors_to_error_messages
@@ -71,18 +71,31 @@ def all_expenses_of_user():
 
     return {'Receivable Expenses': accounts_receivable, 'Payable Expenses': accounts_payable}
 
-@expense_routes.route("/individual", methods=["POST"])
+@expense_routes.route("", methods=["POST"])
 @login_required
 def create_expense():
     """
-    Create a new 1 on 1 Expense
+    Create a new Expense
     """
     form = ExpenseForm()
+    id_of_user = current_user.id #user is an integer
 
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         description = form.data["description"]
-        print(description)
+        user_id = id_of_user
+        group_id = form.data["group_id"]
+        recipient_id = form.data["recipient_id"]
+        amount = form.data["amount"]
+        note = form.data["note"]
+
+        new_expense = Expense(description=description, user_id=user_id, group_id=group_id, recipient_id=recipient_id, amount=amount, note=note)
+
+        db.session.add(new_expense)
+        db.session.commit()
+
+        return new_expense.to_dict()
+
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
