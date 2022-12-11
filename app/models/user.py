@@ -25,8 +25,8 @@ class User(db.Model, UserMixin):
     expenses_user = db.relationship('Expense', primaryjoin='User.id == Expense.user_id', back_populates='user', cascade='all, delete-orphan')
     expenses_recipient = db.relationship('Expense', primaryjoin='User.id == Expense.recipient_id', back_populates='recipient', cascade='all, delete-orphan')
     comment = db.relationship('ExpenseComment', back_populates='user', cascade='all, delete-orphan')
-    # user_group = db.relationship('UserGroup', back_populates='user')
-    groups = db.relationship('Group', back_populates='users', secondary=UserGroup)
+    user_group = db.relationship('UserGroup', back_populates='user', cascade='all, delete-orphan')
+    # groups = db.relationship('Group', back_populates='user')
 
 
     @property
