@@ -27,10 +27,8 @@
 
 # def undo_usergroups():
 #     if environment == "production":
-#         db.session.execute(f"TRUNCATE table {SCHEMA}.groups RESTART IDENTITY CASCADE;")
 #         db.session.execute(f"TRUNCATE table {SCHEMA}.user_groups RESTART IDENTITY CASCADE;")
 #     else:
-#         db.session.execute("DELETE FROM groups")
 #         db.session.execute("DELETE FROM user_groups")
 
 #     db.session.commit()
