@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .user_groups import UserGroup
 
 class Group(db.Model):
@@ -12,5 +12,5 @@ class Group(db.Model):
     type = db.Column(db.String(255), nullable=False)
 
     expense = db.relationship('Expense', back_populates='group', cascade='all, delete-orphan')
-    # user_group = db.relationship('UserGroup', back_populates='group', cascade='all, delete-orphan')
-    users = db.relationship('User', back_populates='groups', secondary=UserGroup)
+    user_group = db.relationship('UserGroup', back_populates='group', cascade='all, delete-orphan')
+    # user = db.relationship('User', back_populates='groups')

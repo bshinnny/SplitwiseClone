@@ -1,7 +1,5 @@
 from app.models import db, Friend, environment, SCHEMA
 
-
-
 def seed_friends():
     friend1 = Friend(
         user_id = 1,
