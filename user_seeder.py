@@ -1,18 +1,12 @@
-from app.models import db, User, environment, SCHEMA
+from dotenv import load_dotenv
+load_dotenv()
 
+from app import app, db
+from app.models import User
 
-# Adds a demo user, you can add other users here if you want
-def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password', first_name="Demo", last_name="Lition", nickname="demo-lition")
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', first_name="Marnie", last_name="Mo", nickname="mM")
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', first_name="Bobbie", last_name="Bob", nickname="bB")
-
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+with app.app_context():
+    db.drop_all()
+    db.create_all()
 
     user_seeds = [
         {"first_name": "Adam", "last_name": "Adams", "username": "adamAdams", "nickname": "aA", "email": "adam@adams.com", "hashed_password": "password"},
@@ -30,19 +24,5 @@ def seed_users():
 
         db.session.add(data)
 
-    db.session.commit()
-
-
-# Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
-# have a built in function to do this. With postgres in production TRUNCATE
-# removes all the data from the table, and RESET IDENTITY resets the auto
-# incrementing primary key, CASCADE deletes any dependent entities.  With
-# sqlite3 in development you need to instead use DELETE to remove all data and
-# it will reset the primary keys for you as well.
-def undo_users():
-    if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
-    else:
-        db.session.execute("DELETE FROM users")
 
     db.session.commit()
