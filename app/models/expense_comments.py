@@ -15,3 +15,12 @@ class ExpenseComment(db.Model):
 
     user = db.relationship('User', back_populates='comment', foreign_keys=[user_id])
     expense = db.relationship('Expense', back_populates='comment', foreign_keys=[expense_id])
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            "user_id": self.user_id,
+            "expense_id": self.expense_id,
+            'date': self.date,
+            'description': self.description
+        }
