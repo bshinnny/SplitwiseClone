@@ -112,7 +112,6 @@ Return all the expenses for a group based on the Group's id
 Create and return a new expense
 
 * Require Authentication: true
-* Require proper authorization: Spot must NOT belong to the current user
 * Request
   * Method: POST
   * URL: /api/expenses/
