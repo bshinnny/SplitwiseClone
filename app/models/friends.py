@@ -10,8 +10,7 @@ class Friend(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     friend_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     status = db.Column(db.String(20), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    date = db.Column(db.String(255))
 
     user = db.relationship('User', back_populates='friends_user', foreign_keys=[user_id])
     friend = db.relationship('User', back_populates='friends_friend', foreign_keys=[friend_id])
-
