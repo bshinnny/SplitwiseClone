@@ -13,13 +13,13 @@ def test():
     return '<h1>Welcome</h1>'
 
 @comments_routes.route('/expenses/<int:expenseId>/comments', methods=['GET'])
-@login_required
+# @login_required
 def get_comments(expenseId):
     expense = Expense.query.filter(Expense.id == expenseId)
 
     if expense:
         comments = ExpenseComment.query.options(joinedload(ExpenseComment.expense)).filter(ExpenseComment.expense_id == expenseId)
-        return [comment.to_dict() for comment in comments ]
+        return {'Comments': [comment.to_dict() for comment in comments ]}, 200
 
     return {'errors': f'Expense {expenseId} not found!'}, 404
 
@@ -49,7 +49,7 @@ def create_comment(expenseId):
     return {'errors': f'Expense {expenseId} not found!'}, 404
 
 
-@comments_routes('/comments/<int:commentId>', methods=['PUT'])
+@comments_routes.route('/comments/<int:commentId>', methods=['PUT'])
 @login_required
 def edit_comment(commentId):
     comment = ExpenseComment.query(ExpenseComment.id == commentId)
@@ -57,7 +57,7 @@ def edit_comment(commentId):
     if not comment:
         return {'errors': f'Comment {commentId} not found!'}, 404
 
-    if comment.id != current_user.id:
+    if comment.user_id != current_user.id:
         return {'errors': 'Unauthorized!'}, 400
 
     form = CommentForm()
@@ -74,7 +74,7 @@ def edit_comment(commentId):
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-@comments_routes('/comments/<int:commentId>', methods=['DELETE'])
+@comments_routes.route('/comments/<int:commentId>', methods=['DELETE'])
 @login_required
 def delete_comment(commentId):
     comment = ExpenseComment.query(ExpenseComment.id == commentId)

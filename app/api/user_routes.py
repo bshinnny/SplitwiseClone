@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import User
 
 user_routes = Blueprint('users', __name__)
@@ -27,13 +27,15 @@ def user(id):
 
 # get all friends # I tested it, this route works
 @user_routes.route("/current")
-# @login_required
+@login_required
 def get_all_friends():
     """
     Query for all friends of the current user and return the friends information
     """
     print("%%%%%%%%%%%%","hello")
-    # user_id = int(current_user.get_id())
-    user_id = 1
-    friends = User.query.filter(id = 1).friends
-    print('friends', friends)
+    user_id = int(current_user.get_id())
+
+    user = User.query.filter(User.id == user_id)
+    friends = user.friends
+    print('friends++++++++++', friends[1].id)
+    return 'kkk'

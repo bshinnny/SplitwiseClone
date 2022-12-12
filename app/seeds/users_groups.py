@@ -4,25 +4,25 @@ from app.models import db, User, Group, environment, SCHEMA
 # Adds a demo user, you can add other users here if you want
 def seed_users_groups():
     demo = User(
-        username='demo', email='demo@aa.io', hashed_password='password', first_name="Demo", last_name="Lition", nickname="demo-lition"
+        username='demo', email='demo@aa.io', password='password', first_name="Demo", last_name="Lition", nickname="demo-lition"
     )
     marnie = User(
-        username='marnie', email='marnie@aa.io', hashed_password='password', first_name="Marnie", last_name="Mo", nickname="mM"
+        username='marnie', email='marnie@aa.io', password='password', first_name="Marnie", last_name="Mo", nickname="mM"
     )
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', hashed_password='password', first_name="Bobbie", last_name="Bob", nickname="bB"
+        username='bobbie', email='bobbie@aa.io', password='password', first_name="Bobbie", last_name="Bob", nickname="bB"
     )
     adam = User(
-        first_name="Adam", last_name="Adams", username="adamAdams", nickname="aA", email="adam@adams.com", hashed_password="password"
+        first_name="Adam", last_name="Adams", username="adamAdams", nickname="aA", email="adam@adams.com", password="password"
     )
     brain = User(
-        first_name="Brian", last_name="Brians", username="brianBrians", nickname="bB", email="brian@brians.com", hashed_password="password"
+        first_name="Brian", last_name="Brians", username="brianBrians", nickname="bB", email="brian@brians.com", password="password"
     )
     charlie = User(
-        first_name="Charlie", last_name="Charlies", username="charlieCharlies", nickname="cC", email="charlie@charlies.com", hashed_password="password"
+        first_name="Charlie", last_name="Charlies", username="charlieCharlies", nickname="cC", email="charlie@charlies.com", password="password"
     )
     don = User(
-        first_name="Don", last_name='Dons', username='donDons', nickname="dD", email="don@dons.com", hashed_password="password"
+        first_name="Don", last_name='Dons', username='donDons', nickname="dD", email="don@dons.com", password="password"
     )
     demo.friends = [marnie, bobbie, adam, brain, charlie, don]
     marnie.friends = [demo, bobbie, adam, brain, charlie, don]
@@ -101,4 +101,3 @@ def undo_users_groups():
         db.session.execute("DELETE FROM groups")
 
     db.session.commit()
-
