@@ -147,17 +147,7 @@ Create and return a new group
     ```json
     {
       "name": "Amazing Group",
-      "description": "This is an amazing group",
-      "Members": [
-        {
-            "id": 1,
-            "first_name": "John",
-            "last_name": "Doe",
-            "username": "johndoe",
-            "nickname": "Johnny",
-            "email": "john@doe.com"
-        }
-      ]
+      "type": "Home",
     }
     ```
 
@@ -171,9 +161,7 @@ Create and return a new group
     {
       "id": 1,
       "name": "Amazing Group",
-      "description": "This is an amazing group",
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36"
+      "type": "Home",
     }
     ```
 
@@ -221,11 +209,9 @@ Add a user to a group specified by group's id.
 
     ```json
     {
-      "user_id": 1,
+      "message": "User successfully added to group",
       "group_id": 1,
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36",
-      "message": "User successfully added to group"
+      "user_id": 1
     }
     ```
 
@@ -419,7 +405,7 @@ Delete an existing group.
 
     ```json
     {
-      "message": "Group could not be found",
+      "message": "Group couldn't be found.",
       "statusCode": 404
     }
     ```
