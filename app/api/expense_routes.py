@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, User, Expense, Group
 from sqlalchemy.orm import joinedload
-from app.forms import ExpenseForm
+from app.forms import ExpenseForm, UpdateExpenseForm
 from .auth_routes import validation_errors_to_error_messages
 
 expense_routes = Blueprint('expenses', __name__)
@@ -71,6 +71,10 @@ def all_expenses_of_user():
 
     return {'Receivable Expenses': accounts_receivable, 'Payable Expenses': accounts_payable}
 
+
+
+
+
 @expense_routes.route("", methods=["POST"])
 @login_required
 def create_expense():
@@ -78,9 +82,10 @@ def create_expense():
     Create a new Expense
     """
     form = ExpenseForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
     id_of_user = current_user.id #user is an integer
 
-    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         description = form.data["description"]
         user_id = id_of_user
@@ -100,4 +105,55 @@ def create_expense():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-    return {'test': 'test'}
+@expense_routes.route("/<int:expense_id>", methods=["PUT"])
+@login_required
+def update_expense(expense_id):
+    """
+    Update an expense
+    """
+
+    form = UpdateExpenseForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    id_of_user = current_user.id
+    expense = Expense.query.get(expense_id) #if not found, expense will be None
+
+    if not expense:
+        return {'error': "Expense not found"}, 404
+
+    if not id_of_user == expense.user_id and not id_of_user == expense.recipient_id:
+        return {'error': "Not authorized to edit this expense"}, 401
+
+    if expense and form.validate_on_submit():
+        expense.description = form.data["description"]
+        expense.amount = form.data["amount"]
+        expense.note = form.data["note"]
+
+        db.session.commit()
+
+        expense_test = Expense.query.get(expense_id)
+        return expense.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@expense_routes.route("/<int:expense_id>", methods=["DELETE"])
+@login_required
+def delete_expense(expense_id):
+    """
+    Delete an expense
+    """
+    expense = Expense.query.get(expense_id)
+
+    id_of_user = current_user.id
+
+    if not expense:
+        return {'error': "Expense not found"}, 404
+
+    if not id_of_user == expense.user_id and not id_of_user == expense.recipient_id:
+        return {'error': "Not authorized to delete this expense"}, 401
+
+    db.session.delete(expense)
+    db.session.commit()
+
+    return {"message": "Expense successfully deleted"}

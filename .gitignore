@@ -131,6 +131,7 @@ venv.bak/
 .DS_Store
 .vscode/
 dev.db
+app/dev.db
 
 # Spyder project settings
 .spyderproject

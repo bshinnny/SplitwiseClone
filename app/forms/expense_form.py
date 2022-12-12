@@ -28,3 +28,11 @@ class ExpenseForm(FlaskForm):
     date = DateField("Date")
     note = StringField("Note")
     status = BooleanField("Status")
+
+
+class UpdateExpenseForm(FlaskForm):
+    description = StringField("Description", validators=[DataRequired()])
+    amount = FloatField("Amount", validators=[DataRequired()])
+    date = DateField("Date")
+    note = StringField("Note")
+    status = BooleanField("Status")
