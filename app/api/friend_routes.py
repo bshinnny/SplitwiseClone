@@ -11,30 +11,27 @@ friends_routes = Blueprint("friends",__name__)
 
 @friends_routes.route('/')
 def test():
-    print(")))))))))))))))))))))))))","this is a test route")
     return {'test_friend_routes': 'test'}
 
-# get all friends # I tested it, this route works
+# get all friends 
 @friends_routes.route("/current")
-# @login_required
+@login_required
 def get_all_friends():
     """
     Query for all friends of the current user and return the friends information
     """
-    print("%%%%%%%%%%%%","hello")
-    # user_id = int(current_user.get_id())
-    user_id = 1
-    print("++++++",user_id)
-    freindships1 = Friend.query.filter(Friend.user_id == user_id).all()
-    freindships2 = Friend.query.filter (Friend.friend_id == user_id).all()
-    freindships = freindships1 + freindships2
-    print("=============",freindships)
+
+    user_id = int(current_user.get_id())
+    friendships1 = Friend.query.filter(Friend.user_id == user_id).all()
+    friendships2 = Friend.query.filter (Friend.friend_id == user_id).all()
+    friendships = friendships1 + friendships2
+
     friends_ids = set()
-    for freindship in freindships:
-        if freindship.user_id != user_id:
-            friends_ids.add(freindship.user_id)
-        if freindship.friend_id != user_id:
-            friends_ids.add(freindship.friend_id)
+    for friendship in friendships:
+        if friendship.user_id != user_id:
+            friends_ids.add(friendship.user_id)
+        if friendship.friend_id != user_id:
+            friends_ids.add(friendship.friend_id)
 
     friends = User.query.filter(User.id.in_(friends_ids)).all()
 
@@ -52,11 +49,68 @@ def get_all_friends():
         }
         friends_lst.append(friend_dict)
 
-    return {"currUserFriends": friends_lst}
+    return {"currentUserFriends": friends_lst}
+
+
+
 
 
 
 # get details of Friend from id
+@friends_routes.route("/<int:friend_id>")
+@login_required
+def get_friend_detail(friend_id):
+
+    friend_id = friend_id
+
+    current_user_id = int(current_user.get_id())
+
+
+
+    friendship = Friend.query.filter((Friend.user_id == current_user_id),(Friend.friend_id == friend_id)).all()
+
+
+    if len(friendship) == 0:
+        return {"message": "Friend couldn't be found"},404
+    
+
+    friend = User.query.filter(User.id == friend_id).one()
+
+    expense1 = Expense.query.filter(Expense.user_id== friend_id).all()
+    expense2 = Expense.query.filter(Expense.recipient_id== friend_id).all()
+    expenses = expense1 + expense2
+
+    
+    expense_list =[]
+    
+    for expense in expenses:
+        dict ={
+        "id": expense.id,
+        "description": expense.description,
+        "user_id": expense.user_id,
+        "group_id": expense.group_id,
+        "recipient_id": expense.recipient_id,
+        "amount": expense.amount,
+        "date": expense.date,
+        "notes": expense.note,
+        "status": expense.status  
+        }
+        expense_list.append(dict)
+
+
+    return {
+        "id":friend.id,
+        "first_name": friend.first_name,
+        "last_name": friend.last_name,
+        "username": friend.username,
+        "nickname": friend.nickname,
+        "email": friend.email,
+        "createdAt": friend.created_at,
+        "updatedAt": friend.updated_at,
+        "shared_expenses":expense_list
+    }
+
+
 
 
 
@@ -68,6 +122,7 @@ def create_friendship():
     Create(add) a new friend
     """
     req = request.json
+    friend_email = req.get("email")
     friend_id = int(req.get('friend_id'))
     curr_user_id = int(current_user.get_id())
 
@@ -82,13 +137,16 @@ def create_friendship():
         return {"error": "User not found"}, 404
 
     # get current user friends
-    freindships = Friend.query.filter((Friend.user_id == curr_user_id) or(Friend.friend_id == curr_user_id)).all()
+    friendships1 = Friend.query.filter(Friend.user_id == curr_user_id).all()
+    friendships2 = Friend.query.filter (Friend.friend_id == curr_user_id).all()
+    friendships = friendships1 + friendships2
     friends_ids = set()
-    for freindship in freindships:
-        if freindship.user_id != curr_user_id:
-            friends_ids.add(freindship.user_id)
-        if freindship.friend_id != curr_user_id:
-            friends_ids.add(freindship.friend_id)
+    for friendship in friendships:
+        if friendship.user_id != curr_user_id:
+            friends_ids.add(friendship.user_id)
+        if friendship.friend_id != curr_user_id:
+            friends_ids.add(friendship.friend_id)
+
 
     # validation: check if already friends
     if friend_id in friends_ids:
@@ -96,30 +154,33 @@ def create_friendship():
 
     new_friendship = Friend(
         user_id = curr_user_id,
-        friend_id = friend_id
+        friend_id = friend_id,
+        status = "pending"
     )
 
     db.session.add(new_friendship)
     db.session.commit()
 
-    return { "id": friend.id, "username": friend.username },201
+    return { "friend_id": friend_id, "email": friend_email, "user_id":curr_user_id },201
+
+
 
 
 
 
 # delete a friend
-@friends_routes.delete('')
-# @login_required
-def delete_friendship():
+@friends_routes.route("/<int:friend_id>", methods=["DELETE"])
+@login_required
+def delete_friendship(friend_id):
     """
     Delete friendship 
     """
-    # req = request.json
-    # friend_id = int(req.get('friend_id'))
-    # curr_user_id = int(current_user.get_id())
+    req = request.json
+    friend_id = int(req.get('friend_id'))
+    current_user_id = int(current_user.get_id())
 
-    friend_id = 1
-    current_user_id = 1
+    # friend_id = 1
+    # current_user_id = 1
     # validation: can not friend yourself
     if friend_id == current_user_id:
         return {"error": "Can not add or delete yourself as a friend"}, 400
@@ -131,20 +192,26 @@ def delete_friendship():
         return {"error": "Friend not found"}, 404
 
     # find friendship
-    freindshipA = Friend.query.filter((Friend.user1_id == current_user_id, Friend.user2_id == friend_id)).all()
-    freindshipB = Friend.query.filter((Friend.user2_id == current_user_id, Friend.user1_id == friend_id)).all()
+    friendships1 = Friend.query.filter(Friend.user_id == current_user_id).all()
+    friendships2 = Friend.query.filter (Friend.friend_id == friend_id).all()
+    friendshipA = friendships1 + friendships2
+    friendships3 = Friend.query.filter(Friend.user_id == friend_id).all()
+    friendships4 = Friend.query.filter (Friend.friend_id == current_user_id).all()
+    friendshipB = friendships3 + friendships4
+    # freindshipA = Friend.query.filter((Friend.user1_id == current_user_id, Friend.user2_id == friend_id)).all()
+    # freindshipB = Friend.query.filter((Friend.user2_id == current_user_id, Friend.user1_id == friend_id)).all()
 
-    print('=========================', freindshipB)
 
-    if len(freindshipA) == 0 and len(freindshipB) == 0 :
+
+    if len(friendshipA) == 0 and len(friendshipB) == 0 :
         return {"error": "You are not friends with this user"}, 400
 
-    for friendship in freindshipA:
+    for friendship in friendshipA:
         db.session.delete(friendship)
         db.session.commit()
 
-    for friendship in freindshipB:
+    for friendship in friendshipB:
         db.session.delete(friendship)
         db.session.commit()
 
-    return {"message": "Expense Successfully deleted"}
+    return {"message": "Friend Successfully deleted"}
