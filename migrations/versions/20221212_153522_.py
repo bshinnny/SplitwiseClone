@@ -1,8 +1,8 @@
-"""create all tables
+"""empty message
 
-Revision ID: 36b23d50f5b4
+Revision ID: 7ffe181f3b42
 Revises:
-Create Date: 2022-12-12 12:48:13.028374
+Create Date: 2022-12-12 15:35:22.595611
 
 """
 from alembic import op
@@ -12,8 +12,9 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
+
 # revision identifiers, used by Alembic.
-revision = '36b23d50f5b4'
+revision = '7ffe181f3b42'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -84,14 +85,18 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    # ### end Alembic commands ###
+
+
     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE groups SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE friends SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE expenses SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE friends SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE user_groups SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE expense_comments SET SCHEMA {SCHEMA};")
+
+
+    # ### end Alembic commands ###
 
 
 def downgrade():
