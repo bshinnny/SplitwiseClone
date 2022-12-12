@@ -22,12 +22,12 @@ Returns all the groups written by the current user.
         {
           "id": 2,
           "name": "Party",
-          "description": 1,
+          "type": "Trip",
           },
         {
           "id": 3,
           "name": "Wedding",
-          "description": 1,
+          "type": "Home",
           },
       ]
     }
@@ -201,7 +201,7 @@ Add a user to a group specified by group's id.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /api/groups/:groupId/add_user/
+  * URL: /api/groups/:groupId/members/
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -237,7 +237,7 @@ Remove a user from a group specified by groupId
 * Require Authentication: true
 * Request
   * Method: DELETE
-  * URL: /api/groups/:groupId/remove_user/
+  * URL: /api/groups/:groupId/members/
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -352,7 +352,7 @@ Update and return an existing Group
     ```json
     {
       "name": "Amazing Group",
-      "description": "Amazing"
+      "type": "Home"
     }
     ```
 
@@ -364,9 +364,9 @@ Update and return an existing Group
 
     ```json
     {
-      "message": "Successfully updated group",
+      "message": "Successfully updated group.",
       "name": "Amazing Group",
-      "description": "Amazing",
+      "type": "Home",
     }
     ```
 
