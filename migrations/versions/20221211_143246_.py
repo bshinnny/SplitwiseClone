@@ -1,8 +1,8 @@
-"""create tables
+"""empty message
 
-Revision ID: 853bcaceb9fe
+Revision ID: c5dea900ef7a
 Revises: 
-Create Date: 2022-12-10 22:46:09.896567
+Create Date: 2022-12-11 14:32:46.154334
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '853bcaceb9fe'
+revision = 'c5dea900ef7a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -64,17 +64,18 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_groups',
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('group_id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('group_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['group_id'], ['groups.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('user_id', 'group_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('expense_comments',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('expense_id', sa.Integer(), nullable=False),
-    sa.Column('description', sa.String(length=50), nullable=False),
+    sa.Column('description', sa.String(length=255), nullable=False),
     sa.Column('date', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['expense_id'], ['expenses.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
