@@ -50,15 +50,15 @@ def get_all_group_routes(group_id):
 # Get all groups of the current user.
 @group_routes.route('/current')
 @login_required
-def index():
+def get_user_groups():
     """
     Get all groups of the current user.
     """
     user_id = current_user.get_id()
     # How to query groups from user groups table?
     # user_groups = UserGroup.query.filter(UserGroup.user_id == user_id)
-    # user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == 1).all()
-    user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == user_id).all()
+    user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == 1).all()
+    # user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == user_id).all()
 
 
     def group_to_dict(group):
@@ -76,7 +76,7 @@ def index():
 # Get all Group Members by a Group's ID. (ERROR)
 @group_routes.route('/<int:group_id>/members')
 # @login_required
-def index(group_id):
+def get_all_group_members(group_id):
     """
     Get all Group Members by a Group's ID.
     """
@@ -100,57 +100,70 @@ def index(group_id):
             "email": group_member.email
         }
 
-    members = [group_members_to_dict(member) for member in group_members]
+    members = [group_members_to_dict(member.user) for member in group_members]
 
     return {'Members': members}
 
 # Create a group.
-@group_routes.route('', methods=['POST'])
-@login_required
-def index():
-    """
-    Create a group.
-    """
-    form = GroupForm()
-    if form.validate_on_submit():
-        new_group = Group(
-            name = form.data['name'],
-            type = form.data['type']
-        )
-        # Need to check if that member exists.
-        for i in range(1,21):
-            if form.data[f'member_{i}']:
-                new_member = UserGroup(
-                    user_id =,
-                    group_id=,
-                )
+# @group_routes.route('', methods=['POST'])
+# @login_required
+# def index():
+#     """
+#     Create a group.
+#     """
+#     form = GroupForm()
+#     if form.validate_on_submit():
+#         new_group = Group(
+#             name = form.data['name'],
+#             type = form.data['type']
+#         )
+#         # Need to check if that member exists.
+#         for i in range(1,21):
+#             if form.data[f'member_{i}']:
+#                 new_member = UserGroup(
+#                     user_id =,
+#                     group_id=,
+#                 )
 
 # Add user to group.
-@group_routes.route('/<int:group_id>/members', methods=['POST'])
-@login_required
-def index(group_id):
+# @group_routes.route('/<int:group_id>/members', methods=['POST'])
+# @login_required
+# def add_group_member(group_id):
+#     pass
 
 
 # Remove user to group.
-@group_routes.route('/<int:group_id>/members', methods=['DELETE'])
-@login_required
-def index(group_id):
+# @group_routes.route('/<int:group_id>/members', methods=['DELETE'])
+# @login_required
+# def remove_group_member(group_id):
+#     pass
 
 # Add an expense for a group.
 
 
 # Edit a group.
-@group_routes.route('/<int:group_id>', methods=['DELETE'])
-@login_required
-def index(group_id):
-    """
-    Edit a group.
-    """
-    group = Group.query.get(group_id)
+# @group_routes.route('/<int:group_id>', methods=['DELETE'])
+# @login_required
+# def index(group_id):
+#     """
+#     Edit a group.
+#     """
+#     group = Group.query.get(group_id)
+#     form = EditGroupForm()
 
-    if(not group):
-        return {"error": "Group couldn't be found."}, 404
+#     if(not group):
+#         return {"error": "Group couldn't be found."}, 404
 
-    if form.validate_on_submit():
-        group.name = form.data['name']
-        group.type = form.data['type']
+#     if form.validate_on_submit():
+#         group.name = form.data['name']
+#         group.type = form.data['type']
+
+#         db.session.commit()
+
+#         def edit_group_to_dict(group_member):
+
+#             return {
+#                 "message": "Successfully updated group.",
+#                 "name": group_member.first_name,
+#                 "type": group_member.last_name
+#             }

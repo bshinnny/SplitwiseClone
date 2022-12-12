@@ -48,6 +48,9 @@ def get_all_friends():
             "updatedAt":friend.updated_at
         }
         friends_lst.append(friend_dict)
+    
+    if len(friends_lst) == 0:
+        return {"message":"You currently don't have any friend yet"},404
 
     return {"currentUserFriends": friends_lst}
 
