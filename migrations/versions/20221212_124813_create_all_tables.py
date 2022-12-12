@@ -1,14 +1,8 @@
 """create all tables
 
-<<<<<<< HEAD:migrations/versions/20221211_222313_.py
-Revision ID: befd042a32f3
-Revises: 
-Create Date: 2022-12-11 22:23:13.895570
-=======
 Revision ID: 36b23d50f5b4
 Revises:
 Create Date: 2022-12-12 12:48:13.028374
->>>>>>> ca3e0a7e5900fc29dd1fa2dc9d16b9e7b3ec1fb1:migrations/versions/20221212_124813_create_all_tables.py
 
 """
 from alembic import op
@@ -19,11 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-<<<<<<< HEAD:migrations/versions/20221211_222313_.py
-revision = 'befd042a32f3'
-=======
 revision = '36b23d50f5b4'
->>>>>>> ca3e0a7e5900fc29dd1fa2dc9d16b9e7b3ec1fb1:migrations/versions/20221212_124813_create_all_tables.py
 down_revision = None
 branch_labels = None
 depends_on = None
