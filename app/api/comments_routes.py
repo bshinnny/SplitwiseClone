@@ -6,7 +6,7 @@ from ..forms.comment_form import CommentForm
 from .auth_routes import validation_errors_to_error_messages
 
 
-comments_route = Blueprint('comments', __name__, url_prefix='/api')
+comments_route = Blueprint('comments', __name__)
 
 @comments_route.route('/expenses/<int:expenseId>/comments', methods=['GET'])
 @login_required
