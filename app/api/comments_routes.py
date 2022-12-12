@@ -50,21 +50,24 @@ def create_comment(expenseId):
 def edit_comment(commentId):
     comment = ExpenseComment.query(ExpenseComment.id == commentId)
 
-    if comment:
-        form = CommentForm()
-        form['csrf_token'].data = request.cookies['csrf_token']
+    if not comment:
+        return {'errors': f'Comment {commentId} not found!'}, 404
 
-        if form.validate_on_submit():
-            comment.description = form.data['description'],
-            comment.date = form.data['date']
+    if comment.id != current_user.id:
+        return {'errors': 'Unauthorized!'}, 400
 
-            db.session.add(comment)
-            db.session.commit()
-            return comment.to_dict(), 200
-        else:
-            return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    return {'errors': f'Comment {commentId} not found!'}, 404
+    if form.validate_on_submit():
+        comment.description = form.data['description'],
+        comment.date = form.data['date']
+
+        db.session.add(comment)
+        db.session.commit()
+        return comment.to_dict(), 200
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @comments_route('/comments/<int:commentId>', methods=['DELETE'])
@@ -72,9 +75,12 @@ def edit_comment(commentId):
 def delete_comment(commentId):
     comment = ExpenseComment.query(ExpenseComment.id == commentId)
 
-    if comment:
-        db.session.delete(comment)
-        db.session.commit()
-        return {'message': f'Sucessfully deleted comment {comment.id}'}, 200
+    if not comment:
+        return {'errors': f'Comment {commentId} not found!'}, 404
 
-    return {'errors': f'Comment {commentId} not found!'}, 404
+    if comment.id != current_user.id:
+        return {'errors': 'Unauthorized!'}, 400
+
+    db.session.delete(comment)
+    db.session.commit()
+    return {'message': f'Sucessfully deleted comment {comment.id}'}, 200
