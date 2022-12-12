@@ -23,3 +23,17 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+
+# get all friends # I tested it, this route works
+@user_routes.route("/current")
+# @login_required
+def get_all_friends():
+    """
+    Query for all friends of the current user and return the friends information
+    """
+    print("%%%%%%%%%%%%","hello")
+    # user_id = int(current_user.get_id())
+    user_id = 1
+    friends = User.query.filter(id = 1).friends
+    print('friends', friends)

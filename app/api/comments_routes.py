@@ -6,9 +6,13 @@ from ..forms.comment_form import CommentForm
 from .auth_routes import validation_errors_to_error_messages
 
 
-comments_route = Blueprint('comments', __name__, url_prefix='/api')
+comments_routes = Blueprint('comments', __name__)
 
-@comments_route.route('/expenses/<int:expenseId>/comments', methods=['GET'])
+@comments_routes.route('/test')
+def test():
+    return '<h1>Welcome</h1>'
+
+@comments_routes.route('/expenses/<int:expenseId>/comments', methods=['GET'])
 @login_required
 def get_comments(expenseId):
     expense = Expense.query.filter(Expense.id == expenseId)
@@ -20,7 +24,7 @@ def get_comments(expenseId):
     return {'errors': f'Expense {expenseId} not found!'}, 404
 
 
-@comments_route.route('/expenses/<int:expenseId>/comments', methods=['POST'])
+@comments_routes.route('/expenses/<int:expenseId>/comments', methods=['POST'])
 @login_required
 def create_comment(expenseId):
     expense = Expense.query.filter(Expense.id == expenseId)
@@ -45,7 +49,7 @@ def create_comment(expenseId):
     return {'errors': f'Expense {expenseId} not found!'}, 404
 
 
-@comments_route('/comments/<int:commentId>', methods=['PUT'])
+@comments_routes('/comments/<int:commentId>', methods=['PUT'])
 @login_required
 def edit_comment(commentId):
     comment = ExpenseComment.query(ExpenseComment.id == commentId)
@@ -70,7 +74,7 @@ def edit_comment(commentId):
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-@comments_route('/comments/<int:commentId>', methods=['DELETE'])
+@comments_routes('/comments/<int:commentId>', methods=['DELETE'])
 @login_required
 def delete_comment(commentId):
     comment = ExpenseComment.query(ExpenseComment.id == commentId)
