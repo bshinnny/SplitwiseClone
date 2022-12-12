@@ -1,8 +1,8 @@
-from app.models import db, User, environment, SCHEMA
+from app.models import db, User, Group, environment, SCHEMA
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_users():
+def seed_users_groups():
     demo = User(
         username='demo', email='demo@aa.io', hashed_password='password', first_name="Demo", last_name="Lition", nickname="demo-lition"
     )
@@ -24,7 +24,7 @@ def seed_users():
     don = User(
         first_name="Don", last_name='Dons', username='donDons', nickname="dD", email="don@dons.com", hashed_password="password"
     )
-    demo.friends =[ marnie, bobbie, adam, brain, charlie, don]
+    demo.friends = [marnie, bobbie, adam, brain, charlie, don]
     marnie.friends = [demo, bobbie, adam, brain, charlie, don]
     bobbie.friends = [marnie, demo, adam, brain, charlie, don]
     adam.friends = [marnie, bobbie, demo, brain, charlie, don]
@@ -33,6 +33,35 @@ def seed_users():
     don.friends = [marnie, bobbie, adam, brain, charlie, demo]
 
 
+    group1 = Group(
+        name = 'Bosses', type = 'Trip'
+    )
+    group2 = Group(
+        name = 'Champions', type = 'Trip'
+    )
+    group3 = Group(
+        name = 'All Stars', type = 'Home'
+    )
+    group4 = Group(
+        name = 'Family Forever', type = 'Couple'
+    )
+    group5 = Group(
+        name = 'The Nerd Herd', type = 'Other'
+    )
+
+    demo.groups = [group1, group2, group3]
+    marnie.groups = [group2, group3, group4]
+    bobbie.groups = [group3, group4, group5]
+    adam.groups = [group1, group2]
+    brain.groups = [group3, group4]
+    charlie.groups = [group5, group1]
+    don.groups = [group2, group3, group4]
+
+    db.session.add(group1)
+    db.session.add(group2)
+    db.session.add(group3)
+    db.session.add(group4)
+    db.session.add(group5)
 
     all_users = [demo, marnie, bobbie, adam, brain, charlie, don]
     add_users = [db.session.add(user) for user in all_users]
@@ -62,10 +91,14 @@ def seed_users():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_users():
+def undo_users_groups():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.groups RESTART IDENTITY CASCADE;")
+
     else:
         db.session.execute("DELETE FROM users")
+        db.session.execute("DELETE FROM groups")
 
     db.session.commit()
+

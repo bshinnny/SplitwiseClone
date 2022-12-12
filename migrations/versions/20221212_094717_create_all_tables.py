@@ -1,8 +1,8 @@
 """create all tables
 
-Revision ID: 0fe7065fa769
+Revision ID: e387eb45ce4b
 Revises: 
-Create Date: 2022-12-12 00:48:37.630585
+Create Date: 2022-12-12 09:47:17.309237
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0fe7065fa769'
+revision = 'e387eb45ce4b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -50,7 +50,7 @@ def upgrade():
     sa.Column('status', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['group_id'], ['groups.id'], ),
     sa.ForeignKeyConstraint(['recipient_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='cascade'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('friends',
@@ -72,7 +72,7 @@ def upgrade():
     sa.Column('expense_id', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(length=50), nullable=False),
     sa.Column('date', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['expense_id'], ['expenses.id'], ),
+    sa.ForeignKeyConstraint(['expense_id'], ['expenses.id'], ondelete='cascade'),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

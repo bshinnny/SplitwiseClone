@@ -9,7 +9,7 @@ class Expense(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id"), ondelete='cascade'), nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("groups.id")))
     recipient_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     amount = db.Column(db.Float, nullable=False)
