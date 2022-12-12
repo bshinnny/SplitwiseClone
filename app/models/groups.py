@@ -1,5 +1,5 @@
 from .db import db, environment, SCHEMA
-from .user_groups import UserGroup
+from .user_groups import user_groups
 
 class Group(db.Model):
     __tablename__ = 'groups'
@@ -13,4 +13,4 @@ class Group(db.Model):
 
     expense = db.relationship('Expense', back_populates='group', cascade='all, delete-orphan')
     # user_group = db.relationship('UserGroup', back_populates='group', cascade='all, delete-orphan')
-    users = db.relationship('User', back_populates='groups', secondary=UserGroup)
+    users = db.relationship('User', back_populates='groups', secondary=user_groups, cascade="all, delete")

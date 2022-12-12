@@ -3,16 +3,16 @@ from app.models import db, Group, SCHEMA, environment
 def seed_groups():
     group1 = Group(
         name = 'Bosses', type = 'Trip'
-    ),
+    )
     group2 = Group(
         name = 'Champions', type = 'Trip'
-    ),
+    )
     group3 = Group(
         name = 'All Stars', type = 'Home'
-    ),
+    )
     group4 = Group(
         name = 'Family Forever', type = 'Couple'
-    ),
+    )
     group5 = Group(
         name = 'The Nerd Herd', type = 'Other'
     )

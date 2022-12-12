@@ -1,7 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from .user_groups import UserGroup
+from .user_groups import user_groups
+from .friends import friends
 
 
 class User(db.Model, UserMixin):
@@ -20,13 +21,16 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default = db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
-    friends_user = db.relationship('Friend', primaryjoin='User.id == Friend.user_id', back_populates='user', cascade='all, delete-orphan')
-    friends_friend = db.relationship('Friend', primaryjoin='User.id == Friend.friend_id', back_populates='friend', cascade='all, delete-orphan')
+    friends = db.relationship('User', secondary=friends,
+                                primaryjoin=(friends.c.user_id == id),
+                                secondaryjoin=(friends.c.friend_id == id))
+    # friends_user = db.relationship('Friend', primaryjoin='User.id == Friend.user_id', back_populates='user', cascade='all, delete-orphan')
+    # friends_friend = db.relationship('Friend', primaryjoin='User.id == Friend.friend_id', back_populates='friend', cascade='all, delete-orphan')
     expenses_user = db.relationship('Expense', primaryjoin='User.id == Expense.user_id', back_populates='user', cascade='all, delete-orphan')
     expenses_recipient = db.relationship('Expense', primaryjoin='User.id == Expense.recipient_id', back_populates='recipient', cascade='all, delete-orphan')
     comment = db.relationship('ExpenseComment', back_populates='user', cascade='all, delete-orphan')
     # user_group = db.relationship('UserGroup', back_populates='user')
-    groups = db.relationship('Group', back_populates='users', secondary=UserGroup)
+    groups = db.relationship('Group', back_populates='users', secondary=user_groups, cascade="all, delete")
 
 
     @property

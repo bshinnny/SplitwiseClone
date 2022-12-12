@@ -3,16 +3,16 @@
 # def seed_usergroups():
 #     user_group1 = UserGroup(
 #         user_id = 1, group_id = 1
-#     ),
+#     )
 #     user_group2 = UserGroup(
 #         user_id = 1, group_id = 2
-#     ),
+#     )
 #     user_group3 = UserGroup(
 #         user_id = 2, group_id = 1
-#     ),
+#     )
 #     user_group4 = UserGroup(
 #         user_id = 2, group_id = 2
-#     ),
+#     )
 #     user_group5 = UserGroup(
 #         user_id = 3, group_id = 3
 #     )

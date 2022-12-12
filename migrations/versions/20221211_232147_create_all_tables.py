@@ -1,16 +1,19 @@
-"""create tables
+"""create all tables
 
-Revision ID: 853bcaceb9fe
-Revises: 
-Create Date: 2022-12-10 22:46:09.896567
+Revision ID: 84bfda97f3d9
+Revises:
+Create Date: 2022-12-11 23:21:47.089165
 
 """
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '853bcaceb9fe'
+revision = '84bfda97f3d9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -54,14 +57,10 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('friends',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('friend_id', sa.Integer(), nullable=False),
-    sa.Column('status', sa.String(length=20), nullable=False),
-    sa.Column('date', sa.String(length=255), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('friend_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['friend_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], )
     )
     op.create_table('user_groups',
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -81,6 +80,14 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE friends SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE expenses SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE expense_comments SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE groups SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user_groups SET SCHEMA {SCHEMA};")
 
 
 def downgrade():

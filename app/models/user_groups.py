@@ -15,8 +15,9 @@ from sqlalchemy.schema import Table
 #     # user = db.relationship('User', back_populates='user_group', foreign_keys=[user_id])
 
 
-UserGroup = db.Table(
+user_groups = db.Table(
     "user_groups",
+    db.Model.metadata,
     db.Column('user_id', db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), primary_key=True),
     db.Column('group_id', db.Integer, db.ForeignKey(add_prefix_for_prod('groups.id')), primary_key=True)
 
