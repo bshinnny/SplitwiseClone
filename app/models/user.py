@@ -23,7 +23,8 @@ class User(db.Model, UserMixin):
 
     friends = db.relationship('User', secondary=friends,
                                 primaryjoin=(friends.c.user_id == id),
-                                secondaryjoin=(friends.c.friend_id == id))
+                                secondaryjoin=(friends.c.friend_id == id),
+                                cascade='all, delete')
     # friends_user = db.relationship('Friend', primaryjoin='User.id == Friend.user_id', back_populates='user', cascade='all, delete-orphan')
     # friends_friend = db.relationship('Friend', primaryjoin='User.id == Friend.friend_id', back_populates='friend', cascade='all, delete-orphan')
     expenses_user = db.relationship('Expense', primaryjoin='User.id == Expense.user_id', back_populates='user', cascade='all, delete-orphan')
