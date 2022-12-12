@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, User, Expense, Group, UserGroup
 from sqlalchemy.orm import joinedload
-from app.forms import ExpenseForm, UpdateExpenseForm, GroupForm, EditGroupForm
+from app.forms import ExpenseForm, UpdateExpenseForm, GroupForm, EditGroupForm, GroupExpenseForm
 from .auth_routes import validation_errors_to_error_messages
 
 
@@ -139,6 +139,103 @@ def get_all_group_members(group_id):
 #     pass
 
 # Add an expense for a group.
+#FRONTEND - provide user_id and recipient id as current user
+@group_routes.route('/<int:group_id>/expenses', methods=["POST"])
+@login_required
+def add_group_expense(group_id):
+
+    id_of_user = current_user.id
+
+    group = Group.query.get(group_id)
+
+    if(not group):
+        return {"error": "Group not found"}, 404
+
+    group_members = UserGroup.query.options(joinedload(UserGroup.user)).filter(UserGroup.group_id == group_id).all()
+
+    print(group_members, 'group members')
+
+    def group_members_to_dict(group_member):
+
+        return {
+            "id": group_member.id,
+            "first_name": group_member.first_name,
+            "last_name": group_member.last_name,
+            "username": group_member.username,
+            "nickname": group_member.nickname,
+            "email": group_member.email
+        }
+
+    members = [group_members_to_dict(member.user) for member in group_members]
+
+    def create_expense_splits(total_amount):
+        number_of_members = len(members)
+
+        temp = (total_amount * 100) % number_of_members
+        remainder = temp / 100
+
+        return remainder
+
+    form = GroupExpenseForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+
+
+        amount = (form.data["amount"] * 100) // len(members)
+        amount_each_before_remainder = amount / 100
+
+        print(amount_each_before_remainder, 'ONE TIME')
+
+        remainder = create_expense_splits(form.data["amount"])
+        all_new_expenses = []
+
+        for member in members:
+
+            if not remainder == 0:
+                description = form.data["description"]
+                user_id = id_of_user
+                group_id = group_id
+                recipient_id = member["id"]
+                amount = round(amount_each_before_remainder + 0.01, 2)
+                note = form.data["note"]
+
+                remainder -= 0.01
+
+                if user_id == recipient_id:
+                    continue
+
+                new_expense = Expense(description=description, user_id=user_id, group_id=group_id, recipient_id=recipient_id, amount=amount, note=note)
+
+                db.session.add(new_expense)
+                db.session.commit()
+                all_new_expenses.append(new_expense.to_dict())
+
+            else:
+                description = form.data["description"]
+                user_id = id_of_user
+                group_id = group_id
+                recipient_id = member["id"]
+                amount = amount_each_before_remainder
+                note = form.data["note"]
+
+                if user_id == recipient_id:
+                    continue
+
+                new_expense = Expense(description=description, user_id=user_id, group_id=group_id, recipient_id=recipient_id, amount=amount, note=note)
+
+
+                db.session.add(new_expense)
+                db.session.commit()
+                all_new_expenses.append(new_expense.to_dict())
+
+        return {'Created Expenses': all_new_expenses }
+
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+
 
 
 # Edit a group.
