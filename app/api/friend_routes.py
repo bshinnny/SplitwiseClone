@@ -81,7 +81,7 @@ def create_friendship():
     if friend == None:
         return {"error": "User not found"}, 404
 
-    # get curr user friends
+    # get current user friends
     freindships = Friend.query.filter((Friend.user_id == curr_user_id) or(Friend.friend_id == curr_user_id)).all()
     friends_ids = set()
     for freindship in freindships:
