@@ -32,3 +32,4 @@
 #         db.session.execute("DELETE FROM user_groups")
 
 #     db.session.commit()
+
