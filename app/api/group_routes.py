@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, User, Expense, Group, UserGroup
 from sqlalchemy.orm import joinedload
-from app.forms import ExpenseForm, UpdateExpenseForm, GroupForm, EditGroupForm
+from app.forms import ExpenseForm, UpdateExpenseForm, GroupForm, EditGroupForm, AddGroupMemberForm
 from .auth_routes import validation_errors_to_error_messages
 
 
@@ -105,65 +105,139 @@ def get_all_group_members(group_id):
     return {'Members': members}
 
 # Create a group.
-# @group_routes.route('', methods=['POST'])
-# @login_required
-# def index():
-#     """
-#     Create a group.
-#     """
-#     form = GroupForm()
-#     if form.validate_on_submit():
-#         new_group = Group(
-#             name = form.data['name'],
-#             type = form.data['type']
-#         )
-#         # Need to check if that member exists.
-#         for i in range(1,21):
-#             if form.data[f'member_{i}']:
-#                 new_member = UserGroup(
-#                     user_id =,
-#                     group_id=,
-#                 )
+@group_routes.route('', methods=['POST'])
+@login_required
+def index():
+    """
+    Create a group.
+    """
+    form = GroupForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        new_group = Group(
+            name = form.data['name'],
+            type = form.data['type']
+        )
+
+        db.session.add(new_group)
+        db.session.commit()
+
+        user_id = current_user.id
+        new_group_user = UserGroup(
+            user_id = user_id,
+            group_id = new_group.id
+        )
+
+        db.session.add(new_group_user)
+        db.session.commit()
+
+        def group_to_dict(group):
+
+            return {
+                "id": group.id,
+                "name": group.name,
+                "type": group.type
+            }
+
+        return group_to_dict(new_group)
+
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+
 
 # Add user to group.
-# @group_routes.route('/<int:group_id>/members', methods=['POST'])
-# @login_required
-# def add_group_member(group_id):
-#     pass
+@group_routes.route('/<int:group_id>/members', methods=['POST'])
+@login_required
+def add_group_member(group_id):
+    """
+    Add user to a group.
+    """
+    form = AddGroupMemberForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    # if True:
+    if form.validate_on_submit():
+        user = User.query.filter(User.email == form.data['member_email'])
+
+        if not user:
+            return {"error": "User couldn't be found."}, 404
+
+        user_id = user.id
+        # user_id = 1
+        new_group_user = UserGroup(
+            user_id = user_id,
+            group_id = group_id
+        )
+
+        db.session.add(new_group_user)
+        db.session.commit()
+
+        def edit_group_to_dict(added_user):
+
+            return {
+                "message": "User successfully added to group.",
+                "group_id": added_user.group_id,
+                "user_id": added_user.user_id
+            }
+
+        return edit_group_to_dict(new_group_user)
 
 
 # Remove user to group.
 # @group_routes.route('/<int:group_id>/members', methods=['DELETE'])
 # @login_required
 # def remove_group_member(group_id):
-#     pass
+
 
 # Add an expense for a group.
 
 
-# Edit a group.
-# @group_routes.route('/<int:group_id>', methods=['DELETE'])
-# @login_required
-# def index(group_id):
-#     """
-#     Edit a group.
-#     """
-#     group = Group.query.get(group_id)
-#     form = EditGroupForm()
+#Edit a group.
+@group_routes.route('/<int:group_id>', methods=['PUT'])
+@login_required
+def edit_group(group_id):
+    """
+    Edit a group.
+    """
+    group = Group.query.get(group_id)
+    form = EditGroupForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-#     if(not group):
-#         return {"error": "Group couldn't be found."}, 404
+    if(not group):
+        return {"error": "Group couldn't be found."}, 404
 
-#     if form.validate_on_submit():
-#         group.name = form.data['name']
-#         group.type = form.data['type']
+    if form.validate_on_submit():
+        group.name = form.data['name']
+        group.type = form.data['type']
 
-#         db.session.commit()
+        db.session.commit()
 
-#         def edit_group_to_dict(group_member):
+        def edit_group_to_dict(group):
 
-#             return {
-#                 "message": "Successfully updated group.",
-#                 "name": group_member.first_name,
-#                 "type": group_member.last_name
-#             }
+            return {
+                "message": "Successfully updated group.",
+                "name": group.name,
+                "type": group.type
+            }
+
+        return edit_group_to_dict(group)
+
+# Delete a group.
+@group_routes.route('/<int:group_id>', methods=['DELETE'])
+@login_required
+def delete_group(group_id):
+    """
+    Delete a group.
+    """
+    group = Group.query.get(group_id)
+
+    if(not group):
+        return {"error": "Group couldn't be found."}, 404
+
+    db.session.delete(group)
+    db.session.commit()
+
+    return {"message": "Successfully deleted."}
