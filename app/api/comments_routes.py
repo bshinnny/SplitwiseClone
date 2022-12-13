@@ -13,13 +13,26 @@ def test():
     return '<h1>Welcome</h1>'
 
 @comments_routes.route('/expenses/<int:expenseId>/comments', methods=['GET'])
-# @login_required
+@login_required
 def get_comments(expenseId):
-    expense = Expense.query.filter(Expense.id == expenseId)
+    expense = Expense.query.filter(Expense.id == expenseId).one()
 
     if expense:
-        comments = ExpenseComment.query.options(joinedload(ExpenseComment.expense)).filter(ExpenseComment.expense_id == expenseId)
-        return {'Comments': [comment.to_dict() for comment in comments ]}, 200
+        comments = ExpenseComment.query.options(joinedload(ExpenseComment.user)).filter(ExpenseComment.expense_id == expenseId).all()
+        user = User.query.filter(User.id == expense.user_id).one()
+
+        comment_list = [comment.to_dict() for comment in comments ]
+        for i in range(len(comment_list)):
+            comment_list[i]['User'] = {
+                "id": user.id,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "username": user.username,
+                "nickname": user.nickname,
+                "email": user.email
+            }
+
+        return {'Comments': comment_list}, 200
 
     return {'errors': f'Expense {expenseId} not found!'}, 404
 

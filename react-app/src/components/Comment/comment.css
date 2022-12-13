@@ -1,8 +1,48 @@
 .comment-detail {
-    border: 1px solid grey;
-    width: 25%;
-    padding: 10px 5px 10px;
-    margin: 10px 0 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.each-comment-container {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    width: 25%;
+    padding: 0 5px 0;
+    margin: 10px 0 10px;
+}
+
+.each-comment-container button {
+    border: 1px solid white;
+    background-color: white;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.each-comment-container button:hover {
+    background-color: #ff8158;
+}
+
+#comment-description {
+    margin: 0px 0 10px;
+}
+
+.post-comment {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+}
+
+#post-review-button {
+    background-color:  #ff8158;
+     /* #ff652f; */
+     border: 2px solid #f75920;
+     margin-top: 10px;
+     padding: 5px;
+     border: none;
+     border-radius: 5px;
+}
+
+#post-review-button:hover {
+    background-color: #f75920;
 }

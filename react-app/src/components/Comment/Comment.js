@@ -20,16 +20,24 @@ function CommentsOfExpense () {
             <label><i className="fa-regular fa-comment"></i>NOTES AND COMMENTS</label>
             <div>
                 {comments.map(comment => (
-                    <div className="comment-detail">
-                        <div>
-                            <li>{comment.User?.first_name}.{comment.User?.last_name[0]}<span>{comment.date.slice(0,16)}</span></li>
-                            <li>{comment.description}</li>
+                    <div key={comment.id} className="each-comment-container">
+                        <div className="comment-detail">
+                            <p>{comment.User?.first_name} {comment.User?.last_name[0]}. <span>{comment.date.slice(0,16)}</span></p>
+                            <span>
+                                <button><i className="fa-solid fa-pen"></i></button>
+                                <button><i className="fa-solid fa-xmark"></i></button>
+                            </span>
                         </div>
-                        <button>Delete</button>
+                        <p id='comment-description'>{comment.description}</p>
                     </div>
                 ))}
             </div>
-            <textarea placeholder="Add a comment"></textarea>
+            <div className="post-comment">
+                <textarea placeholder="Add a comment"></textarea>
+                <label>
+                    <button id='post-review-button'>Post</button>
+                </label>
+            </div>
         </div>
     )
 }
