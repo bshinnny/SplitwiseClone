@@ -36,3 +36,13 @@ class UpdateExpenseForm(FlaskForm):
     date = DateField("Date")
     note = StringField("Note")
     status = BooleanField("Status")
+
+class GroupExpenseForm(FlaskForm):
+    description = StringField("Description", validators=[DataRequired()])
+    user_id = IntegerField("User Id")
+    group_id = IntegerField("Group Id")
+    recipient_id = IntegerField("Recipient Id")
+    amount = FloatField("Amount", validators=[DataRequired()])
+    date = DateField("Date")
+    note = StringField("Note")
+    status = BooleanField("Status")
