@@ -20,7 +20,7 @@ class Expense(db.Model):
     user = db.relationship('User', back_populates='expenses_user', foreign_keys=[user_id])
     recipient = db.relationship('User', back_populates='expenses_recipient', foreign_keys=[recipient_id])
     group = db.relationship('Group', back_populates='expense', foreign_keys=[group_id])
-    comment = db.relationship('ExpenseComment', back_populates='expense', cascade='all, delete-orphan')
+    comment = db.relationship('ExpenseComment', back_populates='expense', cascade='all,delete')
 
 
     def to_dict(self):

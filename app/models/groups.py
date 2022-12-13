@@ -11,6 +11,6 @@ class Group(db.Model):
     name = db.Column(db.String(50), nullable=False)
     type = db.Column(db.String(255), nullable=False)
 
-    expense = db.relationship('Expense', back_populates='group', cascade='all, delete-orphan')
-    user_group = db.relationship('UserGroup', back_populates='group', cascade='all, delete-orphan')
+    expense = db.relationship('Expense', back_populates='group', cascade='all,delete')
+    user_group = db.relationship('UserGroup', back_populates='group', cascade='all,delete')
     # user = db.relationship('User', back_populates='groups')
