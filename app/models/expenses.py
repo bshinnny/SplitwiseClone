@@ -17,9 +17,9 @@ class Expense(db.Model):
     note = db.Column(db.String(255))
     status = db.Column(db.Boolean, nullable=False, default=False)
 
-    user = db.relationship('User', back_populates='expenses_user', foreign_keys=[user_id])
-    recipient = db.relationship('User', back_populates='expenses_recipient', foreign_keys=[recipient_id])
-    group = db.relationship('Group', back_populates='expense', foreign_keys=[group_id])
+    user = db.relationship('User', back_populates='expenses_user')
+    recipient = db.relationship('User', back_populates='expenses_recipient')
+    group = db.relationship('Group', back_populates='expense')
     comment = db.relationship('ExpenseComment', back_populates='expense', cascade='all,delete')
 
 

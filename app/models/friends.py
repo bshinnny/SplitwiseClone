@@ -12,5 +12,5 @@ class Friend(db.Model):
     status = db.Column(db.String(20), nullable=False)
     date = db.Column(db.String(255))
 
-    user = db.relationship('User', back_populates='friends_user', foreign_keys=[user_id])
-    friend = db.relationship('User', back_populates='friends_friend', foreign_keys=[friend_id])
+    user = db.relationship('User', back_populates='friends_user')
+    friend = db.relationship('User', back_populates='friends_friend')

@@ -13,8 +13,8 @@ class ExpenseComment(db.Model):
     description = db.Column(db.String(255), nullable=False)
     date = db.Column(db.DateTime, nullable=False, default=date.today())
 
-    user = db.relationship('User', back_populates='comment', foreign_keys=[user_id])
-    expense = db.relationship('Expense', back_populates='comment', foreign_keys=[expense_id])
+    user = db.relationship('User', back_populates='comment')
+    expense = db.relationship('Expense', back_populates='comment')
 
     def to_dict(self):
         return {

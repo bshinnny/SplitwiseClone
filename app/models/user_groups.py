@@ -11,8 +11,8 @@ class UserGroup(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     group_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('groups.id')))
 
-    group = db.relationship('Group', back_populates='user_group', foreign_keys=[group_id])
-    user = db.relationship('User', back_populates='user_group', foreign_keys=[user_id])
+    group = db.relationship('Group', back_populates='user_group')
+    user = db.relationship('User', back_populates='user_group')
 
 
 # UserGroup = db.Table(
