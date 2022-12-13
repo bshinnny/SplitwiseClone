@@ -9,9 +9,14 @@ function CommentsOfExpense () {
     useEffect(() => {
         dispatch(getComments(expenseId))
     }, [])
+    const comments = useSelector(state => state.comment)
     return (
         <div>
-            <h1>all comments of expense</h1>
+            <label><i className="fa-regular fa-comment"></i>NOTES AND COMMENTS</label>
+            <div>
+
+            </div>
+            <textarea placeholder="Add a comment"></textarea>
         </div>
     )
 }
