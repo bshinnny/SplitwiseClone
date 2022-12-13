@@ -146,8 +146,6 @@ def index():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-
-
 # Add user to group.
 @group_routes.route('/<int:group_id>/members', methods=['POST'])
 @login_required

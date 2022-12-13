@@ -10,7 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 
 import SplashPage from './components/SplashPage';
-import FriendSideBar from './components/friends/sideBar';
+import FriendSideBar from './components/friends/SideBar';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,7 +40,7 @@ function App() {
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path='/friends/current' exact={true} >
+        <ProtectedRoute path='/current' exact={true} >
           <FriendSideBar/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
@@ -50,6 +50,9 @@ function App() {
           <h1>My Home Page</h1>
           <SplashPage />
         </Route>
+        <ProtectedRoute>
+          
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
