@@ -1,0 +1,8 @@
+.comment-detail {
+    border: 1px solid grey;
+    width: 25%;
+    padding: 10px 5px 10px;
+    margin: 10px 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
