@@ -63,3 +63,7 @@
     font-size: 20px;
     cursor: pointer;
 }
+
+.modalContainer .errors {
+    color: red;
+}

@@ -42,9 +42,10 @@ export const getAllFriends = () => async (dispatch) =>{
 
 //create a friends by sending the data to backend
 export const createFriend = (email) => async (dispatch) => {
-  console.log("start create friend thunk")
-  console.log("email on thunk", email)
-  console.log("email type", typeof(email))
+  // console.log("start create friend thunk")
+  // console.log("email on thunk", email)
+  // console.log("email type", typeof(email))
+
   const response = await fetch("/api/friends",{
     method:"post",
     headers:{
@@ -52,9 +53,24 @@ export const createFriend = (email) => async (dispatch) => {
     },
     body: JSON.stringify(email)
   } )
-  const newFriend = await response.json();
-  console.log("newfriend on add friend thunk", newFriend)
-  return
+
+    if(response.ok) {
+      const friend = await response.json()
+      console.log("friend___at thunk", friend)
+      dispatch(addFriend(friend))
+      return friend
+    } else if(response.status < 500) {
+      const data = await response.json()
+      if(data.error) {
+        return data;
+      
+    }
+    else {
+      return {"error":'something just happened,please try again'}
+    }
+    
+    
+    }
 }
 
 
@@ -65,7 +81,7 @@ export const createFriend = (email) => async (dispatch) => {
 
 //reducer
 let initialState = {}
-function friendReducer(state = initialState, action) {
+export default function friendReducer(state = initialState, action) {
     switch (action.type) {
       case LOAD_FRIENDS:
         const newState = Object.assign({},state);
@@ -73,10 +89,15 @@ function friendReducer(state = initialState, action) {
           newState[friend.id] = friend
         })
         return newState
+      // case CREATE_FRIEND:
+      //   const addFriendState = {...state}
+      //   if(addFriendState) {
+      //     const newFriends = [action.info, ...addFriendState]
+      //   }
       default:
         return state;
     }
   }
   
 
-  export default friendReducer
+  
