@@ -46,6 +46,9 @@ function App() {
           <h1>My Home Page</h1>
           <SplashPage />
         </Route>
+        <ProtectedRoute>
+          
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
