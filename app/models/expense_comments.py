@@ -24,4 +24,12 @@ class ExpenseComment(db.Model):
             "expense_id": self.expense_id,
             'date': self.date,
             'description': self.description,
+            'User': {
+                    "id": self.user.id,
+                    "first_name": self.user.first_name,
+                    "last_name": self.user.last_name,
+                    "username": self.user.username,
+                    "nickname": self.user.nickname,
+                    "email": self.user.email,
+                }
         }

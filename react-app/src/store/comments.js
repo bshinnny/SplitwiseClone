@@ -42,7 +42,7 @@ export const createComment = (expenseId, payload) => async dispatch => {
         body: JSON.stringify(payload)
     });
     if (response.ok) {
-        const comment = response.json();
+        const comment = await response.json();
         dispatch(create(comment));
         return comment
     }
@@ -57,7 +57,7 @@ export const updateComment = (commentId, payload) => async dispatch => {
         body: JSON.stringify(payload)
     });
     if (response.ok) {
-        const comment = response.json();
+        const comment = await response.json();
         dispatch(update(comment));
     }
 }
