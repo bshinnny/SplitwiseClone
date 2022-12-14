@@ -14,6 +14,10 @@ import SplashPage from './components/SplashPage';
 import FriendSideBar from './components/friends/SideBar';
 import FriendDetail from './components/friends/FriendDetail';
 
+import GroupsSidebar from './components/Groups/GroupsSidebar';
+import GroupDetails from './components/Groups/GroupDetails';
+import CreateGroupForm from './components/Groups/CreateGroupForm';
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -58,8 +62,14 @@ function App() {
           <h1>My Home Page</h1>
           <SplashPage />
         </Route>
-        <ProtectedRoute>
-          
+        <ProtectedRoute exact path='/groups/current'>
+          <GroupsSidebar />
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/groups/new'>
+          <CreateGroupForm />
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/groups/:groupId'>
+          <GroupDetails />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
