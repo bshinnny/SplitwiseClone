@@ -33,7 +33,14 @@
     width: 25%;
 }
 
-#post-review-button {
+.update-comment {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+ 
+}
+
+#post-review-button, #update-review-button {
     background-color:  #ff8158;
      /* #ff652f; */
      border: 2px solid #f75920;
@@ -44,5 +51,9 @@
 }
 
 #post-review-button:hover {
+    background-color: #f75920;
+}
+
+#update-review-button:hover {
     background-color: #f75920;
 }

@@ -4,8 +4,12 @@ def seed_expense_comments():
     comment_1 = ExpenseComment(
         user_id = 1, expense_id = 1, description = 'Great expense!'
     )
+    comment_2 = ExpenseComment(
+        user_id = 2, expense_id = 2, description = 'Great trip!'
+    )
 
     db.session.add(comment_1)
+    db.session.add(comment_2)
     db.session.commit()
 
 def undo_expense_comments():

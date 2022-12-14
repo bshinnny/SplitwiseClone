@@ -32,7 +32,7 @@ def create_comment(expenseId):
     if expense:
         form = CommentForm()
         form['csrf_token'].data = request.cookies['csrf_token']
-        
+
         if form.validate_on_submit():
             new_comment = ExpenseComment(
                 user_id = current_user.id,
@@ -53,7 +53,8 @@ def create_comment(expenseId):
 @comments_routes.route('/comments/<int:commentId>', methods=['PUT'])
 @login_required
 def edit_comment(commentId):
-    comment = ExpenseComment.query.filter(ExpenseComment.id == commentId)
+    comment = ExpenseComment.query.filter(ExpenseComment.id == commentId).one()
+    print('++++++++', comment)
 
     if not comment:
         return {'errors': f'Comment {commentId} not found!'}, 404
@@ -64,12 +65,14 @@ def edit_comment(commentId):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+
     if form.validate_on_submit():
-        comment.description = form.data['description'],
-        comment.date = form.data['date']
+        comment.id = commentId
+        comment.description = form.data['description']
 
         db.session.add(comment)
         db.session.commit()
+
         return comment.to_dict(), 200
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400

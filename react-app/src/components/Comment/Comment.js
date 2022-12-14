@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getComments, createComment, removeComment } from "../../store/comments";
+import UpdateComment from "./EditComment";
 import './comment.css'
 
 function CommentsOfExpense () {
@@ -13,6 +14,7 @@ function CommentsOfExpense () {
     const [errors, setErrors] = useState([]);
 
     const comments = useSelector(state => Object.values(state.comment))
+    const user = useSelector(state => Object.values(state.session)[0])
 
     useEffect(() => {
         dispatch(getComments(expenseId))
@@ -20,12 +22,25 @@ function CommentsOfExpense () {
 
     if (!comments) return null;
 
+    const verifyUser = (comment) => {
+        if (user.id === comment.user_id) {
+            return (
+                <span>
+                    <UpdateComment comment={comment}/>
+                    <button onClick={(e) => dispatch(removeComment(comment.id))}><i className="fa-solid fa-xmark"></i></button>
+                </span>
+            )
+        }
+        else {
+            return (<></>)
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const payload = {
             description,
         }
-        console.log(payload)
 
         const newComment = await dispatch(createComment(expenseId, payload))
         .catch(async (res) => {
@@ -51,10 +66,11 @@ function CommentsOfExpense () {
                     <div key={comment.id} className="each-comment-container">
                         <div className="comment-detail">
                             <p>{comment.User?.first_name} {comment.User?.last_name[0]}. <span>{comment.date?.slice(0,16)}</span></p>
-                            <span>
+                            {/* <span>
                                 <button><i className="fa-solid fa-pen"></i></button>
                                 <button onClick={(e) => dispatch(removeComment(comment.id))}><i className="fa-solid fa-xmark"></i></button>
-                            </span>
+                            </span> */}
+                            {verifyUser(comment)}
                         </div>
                         <p id='comment-description'>{comment.description}</p>
                     </div>

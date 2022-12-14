@@ -59,6 +59,7 @@ export const updateComment = (commentId, payload) => async dispatch => {
     if (response.ok) {
         const comment = await response.json();
         dispatch(update(comment));
+        return comment
     }
 }
 
@@ -82,7 +83,7 @@ const commentsReducer = (state = {}, action) => {
         case CREATE:
             return Object.assign({...state}, {[action.comment.id]: action.comment})
         case UPDATE:
-            const updateObj = Object.assign({...state}, {[action.review.id]: action.review});
+            const updateObj = Object.assign({...state}, {[action.comment.id]: action.comment});
             return updateObj
         case REMOVE:
             let newOne = {...state}
