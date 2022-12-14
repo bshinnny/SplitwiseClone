@@ -36,8 +36,14 @@
 .update-comment {
     display: flex;
     flex-direction: column;
-    width: 90%;
- 
+    align-items: center;
+    width: fit-content;
+    padding: 0 10px 10px;
+}
+
+.update-comment-container {
+    display: flex;
+    justify-content: center;
 }
 
 #post-review-button, #update-review-button {
