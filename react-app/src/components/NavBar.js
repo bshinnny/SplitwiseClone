@@ -15,7 +15,7 @@ const NavBar = () => {
           </NavLink>
           <div className='navbar-right'>
             <span id='login'>
-            <NavLink style={{ color: '#1cc29f', textDecoration: 'none'}} to='/login' exact={true} activeClassName='active'>
+            <NavLink to='/login' style={{ color: '#1cc29f', textDecoration: 'none'}} exact={true} activeClassName='active'>
               Log in
             </NavLink>
             </span>
