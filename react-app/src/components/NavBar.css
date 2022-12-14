@@ -1,0 +1,48 @@
+#logo {
+   height: 50px;
+   border-radius: 20px;
+   padding: 10px;
+}
+
+#logo-name {
+   display: flex;
+   align-items: center;
+
+}
+
+ul {
+    list-style-type: none;
+}
+
+#nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navbar-right {
+    padding: 20px;
+}
+
+#login {
+    margin-right: 25px;
+    color: #1cc29f;
+}
+
+#sign-up-button {
+    color: white;
+    background-color: #1cc29f;
+    padding: 15px 20px 15px;
+    box-shadow: 0px 3px 3px grey;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    bottom: 2px;
+}
+
+#sign-up-button:hover {
+    box-shadow: none;
+    position: relative;
+    bottom: 0
+}

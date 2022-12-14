@@ -127,10 +127,12 @@ def create_friendship():
     """
     Create(add) a new friend
     """
-    req = request.json
-    friend_email = req.get("email")
+    # req = request.json
+    friend_email = request.get_json("email")
     #friend_id = req.get('friend_id')
+    print("backend+++++", friend_email)
     curr_user_id = current_user.id
+    print("backend currentuser_____",curr_user_id)
     #current_user.get_id() returns str, current_user.id returns int
 
     if friend_email == None:
@@ -138,6 +140,8 @@ def create_friendship():
 
     #adding query to get friend id by email (front end can input email to find user id)
     friend_user_class = User.query.filter(User.email == friend_email).first()
+
+    print("backend user", friend_user_class)
 
     # validation: friend_id not found
     if friend_user_class == None:
@@ -186,79 +190,21 @@ def create_friendship():
 
 
 # delete a friend
-@friends_routes.route("/<int:friendship_id>", methods=["DELETE"])
+@friends_routes.route("/<int:friend_id>", methods=["DELETE"])
 @login_required
-def delete_friendship(friendship_id):
-    """
-    Delete friendship
-    """
+def delete_friendship(friend_id):
+    curr_user_id = current_user.id
 
-    '''
-    changed up implementation b/c req.get('friend_id') was getting the primary key
-    of the friends table, as opposed to the id of the user as the friend, leading to
-    implementation bugs
-    We can query to get the primary key through react by hitting the get all friends
-    route, and filtering on user_id == current_user.id and friend_id == friend_we_want_to_delete
-    or vice versa.
-    '''
+    friendship_id_a = Friend.query.filter((Friend.user_id ==curr_user_id),(Friend.friend_id ==friend_id)).all()
+    friendship_id_b = Friend.query.filter((Friend.user_id ==friend_id),(Friend.friend_id ==curr_user_id)).all()
+    friendship_id = friendship_id_a + friendship_id_b 
 
-    req = request.json
-    #friend_id = req.get('friend_id')
-    friend_class_instance = Friend.query.get(friendship_id)
+    friend_primary_id=friendship_id[0].id
 
-    # if friend == None:
-    #     return {"error": "Friend not found"}, 404
+    friend_ship = Friend.query.get(friend_primary_id)
 
-    # validation: friend_id not found
-    if friend_class_instance == None:
-        return {"error": "Friend not found"}, 404
-
-    row_primary_key = friend_class_instance.id
-    id_of_friend = friend_class_instance.friend_id
-    id_of_user  = friend_class_instance.user_id
-
-    current_user_id = current_user.id
-
-    print(row_primary_key, "--------------", id_of_friend, current_user_id)
-
-    if not current_user_id == id_of_friend and not current_user_id == id_of_user:
-        return {"error": "Can not delete friendships you're not apart of"}
-
-    #return {'test': 'test'}
-
-    # friend_id = 1
-    # current_user_id = 1
-    # validation: can not friend yourself
-    # if friend_id == current_user_id:
-    #     return {"error": "Can not add or delete yourself as a friend"}, 400
-
-
-    #friend = User.query.get(friend_id)
-
-    db.session.delete(friend_class_instance)
+    db.session.delete(friend_ship)
     db.session.commit()
 
-    return {"message": "Friend Successfully deleted"}
+    return{"message":"Friend are successfully deleted"}, 200
 
-    # # find friendship
-    # friendships1 = Friend.query.filter(Friend.user_id == current_user_id).all()
-    # friendships2 = Friend.query.filter (Friend.friend_id == friend_id).all()
-    # friendshipA = friendships1 + friendships2
-    # friendships3 = Friend.query.filter(Friend.user_id == friend_id).all()
-    # friendships4 = Friend.query.filter (Friend.friend_id == current_user_id).all()
-    # friendshipB = friendships3 + friendships4
-    # # freindshipA = Friend.query.filter((Friend.user1_id == current_user_id, Friend.user2_id == friend_id)).all()
-    # # freindshipB = Friend.query.filter((Friend.user2_id == current_user_id, Friend.user1_id == friend_id)).all()
-
-
-
-    # if len(friendshipA) == 0 and len(friendshipB) == 0 :
-    #     return {"error": "You are not friends with this user"}, 400
-
-    # for friendship in friendshipA:
-    #     db.session.delete(friendship)
-    #     db.session.commit()
-
-    # for friendship in friendshipB:
-    #     db.session.delete(friendship)
-    #     db.session.commit()

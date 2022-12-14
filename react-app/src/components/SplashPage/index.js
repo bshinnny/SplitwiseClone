@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useEffect, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
 import './SplashPage.css'
 
 
@@ -24,17 +24,17 @@ export default function SplashPage() {
                         <div className="rotating-text">with anyone.</div>
                     </div>
                     <div className="rotating-images-container">
-                        <div className="rotating-image"><i class="fa-solid fa-plane"></i></div>
-                        <div className="rotating-image"><i class="fa-solid fa-house"></i></div>
-                        <div className="rotating-image"><i class="fa-solid fa-heart"></i></div>
-                        <div className="rotating-image"><i class="fa-solid fa-asterisk"></i></div>
+                        <div className="rotating-image"><i className="fa-solid fa-plane"></i></div>
+                        <div className="rotating-image"><i className="fa-solid fa-house"></i></div>
+                        <div className="rotating-image"><i className="fa-solid fa-heart"></i></div>
+                        <div className="rotating-image"><i className="fa-solid fa-asterisk"></i></div>
                     </div>
                     <div id="white-small-text">Keep track of your shared expenses and balances with housemates, trips, groups, friends, and family.</div>
                     <button >Sign up</button>
                     </div>
                 </div>
                 <div className="white-right-container">
-                    <i class="fa-solid fa-plane"></i>
+                    <i className="fa-solid fa-plane"></i>
                 </div>
             </div>
             <div className="gray-and-green-container">
