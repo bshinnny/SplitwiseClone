@@ -5,4 +5,4 @@ from wtforms.validators import DataRequired
 
 class CommentForm(FlaskForm):
     description = StringField('Description:', [DataRequired()])
-    date = DateField('Date', [DataRequired()])
+    date = DateField('Date')
