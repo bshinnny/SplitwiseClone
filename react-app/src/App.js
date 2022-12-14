@@ -13,6 +13,7 @@ import SplashPage from './components/SplashPage';
 
 import GroupsSidebar from './components/Groups/GroupsSidebar';
 import GroupDetails from './components/Groups/GroupDetails';
+import CreateGroupForm from './components/Groups/CreateGroupForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -51,6 +52,9 @@ function App() {
         </Route>
         <ProtectedRoute exact path='/groups/current'>
           <GroupsSidebar />
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/groups/new'>
+          <CreateGroupForm />
         </ProtectedRoute>
         <ProtectedRoute exact path='/groups/:groupId'>
           <GroupDetails />

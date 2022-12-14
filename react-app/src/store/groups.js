@@ -3,7 +3,9 @@ const GET_ALL_USER_GROUPS = 'groups/GET_ALL_USER_GROUPS';
 const GET_GROUP_MEMBERS = 'groups/GET_GROUP_MEMBERS';
 const GET_GROUP_EXPENSES = 'groups/GET_GROUP_EXPENSES';
 const GET_GROUP_DETAILS = 'groups/GET_GROUP_DETAILS';
-// const CREATE_A_GROUP = 'groups/CREATE_A_GROUP';
+const CREATE_A_GROUP = 'groups/CREATE_A_GROUP';
+// const ADD_GROUP_MEMBER = 'groups/ADD_GROUP_MEMBERS';
+const DELETE_A_GROUP = 'groups/DELETE_A_GROUP';
 
 // ACTIONS
 export const getUserGroups = (groups) => {
@@ -34,12 +36,26 @@ export const getGroupDetails = (group) => {
     }
 }
 
-// export const createAGroup = (group) => {
+export const createAGroup = (group) => {
+    return {
+        type: CREATE_A_GROUP,
+        group
+    }
+}
+
+// export const addGroupMember = (member) => {
 //     return {
-//         type: CREATE_A_GROUP,
-//         group
+//         type: ADD_GROUP_MEMBER,
+//         member
 //     }
 // }
+
+export const deleteAGroup = (groupId) => {
+    return {
+        type: DELETE_A_GROUP,
+        groupId
+    }
+}
 
 // THUNKS
 export const getUserGroupsThunk = () => async dispatch => {
@@ -75,18 +91,48 @@ export const getGroupDetailsThunk = (groupId) => async dispatch => {
     if (response.ok) {
         const group = await response.json();
         dispatch(getGroupDetails(group));
+        return response;
+    }
+}
+
+export const createAGroupThunk = (group) => async dispatch => {
+    const response = await fetch(`/api/groups`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(group)
+    })
+
+    if (response.ok) {
+        const group = await response.json();
+        dispatch(createAGroup(group))
         return group;
     }
 }
 
-// export const createAGroupThunk = (group) => async dispatch => {
-//     const { name, type, userId } = group;
-//     const response = await fetch('api/groups' , {
-//         method: "POST",
-//         conten
-
+// export const addGroupMemberThunk = () => async dispatch => {
+//     const response = await fetch(`/api/groups`, {
+//         method: 'POST',
+//         headers: {'Content-Type': 'application/json'},
+//         body: JSON.stringify(group)
 //     })
+
+//     if (response.ok) {
+//         const group = await response.json();
+//         dispatch(createAGroup(group))
+//         return group;
+//     }
 // }
+
+export const deleteAGroupThunk = (groupId) => async dispatch => {
+    const response = await fetch(`/api/groups/${groupId}`, {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        // console.log('Deleted spot from database.')
+        dispatch(deleteAGroup(groupId))
+    }
+}
 
 // Format initial data.
 const formatData = (array) => {
@@ -127,6 +173,14 @@ export default function groupsReducer(state = initialState, action) {
             const groupDetails = action.group;
             newState = {...state, groupDetails}
             return newState;
+        case CREATE_A_GROUP:
+            newState = {...state, userGroups: {...state.userGroups}};
+            newState.userGroups[action.group.id] = action.group;
+            return newState;
+        case DELETE_A_GROUP:
+            newState = {...state, userGroups: {...state.userGroups}};
+            delete newState.userGroups[action.groupId];
+            return newState
         default:
             return state;
     }
