@@ -11,9 +11,9 @@ import { authenticate } from './store/session';
 import CommentsOfExpense from './components/Comment/Comment';
 
 import SplashPage from './components/SplashPage';
+import AllExpenses from './components/AllExpenses';
 import FriendSideBar from './components/friends/SideBar';
 import FriendDetail from './components/friends/FriendDetail';
-
 import GroupsSidebar from './components/Groups/GroupsSidebar';
 import GroupDetails from './components/Groups/GroupDetails';
 import CreateGroupForm from './components/Groups/CreateGroupForm';
@@ -62,6 +62,8 @@ function App() {
           <h1>My Home Page</h1>
           <SplashPage />
         </Route>
+        <ProtectedRoute path='/expenses/all' exact={true} />
+            <AllExpenses />
         <ProtectedRoute exact path='/groups/current'>
           <GroupsSidebar />
         </ProtectedRoute>
