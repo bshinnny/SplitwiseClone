@@ -98,10 +98,10 @@ def get_one_expense(expense_id):
     expense = Expense.query.options(joinedload(Expense.recipient)).options(joinedload(Expense.user)).filter(Expense.id == expense_id).first()
     print(expense, '------------------------')
     if(not expense):
-        return {"error": "Expense not found"}
+        return {"errors": "Expense not found"}
 
     if not id_of_user == expense.user_id and not id_of_user == expense.recipient_id and not expense.group_id:
-        return {'error': "Not authorized to view this expense"}, 401
+        return {'errors': "Not authorized to view this expense"}, 401
 
 
     return {
@@ -137,13 +137,20 @@ def create_expense():
     form = ExpenseForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    recipient_email = form.data["recipientEmail"]
+
+    recipient_user = User.query.filter(User.email == recipient_email).first()
+
+    if(not recipient_user):
+        return {"errors": "Recipient not found"}, 404
+
     id_of_user = current_user.id #user is an integer
 
     if form.validate_on_submit():
         description = form.data["description"]
         user_id = id_of_user
         group_id = form.data["group_id"]
-        recipient_id = form.data["recipient_id"]
+        recipient_id = recipient_user.id
         amount = form.data["amount"]
         note = form.data["note"]
 
@@ -172,10 +179,10 @@ def update_expense(expense_id):
     expense = Expense.query.get(expense_id) #if not found, expense will be None
 
     if not expense:
-        return {'error': "Expense not found"}, 404
+        return {'errors': "Expense not found"}, 404
 
     if not id_of_user == expense.user_id and not id_of_user == expense.recipient_id:
-        return {'error': "Not authorized to edit this expense"}, 401
+        return {'errors': "Not authorized to edit this expense"}, 401
 
     if expense and form.validate_on_submit():
         expense.description = form.data["description"]
@@ -201,10 +208,10 @@ def delete_expense(expense_id):
     id_of_user = current_user.id
 
     if not expense:
-        return {'error': "Expense not found"}, 404
+        return {'errors': "Expense not found"}, 404
 
     if not id_of_user == expense.user_id and not id_of_user == expense.recipient_id:
-        return {'error': "Not authorized to delete this expense"}, 401
+        return {'errors': "Not authorized to delete this expense"}, 401
 
     db.session.delete(expense)
     db.session.commit()

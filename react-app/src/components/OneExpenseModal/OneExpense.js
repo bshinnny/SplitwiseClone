@@ -9,7 +9,6 @@ export default function OneExpense({ setShowModal, expense }) {
     useEffect(() => {
         dispatch(getOneExpense(expense.id))
     }, [])
-    console.log(expense, 'expenseeeeeeeeeeeeeeeeeeeeeeee')
 
     return (
         <div>

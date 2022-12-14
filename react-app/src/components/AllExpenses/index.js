@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAllExpenses } from "../../store/expense";
+import { getAllExpenses, deleteExpense } from "../../store/expense";
+import CreateExpenseModal from "../CreateExpenseModal";
+import EditExpenseModal from "../EditExpenseModal";
 import OneExpenseModal from "../OneExpenseModal";
 
 
 export default function AllExpenses() {
     const dispatch = useDispatch()
+    const [hasSubmitted, setHasSubmitted] = useState(false)
 
     let currentUser = useSelector(state => state.session.user)
 
@@ -14,7 +17,6 @@ export default function AllExpenses() {
     let myReceivableExpenses = useSelector(state => state.expense.receivableExpenses)
 
     let allExpenses = {...myPayableExpenses, ...myReceivableExpenses}
-    console.log(allExpenses, 'all expenses displayed')
 
 
     useEffect(() => {
@@ -28,13 +30,16 @@ export default function AllExpenses() {
     return (
         <>
             <h1>Test</h1>
+            <CreateExpenseModal />
             {Object.values(allExpenses).map((expense) => {
                 return (
-                    <div>
+                    <div key={`expense ${expense.id}`}>
 
                     {/* {expense.id}. {currentUser.id == expense.Fronter.id  ? `You Owe: ${expense.Recipient.first_name} ${expense.Recipient.last_name}` : `${expense.Recipient.first_name} ${expense.Recipient.last_name} owes you: ` }, {`$${expense.amount}`} */}
                     {expense.id}. {currentUser.id == expense.Fronter.id ? `${expense.Recipient.first_name} ${expense.Recipient.last_name} owes you: $${expense.amount} ` : `You Owe: ${expense.Fronter.first_name} ${expense.Fronter.last_name} $${expense.amount}`}
                     <OneExpenseModal expense={expense} />
+                    <EditExpenseModal expense={expense} setHasSubmitted={setHasSubmitted} />
+                    <button onClick={()=> dispatch(deleteExpense(expense.id))}>Delete Expense</button>
                     </div>
                 )
             })}
