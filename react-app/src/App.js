@@ -10,6 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 
 import SplashPage from './components/SplashPage';
+import AllExpenses from './components/AllExpenses';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,6 +47,9 @@ function App() {
           <h1>My Home Page</h1>
           <SplashPage />
         </Route>
+        <ProtectedRoute path='/expenses/all' exact={true}>
+            <AllExpenses />
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );
