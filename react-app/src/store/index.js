@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import session from './session'
 import friendReducer,{friendDetailReducer} from './friends';
 import groupsReducer from './groups';
+import commentsReducer from './comments';
 
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   friends:friendReducer,
   friendDetail: friendDetailReducer,
   groups: groupsReducer,
+  comment: commentsReducer
 });
 
 

@@ -13,13 +13,13 @@ def test():
     return '<h1>Welcome</h1>'
 
 @comments_routes.route('/expenses/<int:expenseId>/comments', methods=['GET'])
-# @login_required
+@login_required
 def get_comments(expenseId):
-    expense = Expense.query.filter(Expense.id == expenseId)
+    expense = Expense.query.filter(Expense.id == expenseId).one()
 
     if expense:
-        comments = ExpenseComment.query.options(joinedload(ExpenseComment.expense)).filter(ExpenseComment.expense_id == expenseId)
-        return {'Comments': [comment.to_dict() for comment in comments ]}, 200
+        comments = ExpenseComment.query.options(joinedload(ExpenseComment.user)).filter(ExpenseComment.expense_id == expenseId).all()
+        return {'Comments': [comment.to_dict() for comment in comments]}, 200
 
     return {'errors': f'Expense {expenseId} not found!'}, 404
 
@@ -27,7 +27,7 @@ def get_comments(expenseId):
 @comments_routes.route('/expenses/<int:expenseId>/comments', methods=['POST'])
 @login_required
 def create_comment(expenseId):
-    expense = Expense.query.filter(Expense.id == expenseId)
+    expense = Expense.query.filter(Expense.id == expenseId).one()
 
     if expense:
         form = CommentForm()
@@ -37,11 +37,12 @@ def create_comment(expenseId):
             new_comment = ExpenseComment(
                 user_id = current_user.id,
                 expense_id = expenseId,
-                description = form.data['discription'],
-                date = form.data['date']
+                description = form.data['description'],
+                # date = form.data['date']
             )
             db.session.add(new_comment)
-            db.commit()
+            db.session.commit()
+
             return new_comment.to_dict(), 200
         else:
             return {'errors': validation_errors_to_error_messages(form.errors)}, 400
@@ -52,7 +53,8 @@ def create_comment(expenseId):
 @comments_routes.route('/comments/<int:commentId>', methods=['PUT'])
 @login_required
 def edit_comment(commentId):
-    comment = ExpenseComment.query(ExpenseComment.id == commentId)
+    comment = ExpenseComment.query.filter(ExpenseComment.id == commentId).one()
+    print('++++++++', comment)
 
     if not comment:
         return {'errors': f'Comment {commentId} not found!'}, 404
@@ -63,12 +65,14 @@ def edit_comment(commentId):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+
     if form.validate_on_submit():
-        comment.description = form.data['description'],
-        comment.date = form.data['date']
+        comment.id = commentId
+        comment.description = form.data['description']
 
         db.session.add(comment)
         db.session.commit()
+
         return comment.to_dict(), 200
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
@@ -77,12 +81,12 @@ def edit_comment(commentId):
 @comments_routes.route('/comments/<int:commentId>', methods=['DELETE'])
 @login_required
 def delete_comment(commentId):
-    comment = ExpenseComment.query(ExpenseComment.id == commentId)
+    comment = ExpenseComment.query.filter(ExpenseComment.id == commentId).one()
 
     if not comment:
         return {'errors': f'Comment {commentId} not found!'}, 404
 
-    if comment.id != current_user.id:
+    if comment.user_id != current_user.id:
         return {'errors': 'Unauthorized!'}, 400
 
     db.session.delete(comment)
