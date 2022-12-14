@@ -10,6 +10,15 @@ const displayFriends = (data)=> {
 };
 
 
+
+const FRIEND_DETAIL = 'friends/FRIEND_DETAIL'
+const fetchFriendDetail = (info) => {
+  return {
+    type:FRIEND_DETAIL,
+    info
+  }
+}
+
 const CREATE_FRIEND ="friends/CREATE_FRIEND"
 const addFriend = (info) => {
   return {
@@ -45,6 +54,19 @@ export const getAllFriends = () => async (dispatch) =>{
         dispatch(displayFriends(data.currentUserFriends))
         
     }
+}
+
+
+
+//get friend detail
+export const getFriendDetail = (id) => async (dispatch) =>{
+  const response = await fetch(`/api/friends/${id}`)
+
+  const info = await response.json()
+  console.log("thunk firend detail ", info)
+  dispatch(fetchFriendDetail(info))
+
+  return info
 }
 
 
@@ -129,6 +151,18 @@ export default function friendReducer(state = initialState, action) {
         newState = {...state};
         delete newState[action.payload];
         return newState;
+      default:
+        return state;
+    }
+  }
+
+  export function friendDetailReducer(state = initialState, action) {
+    let detailState
+    switch (action.type) {
+      case FRIEND_DETAIL:
+        detailState = Object.assign({},state);
+        detailState[action.info.id] = action.info
+        return detailState
       default:
         return state;
     }
