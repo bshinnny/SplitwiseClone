@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import date
 
+
 class ExpenseComment(db.Model):
     __tablename__ = 'expense_comments'
 
@@ -22,5 +23,13 @@ class ExpenseComment(db.Model):
             "user_id": self.user_id,
             "expense_id": self.expense_id,
             'date': self.date,
-            'description': self.description
+            'description': self.description,
+            'User': {
+                    "id": self.user.id,
+                    "first_name": self.user.first_name,
+                    "last_name": self.user.last_name,
+                    "username": self.user.username,
+                    "nickname": self.user.nickname,
+                    "email": self.user.email,
+                }
         }

@@ -8,8 +8,11 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import CommentsOfExpense from './components/Comment/Comment';
 
 import SplashPage from './components/SplashPage';
+import FriendSideBar from './components/friends/SideBar';
+import FriendDetail from './components/friends/FriendDetail';
 
 import GroupsSidebar from './components/Groups/GroupsSidebar';
 import GroupDetails from './components/Groups/GroupDetails';
@@ -43,8 +46,17 @@ function App() {
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
+        <ProtectedRoute path='/current' exact={true} >
+          <FriendSideBar/>
+        </ProtectedRoute>
+        <ProtectedRoute path='/friends/:friendId' exact={true} >
+          <FriendDetail/>
+        </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
+        </ProtectedRoute>
+        <ProtectedRoute path='/expenses/:expenseId/comments' exact={true} >
+          <CommentsOfExpense />
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <h1>My Home Page</h1>
