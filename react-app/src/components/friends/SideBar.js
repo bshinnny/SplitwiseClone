@@ -16,6 +16,7 @@ export default function FriendSideBar(){
     const friends = Object.values(allFriends)
     console.log("value",friends)
 
+    
     useEffect(()=>{
         console.log("sidebar 1")
         dispatch(getAllFriends())
@@ -25,6 +26,7 @@ export default function FriendSideBar(){
     const handleDelete =(e)=>{
         console.log("friend_id at form handling",e.target.id)
         const friend_id = e.target.id
+        
         dispatch(deletingFriend(friend_id))
     }
 
