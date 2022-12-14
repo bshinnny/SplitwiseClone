@@ -10,9 +10,21 @@ function CreateGroupForm() {
     const [name, setName] = useState('');
     const [type, setType] = useState('');
     const [memberEmail, setMemberEmail] = useState('');
-    const [errors, setErrors] = useState('');
+    const [counter, setCounter] = useState(0);
+    const [errors, setErrors] = useState([]);
 
     // console.log('TYPE IS:', type)
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        setCounter(counter + 1)
+    }
+
+    // const handleOnChange = (e) => {
+    //     const emailArr = [];
+    //     emailArr.push(e.target.value);
+    //     setMemberEmails([...memberEmails, ...emailArr])
+    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,7 +33,8 @@ function CreateGroupForm() {
 
         if (name.length > 49) errors.push('Name must be less than 50 characters.');
         if (type !== 'Home' && type !== 'Trip' && type !== 'Couple' && type !== 'Other') errors.push('Please select one of the following types.');
-        if (memberEmail > 254) errors.push('Email must be less than 255 characters.')
+        // for (const )
+        // if (memberEmail.length > 254) errors.push('Email must be less than 255 characters.')
 
         setErrors(errors);
 
@@ -32,7 +45,8 @@ function CreateGroupForm() {
 
         const newGroup = {
             name,
-            type
+            type,
+            memberEmail
         };
 
         return dispatch(groupActions.createAGroupThunk(newGroup))
@@ -77,16 +91,16 @@ function CreateGroupForm() {
                         <option value='Other'>Other</option>
                     </select>
                 </label>
-                {/* <label>
+                <label>
                     <input
                         type='email'
+                        onChange={(e) => setMemberEmail(e.target.value)}
                         value={memberEmail}
-                        onChange={(e) => setMemberEmail(e.target.value).then(dispatch())}
                         placeholder='Member Email'
                         required
                         className='input'
                     />
-                </label> */}
+                </label>
                 <button className='submit-button clickable' type='submit'>Submit New Group</button>
             </form>
         </div>

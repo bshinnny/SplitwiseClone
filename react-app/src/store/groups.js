@@ -4,7 +4,7 @@ const GET_GROUP_MEMBERS = 'groups/GET_GROUP_MEMBERS';
 const GET_GROUP_EXPENSES = 'groups/GET_GROUP_EXPENSES';
 const GET_GROUP_DETAILS = 'groups/GET_GROUP_DETAILS';
 const CREATE_A_GROUP = 'groups/CREATE_A_GROUP';
-// const ADD_GROUP_MEMBER = 'groups/ADD_GROUP_MEMBERS';
+const ADD_GROUP_MEMBER = 'groups/ADD_GROUP_MEMBERS';
 const DELETE_A_GROUP = 'groups/DELETE_A_GROUP';
 
 // ACTIONS
@@ -96,14 +96,20 @@ export const getGroupDetailsThunk = (groupId) => async dispatch => {
 }
 
 export const createAGroupThunk = (group) => async dispatch => {
+    const { memberEmail, ...newGroup } = group;
     const response = await fetch(`/api/groups`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(group)
+        body: JSON.stringify(newGroup)
     })
 
     if (response.ok) {
         const group = await response.json();
+        const userGroup = await fetch(`/api/groups/${group.id}/members`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(memberEmail)
+        })
         dispatch(createAGroup(group))
         return group;
     }
