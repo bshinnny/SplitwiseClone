@@ -22,7 +22,7 @@ def get_all_group_routes(group_id):
     group_expenses = Expense.query.options(joinedload(Expense.recipient)).options(joinedload(Expense.user)).filter(Expense.group_id == group_id)
 
     def group_expenses_to_dict(expense):
-                return {
+        return {
             "id": expense.id,
             "description": expense.description,
             "user_id": expense.user_id,
@@ -44,7 +44,7 @@ def get_all_group_routes(group_id):
             }
         }
 
-    return {'Group Expenses': [group_expenses_to_dict(item) for item in group_expenses]}
+    return {'Expenses': [group_expenses_to_dict(item) for item in group_expenses]}
 
 
 # Get all groups of the current user.
@@ -286,11 +286,32 @@ def add_group_expense(group_id):
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+# Get group details.
+@group_routes.route('/<int:group_id>')
+@login_required
+def get_group_details(group_id):
+    """
+    Get group details.
+    """
+    group = Group.query.get(group_id)
+
+    if(not group):
+        return {"error": "Group couldn't be found."}, 404
+
+    def group_to_dict(group):
+
+        return {
+            "id": group.id,
+            "name": group.name,
+            "type": group.type
+        }
+
+    return group_to_dict(group)
 
 
 
 
-#Edit a group.
+# Edit a group.
 @group_routes.route('/<int:group_id>', methods=['PUT'])
 @login_required
 def edit_group(group_id):

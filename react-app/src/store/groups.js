@@ -1,7 +1,9 @@
 // Part of sidebar, need to coordinate.
 const GET_ALL_USER_GROUPS = 'groups/GET_ALL_USER_GROUPS';
 const GET_GROUP_MEMBERS = 'groups/GET_GROUP_MEMBERS';
-const CREATE_A_GROUP = 'groups/CREATE_A_GROUP';
+const GET_GROUP_EXPENSES = 'groups/GET_GROUP_EXPENSES';
+const GET_GROUP_DETAILS = 'groups/GET_GROUP_DETAILS';
+// const CREATE_A_GROUP = 'groups/CREATE_A_GROUP';
 
 // ACTIONS
 export const getUserGroups = (groups) => {
@@ -18,12 +20,26 @@ export const getGroupMembers = (members) => {
     }
 }
 
-export const createAGroup = (group) => {
+export const getGroupExpenses = (expenses) => {
     return {
-        type: CREATE_A_GROUP,
+        type: GET_GROUP_EXPENSES,
+        expenses
+    }
+}
+
+export const getGroupDetails = (group) => {
+    return {
+        type: GET_GROUP_DETAILS,
         group
     }
 }
+
+// export const createAGroup = (group) => {
+//     return {
+//         type: CREATE_A_GROUP,
+//         group
+//     }
+// }
 
 // THUNKS
 export const getUserGroupsThunk = () => async dispatch => {
@@ -41,7 +57,25 @@ export const getGroupMembersThunk = (groupId) => async dispatch => {
     if (response.ok) {
         const members = await response.json();
         dispatch(getGroupMembers(members));
-        return response
+        return response;
+    }
+}
+
+export const getGroupExpensesThunk = (groupId) => async dispatch => {
+    const response = await fetch(`/api/groups/${groupId}/expenses`)
+    if (response.ok) {
+        const expenses = await response.json();
+        dispatch(getGroupExpenses(expenses));
+        return response;
+    }
+}
+
+export const getGroupDetailsThunk = (groupId) => async dispatch => {
+    const response = await fetch(`/api/groups/${groupId}`)
+    if (response.ok) {
+        const group = await response.json();
+        dispatch(getGroupDetails(group));
+        return group;
     }
 }
 
@@ -66,7 +100,9 @@ const formatData = (array) => {
 // REDUCER
 const initialState = {
     userGroups: {},
-    groupMembers: {}
+    groupDetails: {},
+    groupMembers: {},
+    groupExpenses: {}
 }
 
 export default function groupsReducer(state = initialState, action) {
@@ -81,6 +117,15 @@ export default function groupsReducer(state = initialState, action) {
             const membersArr = action.members.Members;
             const membersObj = formatData(membersArr);
             newState = {...state, groupMembers: membersObj}
+            return newState;
+        case GET_GROUP_EXPENSES:
+            const expensesArr = action.expenses.Expenses;
+            const expensesObj = formatData(expensesArr);
+            newState = {...state, groupExpenses: expensesObj}
+            return newState;
+        case GET_GROUP_DETAILS:
+            const groupDetails = action.group;
+            newState = {...state, groupDetails}
             return newState;
         default:
             return state;
