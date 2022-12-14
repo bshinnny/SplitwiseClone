@@ -11,6 +11,12 @@ import { authenticate } from './store/session';
 import CommentsOfExpense from './components/Comment/Comment';
 
 import SplashPage from './components/SplashPage';
+import AllExpenses from './components/AllExpenses';
+import FriendSideBar from './components/friends/SideBar';
+import FriendDetail from './components/friends/FriendDetail';
+import GroupsSidebar from './components/Groups/GroupsSidebar';
+import GroupDetails from './components/Groups/GroupDetails';
+import CreateGroupForm from './components/Groups/CreateGroupForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,6 +46,12 @@ function App() {
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
+        <ProtectedRoute path='/current' exact={true} >
+          <FriendSideBar/>
+        </ProtectedRoute>
+        <ProtectedRoute path='/friends/:friendId' exact={true} >
+          <FriendDetail/>
+        </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
@@ -49,8 +61,17 @@ function App() {
         <Route path='/' exact={true} >
           <SplashPage />
         </Route>
-        <ProtectedRoute>
-
+        <ProtectedRoute path='/expenses/all' exact={true}>
+            <AllExpenses />
+        </ProtectedRoute>
+        <ProtectedRoute path='/groups/current' exact={true}>
+          <GroupsSidebar />
+        </ProtectedRoute>
+        <ProtectedRoute path='/groups/new' exact={true}>
+          <CreateGroupForm />
+        </ProtectedRoute>
+        <ProtectedRoute path='/groups/:groupId' exact={true}>
+          <GroupDetails />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

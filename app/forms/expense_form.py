@@ -23,11 +23,12 @@ class ExpenseForm(FlaskForm):
     description = StringField("Description", validators=[DataRequired()])
     user_id = IntegerField("User Id", validators=[DataRequired()])
     group_id = IntegerField("Group Id", validators=[group_id_check])
-    recipient_id = IntegerField("Recipient Id", validators=[DataRequired(), recipient_id_check])
+    recipient_id = IntegerField("Recipient Id")
     amount = FloatField("Amount", validators=[DataRequired()])
     date = DateField("Date")
     note = StringField("Note")
     status = BooleanField("Status")
+    recipientEmail = StringField("Recipient Email", validators=[DataRequired()])
 
 
 class UpdateExpenseForm(FlaskForm):

@@ -5,6 +5,7 @@ from .expenses import seed_expenses, undo_expenses
 from .friends import seed_friends, undo_friends
 from .user_groups import seed_user_groups, undo_user_groups
 from .expense_comments import seed_expense_comments, undo_expense_comments
+# from app.models import User
 
 
 from app.models.db import db, environment, SCHEMA
@@ -36,6 +37,9 @@ def seed():
     seed_expenses()
     seed_user_groups()
     seed_expense_comments()
+    # user = User.query.get(1)
+    # db.session.delete(user)
+    # db.session.commit()
 
 @seed_commands.command('test')
 def index():

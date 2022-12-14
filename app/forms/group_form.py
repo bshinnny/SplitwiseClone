@@ -4,11 +4,11 @@ from wtforms.validators import DataRequired, ValidationError
 
 class GroupForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    type = SelectField('Type', choices=[('Trip', 'Trip'), ('Home', 'Home')], validators=[DataRequired()])
+    type = SelectField('Type', choices=[('Home', 'Home'), ('Trip', 'Trip'), ('Couple', 'Couple'), ('Other', 'Other')], validators=[DataRequired()])
 
 class EditGroupForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    type = SelectField('Type', choices=[('Trip', 'Trip'), ('Home', 'Home')], validators=[DataRequired()])
+    type = SelectField('Type', choices=[('Home', 'Home'), ('Trip', 'Trip'), ('Couple', 'Couple'), ('Other', 'Other')], validators=[DataRequired()])
 
 class AddGroupMemberForm(FlaskForm):
-    member_email = StringField('User Email', validators=[DataRequired()])
+    memberEmail = StringField('User Email', validators=[DataRequired()])
