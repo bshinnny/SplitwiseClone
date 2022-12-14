@@ -11,6 +11,8 @@ import { authenticate } from './store/session';
 import CommentsOfExpense from './components/Comment/Comment';
 
 import SplashPage from './components/SplashPage';
+import FriendSideBar from './components/friends/SideBar';
+import FriendDetail from './components/friends/FriendDetail';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -39,6 +41,12 @@ function App() {
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
+        </ProtectedRoute>
+        <ProtectedRoute path='/current' exact={true} >
+          <FriendSideBar/>
+        </ProtectedRoute>
+        <ProtectedRoute path='/friends/:friendId' exact={true} >
+          <FriendDetail/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
