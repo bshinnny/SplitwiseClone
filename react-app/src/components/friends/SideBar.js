@@ -16,7 +16,6 @@ export default function FriendSideBar(){
     const friends = Object.values(allFriends)
     console.log("value",friends)
 
-    
     useEffect(()=>{
         console.log("sidebar 1")
         dispatch(getAllFriends())

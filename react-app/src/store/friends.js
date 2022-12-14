@@ -97,6 +97,7 @@ export const deletingFriend = (id)=>async (dispatch)=> {
   } )
 
   if (response.ok) {
+    dispatch(deleteFriend(id))
     const message = await response.json()
     return message
 } else if (response.status < 500) {
@@ -116,18 +117,18 @@ export const deletingFriend = (id)=>async (dispatch)=> {
 //reducer
 let initialState = {}
 export default function friendReducer(state = initialState, action) {
+    let newState
     switch (action.type) {
       case LOAD_FRIENDS:
-        const newState = Object.assign({},state);
+        newState = Object.assign({},state);
         action.payload.forEach((friend)=>{
           newState[friend.id] = friend
         })
         return newState
-      // case CREATE_FRIEND:
-      //   const addFriendState = {...state}
-      //   if(addFriendState) {
-      //     const newFriends = [action.info, ...addFriendState]
-      //   }
+      case REMOVE_FRIEND:
+        newState = {...state};
+        delete newState[action.payload];
+        return newState;
       default:
         return state;
     }
