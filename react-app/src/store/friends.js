@@ -19,6 +19,15 @@ const addFriend = (info) => {
 }
 
 
+const REMOVE_FRIEND = "friends/REMOVE_FRIEND"
+const deleteFriend = (firendId) => {
+  return {
+    type: REMOVE_FRIEND,
+    payload:firendId
+  }
+}
+
+
 
 
 
@@ -74,6 +83,31 @@ export const createFriend = (email) => async (dispatch) => {
 }
 
 
+//delete a friend from the backend
+export const deletingFriend = (id)=>async (dispatch)=> {
+  console.log("thunk friend_id",id)
+  const response = await fetch(`api/friends/${id}`,{
+    method:"DELETE",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body: JSON.stringify({
+      "friend_id":id
+    })
+  } )
+
+  if (response.ok) {
+    const message = await response.json()
+    return message
+} else if (response.status < 500) {
+    const data = await response.json();
+    if (data.error) {
+        return data;
+    }
+} else {
+    return  {'error': 'An error occurred. Please try again.' }
+}
+}
 
 
 

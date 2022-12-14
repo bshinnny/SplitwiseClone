@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getAllFriends} from "../../store/friends";
+import {getAllFriends,deletingFriend} from "../../store/friends";
 import AddingFriendForm from './AddingFriendForm'
 
 
@@ -8,6 +8,7 @@ import AddingFriendForm from './AddingFriendForm'
 export default function FriendSideBar(){
     const dispatch = useDispatch()
     const [openModal, setOpenModal] = useState(false)
+    const [errors, setErrors] = useState()
     
 
     const allFriends = useSelector(state=>state.friends)
@@ -21,6 +22,12 @@ export default function FriendSideBar(){
         console.log("sidebar 2")
     },[])
 
+    const handleDelete =(e)=>{
+        console.log("friend_id at form handling",e.target.id)
+        const friend_id = e.target.id
+        dispatch(deletingFriend(friend_id))
+    }
+
 
     return (
         <div className="friends-side-bar">
@@ -29,7 +36,7 @@ export default function FriendSideBar(){
             {openModal && <AddingFriendForm closeModal={setOpenModal} />}
             
         </div>
-        {friends.length && friends.map(friend =>(<li key={friend.id}>{friend.first_name} {friend.last_name}</li>)) }
+        {friends.length && friends.map(friend =>(<li key={friend.id}>{friend.first_name} {friend.last_name} <button id={friend.id} onClick={handleDelete}>X</button></li>)) }
         </div>
     )
 }
