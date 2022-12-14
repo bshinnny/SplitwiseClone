@@ -193,49 +193,18 @@ def create_friendship():
 @friends_routes.route("/<int:friend_id>", methods=["DELETE"])
 @login_required
 def delete_friendship(friend_id):
-    """
-    Delete friendship 
-    """
-    req = request.json
-    friend_id = int(req.get('friend_id'))
-    print("delete route friend_id", friend_id)
-    current_user_id = int(current_user.get_id())
-    print("delete route current_user_id", current_user_id)
+    curr_user_id = current_user.id
 
-    # friend_id = 1
-    # current_user_id = 1
-    # validation: can not friend yourself
-    if friend_id == current_user_id:
-        return {"error": "Can not add or delete yourself as a friend"}, 400
+    friendship_id_a = Friend.query.filter((Friend.user_id ==curr_user_id),(Friend.friend_id ==friend_id)).all()
+    friendship_id_b = Friend.query.filter((Friend.user_id ==friend_id),(Friend.friend_id ==curr_user_id)).all()
+    friendship_id = friendship_id_a + friendship_id_b 
 
-    fr = User.query.get(friend_id)
-    print("backend friend data",friend)
+    friend_primary_id=friendship_id[0].id
 
-    # validation: friend_id not found
-    if friend == None:
-        return {"error": "Friend not found"}, 404
+    friend_ship = Friend.query.get(friend_primary_id)
 
-    # find friendship
-    friendships1 = Friend.query.filter(Friend.user_id == current_user_id).all()
-    friendships2 = Friend.query.filter (Friend.friend_id == friend_id).all()
-    friendshipA = friendships1 + friendships2
-    friendships3 = Friend.query.filter(Friend.user_id == friend_id).all()
-    friendships4 = Friend.query.filter (Friend.friend_id == current_user_id).all()
-    friendshipB = friendships3 + friendships4
-    # freindshipA = Friend.query.filter((Friend.user1_id == current_user_id, Friend.user2_id == friend_id)).all()
-    # freindshipB = Friend.query.filter((Friend.user2_id == current_user_id, Friend.user1_id == friend_id)).all()
+    db.session.delete(friend_ship)
+    db.session.commit()
 
+    return{"message":"Friend are successfully deleted"}, 200
 
-
-    if len(friendshipA) == 0 and len(friendshipB) == 0 :
-        return {"error": "You are not friends with this user"}, 400
-
-    # for friendship in friendshipA:
-    #     db.session.delete(friendship)
-    #     db.session.commit()
-
-    # for friendship in friendshipB:
-    #     db.session.delete(friendship)
-    #     db.session.commit()
-
-    return {"message": "Friend Successfully deleted"}
