@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {getAllFriends,deletingFriend} from "../../store/friends";
 import AddingFriendForm from './AddingFriendForm'
 import {Link} from 'react-router-dom';
+import DeleteWarning from "./DeleteWarning";
 
-import GroupsSidebar from "../Groups/GroupsSidebar";
-import { NavLink } from "react-router-dom";
-import FriendDetail from "./FriendDetail"
+
 
 
 
@@ -43,6 +42,7 @@ export default function FriendSideBar(){
             {openModal && <AddingFriendForm closeModal={setOpenModal} />}
             
         </div>
+        {!friends.length && <p>You have not added any friend yet</p>}
         {friends.length && friends.map(friend =>(<li key={friend.id}><Link to={`/friends/${friend.id}`}>{friend.first_name} {friend.last_name}</Link> <button id={friend.id} onClick={handleDelete}>X</button></li>)) }
         </div>
     )
