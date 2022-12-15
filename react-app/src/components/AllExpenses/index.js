@@ -84,7 +84,7 @@ export default function AllExpenses() {
                                         <OneExpenseModal expense={expense} />
                                         <div>
                                             <EditExpenseModal expense={expense} setHasSubmitted={setHasSubmitted} />
-                                            <button onClick={() => dispatch(deleteExpense(expense.id))}>Delete Expense</button>
+                                            <button onClick={() => dispatch(deleteExpense(expense.id))} className="expense-delete-button">Delete Expense</button>
                                         </div>
                                     </div>
                                 )

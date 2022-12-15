@@ -104,3 +104,17 @@
     font-weight: 600;
     font-size: 1.5em;
 }
+
+.expense-delete-button {
+    border: none;
+    margin-top: 20px;
+    padding: 5px;
+    background-color: rgba(253, 114, 114, 0.985);
+    color: white;
+    font-size: 12px;
+}
+
+.expense-delete-button:hover {
+    cursor: pointer;
+    background-color: rgba(253, 67, 67, 0.985);
+}
