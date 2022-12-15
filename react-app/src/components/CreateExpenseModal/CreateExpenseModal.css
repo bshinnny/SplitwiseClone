@@ -1,0 +1,17 @@
+.modal-expense-entire {
+    background-color: #5cc5a7;
+    border: 1px black solid;
+
+}
+
+.expense-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.modal-expense-header {
+    color: white;
+    margin-bottom: 10px;
+    padding: 5px;
+}

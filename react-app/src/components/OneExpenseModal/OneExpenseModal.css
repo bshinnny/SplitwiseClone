@@ -6,6 +6,10 @@
     justify-content: flex start;
 }
 
+.one-expense-text {
+    text-align: center;
+}
+
 .note-image {
     display: flex;
     align-items: center;

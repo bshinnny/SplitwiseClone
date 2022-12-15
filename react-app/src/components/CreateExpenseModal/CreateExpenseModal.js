@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { editOneExpense, getAllExpenses, getOneExpense, createExpense } from "../../store/expense";
 import { useHistory } from "react-router-dom";
+import './CreateExpenseModal.css'
 
 
 export default function CreateExpense({ setShowModal, expense, setHasSubmitted }) {
@@ -33,7 +34,6 @@ export default function CreateExpense({ setShowModal, expense, setHasSubmitted }
         e.preventDefault()
 
         let updatedExpense = await dispatch(createExpense(info))
-        console.log(updatedExpense, 'updatedexpense-------')
             // .then(()=> setShowModal(false))
             // .then(() => setHasSubmitted(prevVal => !prevVal))
             // .catch(async (res) => {
@@ -54,14 +54,14 @@ export default function CreateExpense({ setShowModal, expense, setHasSubmitted }
 
 
     return (
-        <div>
-            <h1>Create New Expense</h1>
+        <div className="modal-expense-entire">
+            <h1 className="modal-expense-header">Add New Expense</h1>
             <div>
                 {errors && (
                     <ul>{errors}</ul>
                 )}
             </div>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className="expense-form">
 
                 <input required
                     type="text"

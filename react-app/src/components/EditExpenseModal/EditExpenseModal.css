@@ -1,0 +1,12 @@
+.edit-expense-button {
+    background-color: none;
+    border: none;
+    margin-top: 20px;
+    padding: 5px;
+    font-size: 12px;
+}
+
+.edit-expense-button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
