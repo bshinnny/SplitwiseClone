@@ -4,10 +4,13 @@
    padding: 10px;
 }
 
-#logo-name {
+#logo-name, #logo-name-2 {
    display: flex;
    align-items: center;
+}
 
+#logo-name-2 {
+    color: white;
 }
 
 ul {
@@ -45,4 +48,59 @@ ul {
     box-shadow: none;
     position: relative;
     bottom: 0
+}
+
+.nav2-container {
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #79d3ba;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#logo-2 {
+    height: 25px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+#user-img {
+    height: 25px;
+    border: none;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
+#nav-user-button {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#nav-user-button:hover {
+    background-color: #5cc5a8
+}
+
+
+#nav-user-button > i {
+    opacity: 0.4;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+.profile-dropdown {
+    position: absolute;
+    right: 15%;
+    z-index: 20;
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    padding: 20px 20px 20px 30px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

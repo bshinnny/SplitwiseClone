@@ -5,6 +5,7 @@ const GET_ONE_EXPENSE = "expenses/GET_ONE_EXPENSE";
 const EDIT_ONE_EXPENSE = "expenses/EDIT_ONE_EXPENSE";
 const CREATE_EXPENSE = "expenses/CREATE_ONE_EXPENSE";
 const DELETE_EXPENSE = "expenses/DELETE_ONE_EXPENSE";
+const CREATE_GROUP_EXPENSE = "expenses/CREATE_GROUP_EXPENSE";
 
 
 //action creators
@@ -26,6 +27,11 @@ const editExpense = (edited) => ({
 const postExpense = (newCharge) => ({
     type: CREATE_EXPENSE,
     newCharge
+})
+
+const postGroupExpense = (newGroupCharge) => ({
+    type: CREATE_GROUP_EXPENSE,
+    newGroupCharge
 })
 
 const delExpense = (expenseId) => ({
@@ -65,6 +71,15 @@ export const editOneExpense = (info, expenseId) => async (dispatch) => {
         dispatch(editExpense(edited))
         return edited
     }
+    else {
+        const data = await response.json()
+        if (data.errors){
+            return data
+        }
+        else{
+            return data
+        }
+    }
 
 }
 
@@ -84,6 +99,26 @@ export const createExpense = (info) => async (dispatch) => {
     else{
         const data = await response.json()
         console.log(data, 'dataaaaaaaaaaaaaaaaa')
+        if(data.errors){
+            return data
+        }
+    }
+}
+
+export const createGroupExpense = (info) => async (dispatch) => {
+    let { group_id } = info
+    const response = await fetch(`/api/groups/${group_id}/expenses`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(info)
+    })
+    if(response.ok){
+        const newExpense = await response.json()
+        dispatch(postGroupExpense(newExpense))
+        return newExpense
+    }
+    else{
+        const data = await response.json()
         if(data.errors){
             return data
         }
@@ -162,6 +197,14 @@ const expensesReducer = (state = initialState, action) => {
             }
             else if (newState.receivableExpenses[action.expenseId]){
                 delete newState.receivableExpenses[action.expenseId]
+            }
+            return newState
+        case CREATE_GROUP_EXPENSE:
+            newState = {
+                ...state,
+                oneExpense: {...state.oneExpense},
+                payableExpenses: {...state.payableExpenses},
+                receivableExpenses: {...state.receivableExpenses}
             }
             return newState
         default:

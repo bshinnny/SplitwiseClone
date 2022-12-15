@@ -1,17 +1,13 @@
 // import { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 import './SplashPage.css'
+import background from '../../assets/background.png'
 
 
 export default function SplashPage() {
 
-
-
-
-
-
     return (
-        <div className="entire-page-container">
+        <div className="entire-page-container" style={{ backgroundImage: `url(${background})`}}>
             <div className="white-container">
                 <div className="white-left-container">
                     <div className="white-left-total-text">

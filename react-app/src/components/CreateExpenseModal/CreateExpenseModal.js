@@ -88,7 +88,7 @@ export default function CreateExpense({ setShowModal, expense, setHasSubmitted }
                     value={recipientEmail}
                     placeholder="Recipient Email"></input>
 
-                <button type="submit">Create Expense</button>
+                <button type="submit">Create Charge</button>
             </form>
         </div>
 

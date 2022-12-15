@@ -1,21 +1,21 @@
-// import React, { useState } from "react"
-// import { Modal } from "../../context/Modal"
-// import CreateGroupExpense from "./CreateGroupExpenseModal"
+import React, { useState } from "react"
+import { Modal } from "../../context/Modal"
+import CreateGroupExpense from "./CreateGroupExpenseModal"
 
 
-// export default function CreateGroupExpenseModal(){
-//     const [ showModal, setShowModal ] = useState(false)
+export default function CreateGroupExpenseModal(){
+    const [ showModal, setShowModal ] = useState(false)
 
 
-//     return (
-//         <>
-//         <button onClick={()=>setShowModal(true)}>Create Group Expense</button>
-//         {showModal && (
-//             <Modal onClose={()=>setShowModal(false)}>
-//                 <CreateGroupExpense setShowModal={setShowModal} />
-//             </Modal>
-//         )}
-//         </>
-//     )
+    return (
+        <>
+        <button onClick={()=>setShowModal(true)}>Create New Group Expense</button>
+        {showModal && (
+            <Modal onClose={()=>setShowModal(false)}>
+                <CreateGroupExpense setShowModal={setShowModal} />
+            </Modal>
+        )}
+        </>
+    )
 
-// }
+}

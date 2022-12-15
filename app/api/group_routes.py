@@ -57,7 +57,7 @@ def get_user_groups():
     user_id = current_user.get_id()
     # How to query groups from user groups table?
     # user_groups = UserGroup.query.filter(UserGroup.user_id == user_id)
-    user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == 1).all()
+    user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == user_id).all()
     # user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == user_id).all()
 
 
@@ -159,10 +159,11 @@ def add_group_member(group_id):
     # if True:
     if form.validate_on_submit():
         email = form.data['memberEmail']
-        user = User.query.filter(User.email == email).all()[0]
+
+        user = User.query.filter(User.email == email).first()
 
         if not user:
-            return {"error": "User couldn't be found."}, 404
+            return {"error": ["User email isn't associated with an account."]}, 404
 
         user_id = user.id
         # user_id = 1

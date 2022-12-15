@@ -37,18 +37,27 @@ function GroupDetails() {
     // console.log(expenses)
 
     return (
-        <div className='group-details-div'>
-            <GroupsSidebar />
-            <h1>{group.name}</h1>
-            <div className='group-members-div'>
-                <h2>Group Members</h2>
-                {Object.values(members).map((member) => {
-                    return (
-                        <div key={`member-${member.id}`}>{member.first_name}</div>
-                    )
-                })}
+        <div className='outer-container'>
+            <div className='left-side'>
+                <div className='left-empty-div'>
+                    <p>left-empty-div</p>
+                    <p>right-side-bar-div</p>
+                </div>
+                <div className='right-side-bar-div'>
+                    <div className='active-side-bar'>
+                        <div className='dashboard'>dashboard</div>
+                        <div className='all-expenses'>all expenses</div>
+                        <div className='group'><GroupsSidebar/></div>
+                        <div className='friends'>friends</div>
+                    </div>
+                </div>
             </div>
-            <div className='group-expenses-div'>
+            <div className='middle-side'>
+                <div className='title'>
+                    <h1>{group.name}</h1>
+                </div>
+                <div className='content'>
+                <div className='group-expenses-div'>
                 <h2>Group Expenses</h2>
                 {Object.values(expenses).map((expense) => {
                     if (user.id === expense.user_id) {
@@ -81,8 +90,25 @@ function GroupDetails() {
                 })}
             </div>
             <button className='button clickable' onClick={dispatchDelete}>Delete <i className="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+            <div className='right-side'>
+                <div className='left-with-info'>
+                <div className='group-members-div'>
+                <h2>Group Members</h2>
+                {Object.values(members).map((member) => {
+                    return (
+                        <div key={`member-${member.id}`}>{member.first_name}</div>
+                    )
+                })}
+            </div>
+                </div>
+                <div className='right-empty'>
+                    <p>right-empty</p>
+                </div>
+            </div>
         </div>
     )
 }
 
-export default GroupDetails
+export default GroupDetails;
