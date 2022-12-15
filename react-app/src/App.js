@@ -17,6 +17,7 @@ import FriendDetail from './components/friends/FriendDetail';
 import GroupsSidebar from './components/Groups/GroupsSidebar';
 import GroupDetails from './components/Groups/GroupDetails';
 import CreateGroupForm from './components/Groups/CreateGroupForm';
+import Template from './components/Template/Template';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -37,6 +38,9 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path='/template' exact={true} >
+          <Template />
+        </Route>
         <Route path='/login' exact={true}>
           <LoginForm />
         </Route>
