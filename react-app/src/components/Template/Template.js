@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import AllExpenses from '../AllExpenses'
 import GroupsSidebar from '../Groups/GroupsSidebar'
 import "./Template.css"
+import FriendSideBar from '../friends/SideBar'
 
 const Template = () => {
   return (
@@ -19,7 +20,7 @@ const Template = () => {
                     <div className='group'>group</div>
                     <div className='all-expenses'>all expenses</div>
                     <div className='group'><GroupsSidebar/></div>
-                    <div className='friends'>friends</div>
+                    <div className='friends'><FriendSideBar/></div>
                 </div>
             </div>
       </div>
