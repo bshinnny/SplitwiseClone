@@ -6,7 +6,7 @@ import { getFriendDetail } from '../../store/friends';
 
 import GroupsSidebar from "../Groups/GroupsSidebar";
 import { NavLink } from "react-router-dom";
-import SideBar from "./SideBar"
+import FriendSideBar from './SideBar';
 
 
 
@@ -16,8 +16,9 @@ const FriendDetail = () => {
     const [noShared,setNoshared] = useState(false)
 
     useEffect(()=>{
+      console.log("friendId on useEffect",friendId)
         dispatch(getFriendDetail(friendId))
-    },[getFriendDetail, friendId])
+    },[dispatch,getFriendDetail,friendId])
 
     const userId = useSelector(state => state.session.user.id)
     console.log("UserID",userId)
@@ -36,7 +37,7 @@ const FriendDetail = () => {
     let expensesList
     if(friendDetail) {
       if((friendDetail.shared_expenses).length === 0) {
-        return <p>You don't have any expenses yet</p>
+      expensesList = 0
       }
       else{
         expensesList = friendDetail.shared_expenses
@@ -50,8 +51,6 @@ const FriendDetail = () => {
     <div className='outer-container'>
       <div className='left-side'>
             <div className='left-empty-div'>
-                <p>left-empty-div</p>
-                <p>right-side-bar-div</p>
             </div>
             <div className='right-side-bar-div'>
                 <div className='active-side-bar'>
@@ -60,9 +59,7 @@ const FriendDetail = () => {
                     <div className='group'>group</div>
                     <div className='all-expenses'>all expenses</div>
                     <div className='group'><GroupsSidebar/></div>
-                    <div className='friends'>
-                      <SideBar />
-                    </div>
+                    <div className='friends'><FriendSideBar/></div>
                 </div>
             </div>
       </div>
@@ -72,8 +69,8 @@ const FriendDetail = () => {
             </div>
             <div className='content'>
             <div>
-      {friendDetail && expensesList.map(
-        (expense)=>expense.user_id === userId ? <li key ={expense.id} id ={expense.id}>{expense.description} you paid:{expense.amount*2} </li> : <li id ={expense.id}>{expense.description}  you owe:{expense.amount}</li>)}
+      {friendDetail && expensesList ? expensesList.map(
+        (expense)=>expense.user_id === userId ? <li key ={expense.id} id ={expense.id}>{expense.description} you paid:{expense.amount*2} </li> : <li id ={expense.id}>{expense.description}  you owe:{expense.amount}</li>) : <p>You don't have any expenses yet</p>}
       {/* {friendDetail && expensesList.map(expense=><li id ={expense.id}>{expense.description} {expense.amount}</li>) } */}
     </div>
             </div>
@@ -87,7 +84,10 @@ const FriendDetail = () => {
             </div>
       </div>
     </div>
+  
     
+    
+
     
   )
 }

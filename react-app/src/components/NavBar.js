@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector} from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import './NavBar.css'
 import userImg from '../assets/user.png'
-import { Modal } from '../context/Modal';
 
 
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const history = useHistory();
 
   const user = useSelector(state => Object.values(state.session)[0])
 
@@ -90,13 +88,13 @@ const NavBar = () => {
   return (
     <nav>
       { content }
-      <ul>
+      {/* <ul>
         <li>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
         </li>
-      </ul>
+      </ul> */}
     </nav>
   );
 }

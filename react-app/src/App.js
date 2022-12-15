@@ -18,6 +18,7 @@ import GroupsSidebar from './components/Groups/GroupsSidebar';
 import GroupDetails from './components/Groups/GroupDetails';
 import CreateGroupForm from './components/Groups/CreateGroupForm';
 import Template from './components/Template/Template';
+import DeleteWarning from './components/friends/DeleteWarning';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -55,6 +56,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/friends/:friendId' exact={true} >
           <FriendDetail/>
+        </ProtectedRoute>
+        <ProtectedRoute path='/friends/delete' exact={true} >
+          <DeleteWarning/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
