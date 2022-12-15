@@ -38,7 +38,7 @@ function GroupDetails() {
 
     return (
         <div className='group-details-div'>
-            <GroupsSidebar />
+            {/* <GroupsSidebar /> */}
             <h1>{group.name}</h1>
             <div className='group-members-div'>
                 <h2>Group Members</h2>
