@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import { useDispatch } from "react-redux";
 import { updateComment } from "../../store/comments";
@@ -8,7 +7,6 @@ import './comment.css'
 function UpdateComment ( {comment} ) {
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch()
-    const history = useHistory()
 
     const [description, setDescription] = useState(comment.description);
     const [errors, setErrors] = useState([]);
