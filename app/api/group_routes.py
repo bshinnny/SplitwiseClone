@@ -57,7 +57,7 @@ def get_user_groups():
     user_id = current_user.get_id()
     # How to query groups from user groups table?
     # user_groups = UserGroup.query.filter(UserGroup.user_id == user_id)
-    user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == 1).all()
+    user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == user_id).all()
     # user_groups = UserGroup.query.options(joinedload(UserGroup.group)).filter(UserGroup.user_id == user_id).all()
 
 
