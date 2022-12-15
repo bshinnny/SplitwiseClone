@@ -1,11 +1,14 @@
 .outer-container {
-    height:100vh;
+    height: 100vh;
     background-color: aqua;
     display: flex;
     margin-left: 0;
     margin-right: 0;
     padding-left: 0;
     padding-right: 0;
+    margin-top: 0;
+    padding-top: 30px;
+    padding-top: 0;
 
 }
 
@@ -20,10 +23,11 @@
 .middle-side {
     display: flex;
     flex-direction: column;
-    background-color:red;
-    flex:1
+    background-color:rgb(255, 255,255);
+    flex:1.5;
+    box-shadow: -8px 0 10px -6px #000000;
+    box-shadow: 6px 0 4px -4px rgba(0, 0, 0, 0.24), -6px 0 4px -4px rgba(0, 0, 0, 0.24);
 }
-
 
 
 
@@ -36,24 +40,25 @@
 
 .left-empty-div {
     flex-grow: 80%;
-    background-color: antiquewhite;   
+    background-color:rgb(255, 255,255);
     flex:1
 }
 
 .right-side-bar-div{
     flex-grow: 20%;
-    background-color: yellow;
+    background-color:rgb(255, 255,255);
     flex:1;
     display: flex;
     flex-direction: column;
+    padding-top: 20px;
 
 
-    
+
 }
 
 .active-side-bar {
     display: flex;
-    padding-right: 80px;
+    padding-right: 45px;
     padding-left: 80px;
     flex-direction: column;
     row-gap: 10px;
@@ -63,57 +68,84 @@
 
 .left-with-info {
     flex-grow: 80%;
-    background-color: antiquewhite;   
-    flex:1
+    background-color: rgb(255, 255,255);
+    flex:1;
+    box-shadow: -8px 0 10px -6px #000000;
+    box-shadow:-6px 0 4px -4px rgba(0, 0, 0, 0.24),6px 0 4px -4px rgba(0, 0, 0, 0.24) ;
+
 }
 
 .right-empty{
     flex-grow: 20%;
-    background-color: yellow;
+    background-color: rgb(255, 255,255);
     flex:1
 }
 
 
 .dashboard{
-    background-color: aliceblue;
+    background-color: rgb(255, 255,255);
     color: black;
+    width: max-content;
 
 
 }
 
 
 .all-expenses {
-    background-color: aliceblue;
+    background-color: rgb(255, 255,255);
     color: black;
-    
+    width: max-content;
+
 
 
 }
 
 
 .group {
-    background-color: aliceblue;
+    background-color: rgb(255, 255,255);
     color: black;
+    width: max-content;
 
 
-    
+
 }
 
 .friends {
-    background-color: aliceblue;
+    background-color: rgb(255, 255,255);
     color: black;
+    width: max-content;
 
 
-    
+
 }
 
 
 
 .title {
-    background-color:pink;
+    background-color:rgb(238, 238,238);
+    border-bottom: 1px solid;
+    border-color: rgb(221,221,221);
 }
 
 
 .content {
-    background-color: aquamarine;
+    background-color: rgb(255, 255,255);
+    flex: 4;
+}
+
+
+.dashboard:hover {
+    background-color:rgb(238, 238,238);
+}
+
+.all-expenses:hover {
+    background-color:rgb(238, 238,238);
+}
+
+.group:hover {
+    background-color:rgb(238, 238,238);
+}
+
+.friends:hover {
+    background-color:rgb(238, 238,238);
 }

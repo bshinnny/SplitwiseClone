@@ -1,26 +1,33 @@
-import React, {useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { useSelector} from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import './NavBar.css'
 import userImg from '../assets/user.png'
-import { Modal } from '../context/Modal';
 
 
 const NavBar = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const [showMenu, setShowMenu] = useState(false);
 
   const user = useSelector(state => Object.values(state.session)[0])
 
-  const toggleMenu = () => {
-    const menu = document.querySelector('#dropdown_menu')
-    if(menu.classList.contains('hidden')) {
-      menu.classList.remove('hidden')
-    } else {
-      menu.classList.add('hidden')
-    }
-  }
+  const openMenu = () => {
+    if (showMenu) return;
+    setShowMenu(true);
+  };
+
+  useEffect(() => {
+      if (!showMenu) return;
+
+      const closeMenu = () => {
+          setShowMenu(false);
+      };
+
+      document.addEventListener('click', closeMenu);
+
+      return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
 
   let content;
   if (!user) {
@@ -56,24 +63,22 @@ const NavBar = () => {
             </div>
         </NavLink>
         <div className='navbar-right-2'>
-          <button id='nav-user-button' onClick={(toggleMenu)}>
+          <button id='nav-user-button' onClick={openMenu}>
             <img id='user-img' src={userImg} alt='user icon'></img>
             <p>{user.firstName} {user.lastName}</p>
             <i className="fa-solid fa-caret-down" />
           </button>
+          {showMenu && (
+            <ul className='profile-dropdown'>
+              <li>
+                <NavLink style={{ color: 'black', textDecoration: 'none'}} key='create a group' to='/groups/new'>
+                  Create a group
+                </NavLink>
+              </li>
+              <li><LogoutButton /></li>
+            </ul>
+          )}
         </div>
-      </div>
-        <div id='dropdown_menu' className='hidden'>
-          <div className='dropdown_menu_item' id='dropdown_first' onClick={() => history.push('/dashboard')}>
-            Dashboard
-          </div>
-          {/* <div className='dropdown_menu_item' onClick={() => setShowModalGroup(true)}>
-            Create a group
-          </div> */}
-          <NavLink to='/groups/new'>
-            Create a group
-          </NavLink>
-          <LogoutButton />
       </div>
       </>
     )
@@ -83,13 +88,13 @@ const NavBar = () => {
   return (
     <nav>
       { content }
-      <ul>
+      {/* <ul>
         <li>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
         </li>
-      </ul>
+      </ul> */}
     </nav>
   );
 }

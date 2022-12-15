@@ -8,7 +8,7 @@ export default function OneExpenseModal({expense}){
 
     return (
         <>
-        <button onClick={()=>setShowModal(true)}>View Expense</button>
+        <button onClick={()=>setShowModal(!showModal) } className="expense-details-button">{showModal ? "Hide Details" : "Show Details"}</button>
         {showModal && (
             // <Modal onClose={()=>setShowModal(false)}>
                 <OneExpense setShowModal={setShowModal} expense={expense} />
