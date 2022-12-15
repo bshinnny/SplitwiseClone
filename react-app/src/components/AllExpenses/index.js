@@ -32,7 +32,7 @@ export default function AllExpenses() {
         <>
             <h1>Test</h1>
             <CreateExpenseModal />
-            {/* <CreateGroupExpenseModal /> */}
+            <CreateGroupExpenseModal />
             {Object.values(allExpenses).map((expense) => {
                 return (
                     <div key={`expense ${expense.id}`}>
