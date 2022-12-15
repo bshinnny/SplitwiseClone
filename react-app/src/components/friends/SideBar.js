@@ -4,6 +4,10 @@ import {getAllFriends,deletingFriend} from "../../store/friends";
 import AddingFriendForm from './AddingFriendForm'
 import {Link} from 'react-router-dom';
 
+import GroupsSidebar from "../Groups/GroupsSidebar";
+import { NavLink } from "react-router-dom";
+import FriendDetail from "./FriendDetail"
+
 
 
 export default function FriendSideBar(){
@@ -26,12 +30,13 @@ export default function FriendSideBar(){
     const handleDelete =(e)=>{
         console.log("friend_id at form handling",e.target.id)
         const friend_id = e.target.id
-        
+        console.log("friend id",friend_id)
         dispatch(deletingFriend(friend_id))
     }
 
 
     return (
+        
         <div className="friends-side-bar">
         <div className="add friends sign">
             <p>FRIENDS <button onClick={()=>setOpenModal(true)}>&#x2795; add</button></p>
