@@ -6,6 +6,7 @@ import CreateExpenseModal from "../CreateExpenseModal";
 import CreateGroupExpenseModal from "../CreateGroupExpenseModal";
 import EditExpenseModal from "../EditExpenseModal";
 import OneExpenseModal from "../OneExpenseModal";
+import GroupsSidebar from "../Groups/GroupsSidebar";
 import './AllExpenses.css'
 
 
@@ -40,7 +41,7 @@ export default function AllExpenses() {
                         <div className='active-side-bar'>
                             <div className='dashboard'>dashboard</div>
                             <div className='all-expenses'><NavLink to="/expenses/all">All Expenses</NavLink></div>
-                            <div className='group'>group</div>
+                            <div className='group'><GroupsSidebar/></div>
                             <div className='friends'>friends</div>
                         </div>
                     </div>

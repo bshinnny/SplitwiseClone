@@ -59,9 +59,9 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/expenses/:expenseId/comments' exact={true} >
+        {/* <ProtectedRoute path='/expenses/:expenseId/comments' exact={true} >
           <CommentsOfExpense />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
         <Route path='/' exact={true} >
           <SplashPage />
         </Route>

@@ -10,8 +10,11 @@ function UpdateComment ( {comment} ) {
 
     const [description, setDescription] = useState(comment.description);
     const [errors, setErrors] = useState([]);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
+        setShowModal(false)
         const payload = { description };
 
         return dispatch(updateComment(comment.id, payload))
@@ -26,7 +29,7 @@ function UpdateComment ( {comment} ) {
 
     return (
         <>
-          <button onClick={() => setShowModal(true)}><i className="fa-solid fa-pen"></i></button>
+          <button onClick={()=> setShowModal(true)}><i className="fa-solid fa-pen"></i></button>
           {showModal && (
             <Modal onClose={() => setShowModal(false)}>
                 <div className="update-comment-container">

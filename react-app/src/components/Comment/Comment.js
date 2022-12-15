@@ -5,10 +5,12 @@ import { getComments, createComment, removeComment } from "../../store/comments"
 import UpdateComment from "./EditComment";
 import './comment.css'
 
-function CommentsOfExpense () {
-    const { expenseId } = useParams()
+function CommentsOfExpense ({expense}) {
+    // let { expenseId } = useParams()
     const dispatch = useDispatch()
     const history = useHistory()
+    console.log(expense, 'EXPENSEEEEEEE')
+    const expenseId = expense.id
 
     const [description, setDescription] = useState('');
     const [errors, setErrors] = useState([]);
@@ -53,7 +55,7 @@ function CommentsOfExpense () {
 
         if (newComment) {
             setErrors([])
-            history.push(`/expenses/${expenseId}/comments`)
+            // history.push(`/expenses/${expenseId}/comments`)
             setDescription('');
         }
     }
