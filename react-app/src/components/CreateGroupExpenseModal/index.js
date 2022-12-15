@@ -9,7 +9,7 @@ export default function CreateGroupExpenseModal(){
 
     return (
         <>
-        <button onClick={()=>setShowModal(true)}>Create Group Expense</button>
+        <button onClick={()=>setShowModal(true)}>Create New Group Expense</button>
         {showModal && (
             <Modal onClose={()=>setShowModal(false)}>
                 <CreateGroupExpense setShowModal={setShowModal} />

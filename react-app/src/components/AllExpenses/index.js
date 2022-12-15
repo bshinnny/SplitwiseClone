@@ -6,6 +6,7 @@ import CreateExpenseModal from "../CreateExpenseModal";
 import CreateGroupExpenseModal from "../CreateGroupExpenseModal";
 import EditExpenseModal from "../EditExpenseModal";
 import OneExpenseModal from "../OneExpenseModal";
+import './AllExpenses.css'
 
 
 export default function AllExpenses() {
@@ -35,9 +36,8 @@ export default function AllExpenses() {
             <CreateGroupExpenseModal />
             {Object.values(allExpenses).map((expense) => {
                 return (
-                    <div key={`expense ${expense.id}`}>
+                    <div key={`expense ${expense.id}`} className="expense-row">
 
-                    {/* {expense.id}. {currentUser.id == expense.Fronter.id  ? `You Owe: ${expense.Recipient.first_name} ${expense.Recipient.last_name}` : `${expense.Recipient.first_name} ${expense.Recipient.last_name} owes you: ` }, {`$${expense.amount}`} */}
                     {expense.id}. {currentUser.id == expense.Fronter.id ? `${expense.Recipient.first_name} ${expense.Recipient.last_name} owes you: $${expense.amount} ` : `You Owe: ${expense.Fronter.first_name} ${expense.Fronter.last_name} $${expense.amount}`}
                     <OneExpenseModal expense={expense} />
                     <EditExpenseModal expense={expense} setHasSubmitted={setHasSubmitted} />
