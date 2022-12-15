@@ -63,7 +63,7 @@ ul {
     justify-content: space-around;
     align-items: center;
     background-color: #79d3ba;
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
     right: 0;
