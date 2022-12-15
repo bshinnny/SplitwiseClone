@@ -90,13 +90,13 @@ const NavBar = () => {
   return (
     <nav>
       { content }
-      <ul>
+      {/* <ul>
         <li>
           <NavLink to='/users' exact={true} activeClassName='active'>
             Users
           </NavLink>
         </li>
-      </ul>
+      </ul> */}
     </nav>
   );
 }
