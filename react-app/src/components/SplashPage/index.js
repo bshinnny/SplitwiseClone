@@ -44,7 +44,7 @@ export default function SplashPage() {
                     <NavLink to='/sign-up' exact={true} activeClassName='active'>
                         <button id='sign-up-button-2'>Sign Up</button>
                     </NavLink>
-                    <div>Free for iPhone, Android, and web.</div>
+                    <div>Free for <i className="fa-brands fa-apple"></i> iPhone, <i className="fa-solid fa-robot"></i> Android, and web.</div>
                 </div>
                 <div className="white-right-container">
                     <i className="fa-solid fa-plane"></i>

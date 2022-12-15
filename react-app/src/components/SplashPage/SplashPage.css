@@ -1,5 +1,6 @@
 .white-container {
     display: flex;
+    padding-bottom: 50px;
 }
 
 .white-left-container {
