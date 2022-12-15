@@ -1,3 +1,8 @@
+nav{
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 #logo {
    height: 50px;
    border-radius: 20px;
@@ -25,6 +30,7 @@ ul {
 
 .navbar-right {
     padding: 20px;
+    font-weight: 600;
 }
 
 #login {
@@ -33,6 +39,7 @@ ul {
 }
 
 #sign-up-button {
+    font-weight: 600;
     color: white;
     background-color: #1cc29f;
     padding: 15px 20px 15px;

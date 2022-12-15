@@ -1,27 +1,38 @@
+.entire-page-container {
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .white-container {
     display: flex;
-    padding-bottom: 50px;
+    padding: 50px 0 50px;
 }
 
 .white-left-container {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
+    padding-left: 18%;
     width: 50%;
 }
 
-/* .white-right-container {
+.white-right-container {
+    width: 50%;
+    font-size: 400px;
+    padding-right: 18%;
+}
 
-} */
+.white-left-container .big-text {
+    font-size: 40px;
+    font-weight: 700;
+}
 
-/* .white-left-total-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 30vw;
-    margin: auto;
-} */
+.block-container .big-text {
+    font-size: 28px;
+    padding-bottom: 20px;
+}
+.big-text {
+    font-weight: 600;
+}
 
 .row-container {
     display: flex;
@@ -39,27 +50,52 @@
 
 .black-block {
     background-color: rgba(0, 0, 0, 0.8);
+    padding-top: 30px;
 }
 
 #orange-block {
     background-color: #da5424bd;
+    padding-top: 30px;
 }
 
 #green-block {
-    background-color: #1ebc9cbc
+    background-color: #1ebc9cbc;
+    padding-top: 30px;
+}
+
+.last-line {
+    padding-bottom: 30px;
 }
 
 .purple-block {
-    background-color: #8457c8c6;
+    background-color: #6e1ce9c6;
+}
+
+#sign-up-button-3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    background-color: #653aabca;
+    padding: 18px 70px 18px;
+    box-shadow: 0px 3px 3px #6d4e9f;
+    cursor: pointer;
+    margin: 20px 0 20px;
+    border-radius: 5px;
+    position: relative;
+    bottom: 2px;
 }
 
 #sign-up-button-2 {
+    font-size: 16px;
+    font-weight: 600;
     color: white;
-    background-color: #6d4e9f;
-    padding: 15px 20px 15px;
-    box-shadow: 0px 3px 3px grey;
+    border: 1px solid white;
+    background-color: #653aabca;
+    padding: 15px 50px 15px;
+    box-shadow: 0px 3px 3px #6d4e9f;
     cursor: pointer;
-    border: none;
+    margin-top: 50px;
     border-radius: 5px;
     position: relative;
     bottom: 2px;
@@ -79,4 +115,22 @@
     display: flex;
     justify-content: center;
     margin: 10px;
+}
+
+#purple-left-block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#purple-right-block {
+    padding-top: 150px;
+}
+
+.rotating-images-container {
+    display: flex;
+    font-size: 45px;
+    gap: 25px;
+    padding: 20px 0 20px;
 }
