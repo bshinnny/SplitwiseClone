@@ -1,4 +1,5 @@
 import React from 'react'
+import GroupsSidebar from '../Groups/GroupsSidebar'
 import "./Template.css"
 
 const Template = () => {
@@ -13,7 +14,7 @@ const Template = () => {
                 <div className='active-side-bar'>
                     <div className='dashboard'>dashboard</div>
                     <div className='all-expenses'>all expenses</div>
-                    <div className='group'>group</div>
+                    <div className='group'><GroupsSidebar/></div>
                     <div className='friends'>friends</div>
                 </div>
             </div>
