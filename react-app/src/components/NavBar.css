@@ -81,10 +81,11 @@ ul {
     display: flex;
     align-items: center;
     cursor: pointer;
+    height: 38px;
 }
 
 #nav-user-button:hover {
-    background-color: #5cc5a8
+    background-color: #5cc5a8;
 }
 
 

@@ -18,3 +18,33 @@
     width: 30vw;
     margin: auto;
 }
+
+.row-container {
+    display: flex;
+    justify-content: center;
+}
+
+.block-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sign-up-button-2 {
+    color: white;
+    background-color: #6d4e9f;
+    padding: 15px 20px 15px;
+    box-shadow: 0px 3px 3px grey;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    bottom: 2px;
+}
+
+#sign-up-button-2:hover {
+    box-shadow: none;
+    position: relative;
+    bottom: 0
+}
