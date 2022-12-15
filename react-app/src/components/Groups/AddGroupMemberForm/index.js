@@ -16,12 +16,12 @@ function AddGroupMemberForm() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-      async function fetchData() {
-        const response = await fetch('/api/users/');
-        const responseData = await response.json();
-        setUsers(responseData.users);
-      }
-      fetchData();
+        async function fetchData() {
+            const response = await fetch('/api/users/');
+            const responseData = await response.json();
+            setUsers(responseData.users);
+        }
+        fetchData();
     }, []);
 
     console.log('USERS ARRAY:', users)
@@ -30,7 +30,7 @@ function AddGroupMemberForm() {
         userEmailsArr.push(user.email)
     }
 
-    console.log('USER EMAILS:', userEmailsArr)
+    // console.log('USER EMAILS:', userEmailsArr)
 
     const handleAddClick = (e) => {
         e.preventDefault();
@@ -67,14 +67,15 @@ function AddGroupMemberForm() {
             }
         }
 
-        setErrors(errorsArr)
+        // Comment in after.
+        // setErrors(errorsArr)
 
-        if (errors.length) {
-            console.log(errors)
-            return;
-        }
+        // if (errors.length) {
+        //     console.log(errors)
+        //     return;
+        // }
 
-        setErrors([])
+        // setErrors([])
 
         for (let i = 0; i < emailsArr.length; i++) {
             dispatch(groupActions.addGroupMemberThunk(emailsArr[i], groupId))
