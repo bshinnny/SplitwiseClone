@@ -13,7 +13,8 @@ const FriendDetail = () => {
         dispatch(getFriendDetail(friendId))
     },[])
 
-    
+    const userId =useSelector(state => state.session.user.id)
+    console.log("UserID",userId)
     const info = useSelector(state=>state.friendDetail)
     console.log("info",info)
    
@@ -33,38 +34,17 @@ const FriendDetail = () => {
       }
       else{
         expensesList = friendDetail.shared_expenses
+
       }
     
     }
     console.log("expensesList",expensesList)
 
-    let groupIdList 
-    // let sharedExpenses
-    // if(friendDetail){
-    //   sharedExpenses = friendDetail.shared_expenses
-    //   console.log("friendDetail.shared_expenses",friendDetail.shared_expenses)
-    //     if(friendDetail.shared_expenses){
-    //       setNoshared(true)
-    //     }
-        // else{
-        // expensesList = thisFriend[0].shared_expenses
-        // groupIdList = expensesList.map(expense => expense.id)
-        // console.log("groupId",groupIdList)
-      // }
-        
-    // }
-    // console.log("&&&&&&&&",expensesList)
-  
-    
-   
-
-    // console.log("groupId",groupId)
-
   return (
     <div>
-     <p>Hello</p>
-      {/* {noShared && <p>You have not added any expenses yet</p>} */}
-      {friendDetail && expensesList.map(expense=><li id ={expense.id}>{expense.description} {expense.amount}</li>) }
+      {friendDetail && expensesList.map(
+        (expense)=>expense.user_id === userId ? <li id ={expense.id}>{expense.description} you paid:{expense.amount*2} </li> : <li id ={expense.id}>{expense.description}  you owe:{expense.amount}</li>)}
+      {/* {friendDetail && expensesList.map(expense=><li id ={expense.id}>{expense.description} {expense.amount}</li>) } */}
     </div>
   )
 }

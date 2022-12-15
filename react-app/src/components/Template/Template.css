@@ -1,0 +1,119 @@
+.outer-container {
+    height:100vh;
+    background-color: aqua;
+    display: flex;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+
+}
+
+.left-side{
+    display: flex;
+    background-color: blue;
+    flex:1.5
+}
+
+
+
+.middle-side {
+    display: flex;
+    flex-direction: column;
+    background-color:red;
+    flex:1
+}
+
+
+
+
+.right-side {
+    display: flex;
+    background-color: brown;
+    flex:1.5
+}
+
+
+.left-empty-div {
+    flex-grow: 80%;
+    background-color: antiquewhite;   
+    flex:1
+}
+
+.right-side-bar-div{
+    flex-grow: 20%;
+    background-color: yellow;
+    flex:1;
+    display: flex;
+    flex-direction: column;
+
+
+    
+}
+
+.active-side-bar {
+    display: flex;
+    padding-right: 80px;
+    padding-left: 80px;
+    flex-direction: column;
+    row-gap: 10px;
+    column-gap: 20px;
+}
+
+
+.left-with-info {
+    flex-grow: 80%;
+    background-color: antiquewhite;   
+    flex:1
+}
+
+.right-empty{
+    flex-grow: 20%;
+    background-color: yellow;
+    flex:1
+}
+
+
+.dashboard{
+    background-color: aliceblue;
+    color: black;
+
+
+}
+
+
+.all-expenses {
+    background-color: aliceblue;
+    color: black;
+    
+
+
+}
+
+
+.group {
+    background-color: aliceblue;
+    color: black;
+
+
+    
+}
+
+.friends {
+    background-color: aliceblue;
+    color: black;
+
+
+    
+}
+
+
+
+.title {
+    background-color:pink;
+}
+
+
+.content {
+    background-color: aquamarine;
+}
