@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import AllExpenses from '../AllExpenses'
+import GroupsSidebar from '../Groups/GroupsSidebar'
 import "./Template.css"
 
 const Template = () => {
@@ -16,6 +17,8 @@ const Template = () => {
                     <div className='dashboard'>dashboard</div>
                     <div className='all-expenses'><NavLink to="/expenses/all">All Expenses</NavLink></div>
                     <div className='group'>group</div>
+                    <div className='all-expenses'>all expenses</div>
+                    <div className='group'><GroupsSidebar/></div>
                     <div className='friends'>friends</div>
                 </div>
             </div>
