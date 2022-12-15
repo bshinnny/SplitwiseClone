@@ -1,6 +1,6 @@
 .outer-container {
     height:100vh;
-    background-color: aqua;
+    /* background-color: aqua; */
     display: flex;
     margin-left: 0;
     margin-right: 0;
@@ -20,7 +20,7 @@
 .middle-side {
     display: flex;
     flex-direction: column;
-    background-color:red;
+    /* background-color:red; */
     flex:1
 }
 
@@ -36,7 +36,7 @@
 
 .left-empty-div {
     flex-grow: 80%;
-    background-color: black;   
+    background-color: black;
     flex:1
 }
 
@@ -48,7 +48,7 @@
     flex-direction: column;
 
 
-    
+
 }
 
 .active-side-bar {
@@ -63,7 +63,7 @@
 
 .left-with-info {
     flex-grow: 80%;
-    background-color: antiquewhite;   
+    background-color: antiquewhite;
     flex:1
 }
 
@@ -85,7 +85,7 @@
 .all-expenses {
     background-color: aliceblue;
     color: black;
-    
+
 
 
 }
@@ -96,7 +96,7 @@
     color: black;
 
 
-    
+
 }
 
 .friends {
@@ -104,7 +104,7 @@
     color: black;
 
 
-    
+
 }
 
 
@@ -115,5 +115,5 @@
 
 
 .content {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
 }
