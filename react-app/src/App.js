@@ -66,15 +66,16 @@ function App() {
           <h1>My Home Page</h1>
           <SplashPage />
         </Route>
-        <ProtectedRoute path='/expenses/all' exact={true} />
+        <ProtectedRoute path='/expenses/all' exact={true}>
             <AllExpenses />
-        <ProtectedRoute exact path='/groups/current'>
+        </ProtectedRoute>
+        <ProtectedRoute path='/groups/current' exact={true}>
           <GroupsSidebar />
         </ProtectedRoute>
-        <ProtectedRoute exact path='/groups/new'>
+        <ProtectedRoute path='/groups/new' exact={true}>
           <CreateGroupForm />
         </ProtectedRoute>
-        <ProtectedRoute exact path='/groups/:groupId'>
+        <ProtectedRoute path='/groups/:groupId' exact={true}>
           <GroupDetails />
         </ProtectedRoute>
       </Switch>
