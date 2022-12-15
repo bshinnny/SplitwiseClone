@@ -60,6 +60,8 @@ export const getAllFriends = () => async (dispatch) =>{
 
 //get friend detail
 export const getFriendDetail = (id) => async (dispatch) =>{
+  console.log("thunk IDDDDDDD",id)
+  console.log("TYPE of ID", typeof(id))
   const response = await fetch(`/api/friends/${id}`)
 
   const info = await response.json()
