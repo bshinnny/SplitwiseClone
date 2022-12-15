@@ -26,7 +26,7 @@ export default function FriendSideBar(){
     const handleDelete =(e)=>{
         console.log("friend_id at form handling",e.target.id)
         const friend_id = e.target.id
-        
+        console.log("friend id",friend_id)
         dispatch(deletingFriend(friend_id))
     }
 

@@ -108,7 +108,7 @@ export const createFriend = (email) => async (dispatch) => {
 //delete a friend from the backend
 export const deletingFriend = (id)=>async (dispatch)=> {
   console.log("thunk friend_id",id)
-  const response = await fetch(`api/friends/${id}`,{
+  const response = await fetch(`/api/friends/${id}`,{
     method:"DELETE",
     headers:{
       "Content-Type":"application/json"

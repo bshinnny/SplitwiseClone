@@ -23,7 +23,7 @@ export default function AddingFriendForm({closeModal}){
                 await setErrors(data.error);
             } else {
                 dispatch(getAllFriends())
-                history.push(`/current`)
+                history.push(`/friends/current`)
                 closeModal()
             }
         } catch (error) {

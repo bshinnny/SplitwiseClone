@@ -43,7 +43,7 @@ const FriendDetail = () => {
   return (
     <div>
       {friendDetail && expensesList.map(
-        (expense)=>expense.user_id === userId ? <li id ={expense.id}>{expense.description} you paid:{expense.amount*2} </li> : <li id ={expense.id}>{expense.description}  you owe:{expense.amount}</li>)}
+        (expense)=>expense.user_id === userId ? <li key ={expense.id} id ={expense.id}>{expense.description} you paid:{expense.amount*2} </li> : <li id ={expense.id}>{expense.description}  you owe:{expense.amount}</li>)}
       {/* {friendDetail && expensesList.map(expense=><li id ={expense.id}>{expense.description} {expense.amount}</li>) } */}
     </div>
   )

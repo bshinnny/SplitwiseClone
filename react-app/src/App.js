@@ -50,7 +50,7 @@ function App() {
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path='/current' exact={true} >
+        <ProtectedRoute path='/friends/current' exact={true} >
           <FriendSideBar/>
         </ProtectedRoute>
         <ProtectedRoute path='/friends/:friendId' exact={true} >
