@@ -43,12 +43,12 @@ export const createAGroup = (group) => {
     }
 }
 
-// export const addGroupMember = (member) => {
-//     return {
-//         type: ADD_GROUP_MEMBER,
-//         member
-//     }
-// }
+export const addGroupMember = (userGroup) => {
+    return {
+        type: ADD_GROUP_MEMBER,
+        userGroup
+    }
+}
 
 export const deleteAGroup = (groupId) => {
     return {
@@ -96,39 +96,35 @@ export const getGroupDetailsThunk = (groupId) => async dispatch => {
 }
 
 export const createAGroupThunk = (group) => async dispatch => {
-    const { memberEmail, ...newGroup } = group;
+    // const { memberEmail, ...newGroup } = group;
     const response = await fetch(`/api/groups`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(newGroup)
+        body: JSON.stringify(group)
     })
 
     if (response.ok) {
         const group = await response.json();
-        const userGroup = await fetch(`/api/groups/${group.id}/members`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({memberEmail})
-        })
-        
         dispatch(createAGroup(group))
         return group;
     }
 }
 
-// export const addGroupMemberThunk = () => async dispatch => {
-//     const response = await fetch(`/api/groups`, {
-//         method: 'POST',
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify(group)
-//     })
+export const addGroupMemberThunk = (email, groupId) => async dispatch => {
+    const response = await fetch(`/api/groups/${groupId}/members`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({'memberEmail': email})
+    })
 
-//     if (response.ok) {
-//         const group = await response.json();
-//         dispatch(createAGroup(group))
-//         return group;
-//     }
-// }
+    if (response.ok) {
+        const userGroup = await response.json();
+        dispatch(addGroupMember(userGroup))
+        return userGroup;
+    } else {
+        throw response;
+    }
+}
 
 export const deleteAGroupThunk = (groupId) => async dispatch => {
     const response = await fetch(`/api/groups/${groupId}`, {
@@ -184,10 +180,14 @@ export default function groupsReducer(state = initialState, action) {
             newState = {...state, userGroups: {...state.userGroups}};
             newState.userGroups[action.group.id] = action.group;
             return newState;
+        case ADD_GROUP_MEMBER:
+            newState = {...state, groupMembers: {...state.groupMembers}};
+            newState.newUserGroup = action.userGroup;
+            return newState;
         case DELETE_A_GROUP:
             newState = {...state, userGroups: {...state.userGroups}};
             delete newState.userGroups[action.groupId];
-            return newState
+            return newState;
         default:
             return state;
     }
