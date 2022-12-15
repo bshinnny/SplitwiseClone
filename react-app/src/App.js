@@ -63,7 +63,6 @@ function App() {
           <CommentsOfExpense />
         </ProtectedRoute>
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
           <SplashPage />
         </Route>
         <ProtectedRoute path='/expenses/all' exact={true}>
