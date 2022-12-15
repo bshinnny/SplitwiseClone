@@ -71,6 +71,15 @@ export const editOneExpense = (info, expenseId) => async (dispatch) => {
         dispatch(editExpense(edited))
         return edited
     }
+    else {
+        const data = await response.json()
+        if (data.errors){
+            return data
+        }
+        else{
+            return data
+        }
+    }
 
 }
 

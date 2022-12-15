@@ -37,25 +37,27 @@ export default function EditExpense({ setShowModal, expense, setHasSubmitted }) 
         e.preventDefault()
 
         let updatedExpense = await dispatch(editOneExpense(info, expense.id))
-            .then(()=> setShowModal(false))
-            .then(() => setHasSubmitted(prevVal => !prevVal))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors)
-            })
+            // .then(()=> setShowModal(false))
+            // .then(() => setHasSubmitted(prevVal => !prevVal))
+            // .catch(async (res) => {
+            //     const data = await res.json();
+            //     if (data && data.errors) setErrors(data.errors)
+            // })
+            if (updatedExpense?.errors) {
+                setErrors(updatedExpense.errors)
+            }
+            else {
+                setShowModal(false)
+            }
 
         dispatch(getAllExpenses())
 
 
-        if (updatedExpense) {
-            setErrors([])
-            history.push('/expenses/all')
-        }
+        // if (updatedExpense) {
+        //     setErrors([])
+        //     history.push('/expenses/all')
+        // }
     }
-
-    // useEffect(() => {
-    //     dispatch(editOneExpense(info, expense.id))
-    // }, [dispatch])
 
     return (
         <div>
