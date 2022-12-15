@@ -159,10 +159,11 @@ def add_group_member(group_id):
     # if True:
     if form.validate_on_submit():
         email = form.data['memberEmail']
-        user = User.query.filter(User.email == email).all()[0]
+
+        user = User.query.filter(User.email == email).first()
 
         if not user:
-            return {"error": "User couldn't be found."}, 404
+            return {"error": ["User email isn't associated with an account."]}, 404
 
         user_id = user.id
         # user_id = 1

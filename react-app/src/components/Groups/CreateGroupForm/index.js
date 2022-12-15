@@ -10,21 +10,29 @@ function CreateGroupForm() {
     const [name, setName] = useState('');
     const [type, setType] = useState('');
     const [memberEmail, setMemberEmail] = useState('');
+    const [additionalEmails, setAdditionalEmails] = useState('')
     const [counter, setCounter] = useState(0);
     const [errors, setErrors] = useState([]);
 
     // console.log('TYPE IS:', type)
 
-    const handleClick = (e) => {
+    const handleAddClick = (e) => {
         e.preventDefault();
+        // console.log('ADD', counter)
         setCounter(counter + 1)
     }
 
-    // const handleOnChange = (e) => {
-    //     const emailArr = [];
-    //     emailArr.push(e.target.value);
-    //     setMemberEmails([...memberEmails, ...emailArr])
-    // }
+    const handleDeleteClick = (e) => {
+        e.preventDefault();
+        // console.log('DELETE', counter)
+        setCounter(counter - 1)
+    }
+
+    const handleOnChange = (e) => {
+        const emailArr = [];
+        emailArr.push(e.target.value);
+        setAdditionalEmails([...additionalEmails, ...emailArr])
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -43,10 +51,13 @@ function CreateGroupForm() {
             return;
         }
 
+        console.log('ADDITIONAL EMAILS', additionalEmails)
+
         const newGroup = {
+            memberEmail,
             name,
             type,
-            memberEmail
+            // additionalEmails
         };
 
         return dispatch(groupActions.createAGroupThunk(newGroup))
@@ -54,7 +65,7 @@ function CreateGroupForm() {
                 setName('')
                 setType('')
                 setMemberEmail('')
-                history.push(`/groups/${group.id}`);
+                // history.push(`/groups/${group.id}`);
             })
     };
 
@@ -101,6 +112,29 @@ function CreateGroupForm() {
                         className='input'
                     />
                 </label>
+                {[...Array(counter).keys()].map((num) => {
+                    console.log('RENDER', additionalEmails)
+                    return (
+                        <div key={`additional-email-${num}`}>
+                            <input
+                                type='email'
+                                // onChange={(e) => {
+                                //     const emailsArr = [];
+                                //     emailsArr.push(e.target.value)
+                                //     setAdditionalEmails(emailsArr)
+                                // }}
+                                onSubmit={handleOnChange}
+                                key={`additional-email-${num}`}
+                                // value={`additionalEmail-${num}`}
+                                placeholder='Additional Member Email'
+                                required
+                                className='input'
+                            />
+                            <button onClick={handleDeleteClick}>X</button>
+                        </div>
+                    )
+                })}
+                <button onClick={handleAddClick}>Add additional member.</button>
                 <button className='submit-button clickable' type='submit'>Submit New Group</button>
             </form>
         </div>

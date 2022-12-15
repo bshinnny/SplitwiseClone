@@ -108,8 +108,9 @@ export const createAGroupThunk = (group) => async dispatch => {
         const userGroup = await fetch(`/api/groups/${group.id}/members`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(memberEmail)
+            body: JSON.stringify({memberEmail})
         })
+        
         dispatch(createAGroup(group))
         return group;
     }
