@@ -119,5 +119,9 @@ div.titleCloseBtn {
     border-radius: 5px;
     border-width: thin;
     border-color: rgb(238, 238,238);
-    
+
+}
+
+.add-friend-button {
+    cursor: pointer;
 }

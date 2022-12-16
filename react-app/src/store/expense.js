@@ -39,6 +39,10 @@ const delExpense = (expenseId) => ({
     expenseId
 })
 
+const CLEAR_EXPENSES = "expenses/CLEAR_EXPENSES"
+export const clearExpenses = () => ({
+    type: CLEAR_EXPENSES
+})
 
 
 
@@ -205,6 +209,14 @@ const expensesReducer = (state = initialState, action) => {
                 oneExpense: {...state.oneExpense},
                 payableExpenses: {...state.payableExpenses},
                 receivableExpenses: {...state.receivableExpenses}
+            }
+            return newState
+        case CLEAR_EXPENSES:
+            newState = {
+                ...state,
+                oneExpense: {},
+                payableExpenses: {},
+                receivableExpenses: {}
             }
             return newState
         default:
