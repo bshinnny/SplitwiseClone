@@ -88,3 +88,17 @@
     display: list-item;
     list-style-type: circle;
 }
+
+
+.dashboard-link {
+    text-decoration: none;
+    color: gray;
+}
+
+
+
+
+.dashboard {
+    display: flex;
+
+}

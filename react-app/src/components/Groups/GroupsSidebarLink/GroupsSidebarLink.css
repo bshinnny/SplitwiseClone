@@ -1,5 +1,9 @@
 .group-link-div {
     display: flex;
+    padding-top: 2px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    color: gray;
     /* border: 1px red solid; */
 }
 
@@ -13,4 +17,10 @@
 .navlink-text {
     margin: 0;
     padding: 0 2px;
+    color: gray;
+}
+
+
+.group-link-div:hover {
+    background-color: #EEEEEE;
 }
