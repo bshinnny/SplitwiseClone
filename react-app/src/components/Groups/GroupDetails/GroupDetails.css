@@ -1,0 +1,96 @@
+.group-expense {
+    padding: 10px;
+    border-bottom: lightgray 1px solid;
+    padding-bottom: 20px;
+    font-size: large;
+    /* border: 1px red solid; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.exp-amt-rec {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    /* border: 1px solid red; */
+}
+
+.group-expense-name {
+    /* border: 1px solid blue; */
+    width: 150px;
+    display: flex;
+    align-self: center;
+    font-size: 15px;
+}
+
+.group-expense-amount-frt {
+    color: #318970;
+    font-size: 20px;
+    font-weight: 600;
+    /* margin-bottom: 20px; */
+    display: flex;
+    justify-content: right;
+}
+
+.group-expense-amount-rec {
+    color: #ff652f;
+    font-size: 20px;
+    font-weight: 600;
+    /* margin-bottom: 20px; */
+    display: flex;
+    justify-content: right;
+}
+
+.group-expense-recipient {
+    color: grey;
+    font-size: 15px;
+}
+
+.group-header {
+    padding-left: 0px;
+}
+
+.group-header-member {
+    padding-left: 10px;
+}
+
+.no-exp-group-text {
+    padding-left: 10px;
+}
+
+.member-name-div {
+    display: flex;
+    /* border: 1px solid red; */
+    align-items: center;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.member-name {
+    /* border: 1px solid red; */
+    justify-content: right;
+    padding-left: 2px;
+}
+
+.group-settings {
+    display: flex;
+    align-items: center;
+    width: 115px;
+    justify-content: space-evenly;
+    /* border: 1px solid red; */
+}
+
+.group-button-clickable {
+    background-color: transparent;
+    color: grey;
+    padding: 5px 7px;
+    border: 1px lightgray solid;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.title.group-exp-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+}

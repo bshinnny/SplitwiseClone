@@ -4,6 +4,7 @@ from app.models import db, User, Expense, Group
 from sqlalchemy.orm import joinedload
 from app.forms import ExpenseForm, UpdateExpenseForm
 from .auth_routes import validation_errors_to_error_messages
+from sqlalchemy import or_
 
 expense_routes = Blueprint('expenses', __name__)
 
@@ -21,10 +22,11 @@ def all_expenses_of_user():
     user = User.query.get(current_user.id)
     user_id = current_user.get_id()
 
-    fronted_expenses = Expense.query.options(joinedload(Expense.recipient)).filter(Expense.user_id == user_id).all()
+    fronted_expenses = Expense.query.options(joinedload(Expense.user)).options(joinedload(Expense.recipient)).filter(Expense.user_id == user_id).all()
 
-    owe_others_expenses = Expense.query.options(joinedload(Expense.user)).filter(Expense.recipient_id == user_id).all()
+    owe_others_expenses = Expense.query.options(joinedload(Expense.user)).options(joinedload(Expense.recipient)).filter(Expense.recipient_id == user_id).all()
 
+    # all_expenses = Expense.query.options(joinedload(Expense.user)).options(joinedload(Expense.recipient)).filter(or_(Expense.user_id == user_id, Expense.recipient_id == user_id)).all()
 
     def fronted_expenses_to_dict(expense):
 
@@ -41,7 +43,14 @@ def all_expenses_of_user():
             "Recipient": {
                 "first_name": expense.recipient.first_name,
                 "last_name": expense.recipient.last_name,
-                "nickname": expense.recipient.nickname
+                "nickname": expense.recipient.nickname,
+                "id": expense.recipient.id
+            },
+            "Fronter": {
+                "first_name": expense.user.first_name,
+                "last_name": expense.user.last_name,
+                "nickname": expense.user.nickname,
+                "id": expense.user.id
             }
         }
 
@@ -60,9 +69,17 @@ def all_expenses_of_user():
             "Fronter": {
                 "first_name": expense.user.first_name,
                 "last_name": expense.user.last_name,
-                "nickname": expense.user.nickname
+                "nickname": expense.user.nickname,
+                "id": expense.user.id
+            },
+                "Recipient": {
+                "first_name": expense.recipient.first_name,
+                "last_name": expense.recipient.last_name,
+                "nickname": expense.recipient.nickname,
+                "id": expense.recipient.id
             }
         }
+
 
     accounts_receivable = [fronted_expenses_to_dict(expense) for expense in fronted_expenses]
     accounts_payable = [owe_others_expenses_to_dict(expense) for expense in owe_others_expenses]
@@ -72,6 +89,42 @@ def all_expenses_of_user():
     return {'Receivable Expenses': accounts_receivable, 'Payable Expenses': accounts_payable}
 
 
+@expense_routes.route("/<int:expense_id>")
+@login_required
+def get_one_expense(expense_id):
+
+    id_of_user = current_user.id
+
+    expense = Expense.query.options(joinedload(Expense.recipient)).options(joinedload(Expense.user)).filter(Expense.id == expense_id).first()
+    print(expense, '------------------------')
+    if(not expense):
+        return {"errors": "Expense not found"}
+
+    if not id_of_user == expense.user_id and not id_of_user == expense.recipient_id and not expense.group_id:
+        return {'errors': "Not authorized to view this expense"}, 401
+
+
+    return {
+            "id": expense.id,
+            "description": expense.description,
+            "user_id": expense.user_id,
+            "group_id": expense.group_id,
+            "recipient_id": expense.recipient_id,
+            "amount": expense.amount,
+            "date": expense.date,
+            "note": expense.note,
+            "status": expense.status,
+            "Fronter": {
+                "first_name": expense.user.first_name,
+                "last_name": expense.user.last_name,
+                "nickname": expense.user.nickname
+            },
+            "Recipient": {
+                "first_name": expense.recipient.first_name,
+                "last_name": expense.recipient.last_name,
+                "nickname": expense.recipient.nickname
+            }
+        }
 
 
 
@@ -84,13 +137,20 @@ def create_expense():
     form = ExpenseForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    recipient_email = form.data["recipientEmail"]
+
+    recipient_user = User.query.filter(User.email == recipient_email).first()
+
+    if(not recipient_user):
+        return {"errors": ["Recipient not found"]}, 404
+
     id_of_user = current_user.id #user is an integer
 
     if form.validate_on_submit():
         description = form.data["description"]
         user_id = id_of_user
         group_id = form.data["group_id"]
-        recipient_id = form.data["recipient_id"]
+        recipient_id = recipient_user.id
         amount = form.data["amount"]
         note = form.data["note"]
 
@@ -119,10 +179,10 @@ def update_expense(expense_id):
     expense = Expense.query.get(expense_id) #if not found, expense will be None
 
     if not expense:
-        return {'error': "Expense not found"}, 404
+        return {'errors': "Expense not found"}, 404
 
     if not id_of_user == expense.user_id and not id_of_user == expense.recipient_id:
-        return {'error': "Not authorized to edit this expense"}, 401
+        return {'errors': "Not authorized to edit this expense"}, 401
 
     if expense and form.validate_on_submit():
         expense.description = form.data["description"]
@@ -148,10 +208,10 @@ def delete_expense(expense_id):
     id_of_user = current_user.id
 
     if not expense:
-        return {'error': "Expense not found"}, 404
+        return {'errors': "Expense not found"}, 404
 
     if not id_of_user == expense.user_id and not id_of_user == expense.recipient_id:
-        return {'error': "Not authorized to delete this expense"}, 401
+        return {'errors': "Not authorized to delete this expense"}, 401
 
     db.session.delete(expense)
     db.session.commit()

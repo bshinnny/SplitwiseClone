@@ -1,0 +1,127 @@
+.outer-container {
+    width: 100%;
+}
+
+.dashboard-top-expenses {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5%;
+}
+
+.dashboard-values-total-expenses-container {
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 1px solid lightgray;
+
+}
+
+
+.dashboard-values-labels {
+    color: gray;
+    font-size: small;
+}
+
+#dashboard-values-owed {
+    color: #ff652f;
+}
+
+#dashboard-values-owe {
+    color: #318970;
+}
+
+.dashboard-content-total-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.you-owe-column-container {
+    border-right: 1px lightgray solid;
+    width: 50%;
+    padding-left: 5px;
+}
+
+.you-are-owed-column-container {
+    width: 50%;
+    padding-left: 5px;
+}
+
+.you-owe-are-owed-label {
+    color: gray;
+    font-weight: 600;
+    padding-top: 10px;
+}
+
+.dashboard-expense-name {
+    font-weight: 600;
+    padding-top: 10px;
+    font-size: 18px;
+}
+
+.net-amounts-disclaimer {
+    font-size: 12px;
+    letter-spacing: -0.5px;
+    padding-bottom: 20px;
+}
+
+.dashboard-you-owe-text {
+    color: #ff652f;
+    font-size: 14px;
+}
+
+.dashboard-each-user-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.fa-user {
+    border-radius: 5px;
+    font-size: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.dashboard-you-are-owed-text {
+    color: #318970;
+    font-size: 14px;
+}
+
+.dashboard-list-item {
+    font-size: 12px;
+    color: gray;
+    display: list-item;
+    list-style-type: circle;
+}
+
+
+.dashboard-link {
+    text-decoration: none;
+    color: gray;
+}
+
+
+
+
+.dashboard {
+    display: flex;
+
+}
+.individual-charge-button {
+    font-size: 14px;
+    width: 160px;
+    margin: 20px;
+    cursor: pointer;
+    position: relative;
+    bottom: 2px;
+}
+
+.individual-charge-button:hover {
+    box-shadow: none;
+    bottom: 0;
+}
+
+.dashboard-values-container {
+    font-size: 14px;
+    padding: 5px 5px;
+}

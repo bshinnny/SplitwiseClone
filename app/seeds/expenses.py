@@ -62,12 +62,23 @@ def seed_expenses():
         status = False
     )
 
+    expense7= Expense(
+        description = "Buffet in TX",
+        user_id = 4,
+        group_id = 2,
+        recipient_id =1,
+        amount = 888,
+        note = "Can you guys pay it before tomorrow?",
+        status = False
+    )
+
     db.session.add(expense1)
     db.session.add(expense2)
     db.session.add(expense3)
     db.session.add(expense4)
     db.session.add(expense5)
     db.session.add(expense6)
+    db.session.add(expense7)
     db.session.commit()
 
 
