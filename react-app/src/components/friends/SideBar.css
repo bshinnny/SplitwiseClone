@@ -14,8 +14,9 @@
     padding-top:0px;
     padding-bottom: 0px;
     background-color:rgb(238, 238,238) ;
-    display: flex;
-    justify-content: space-between;
+    
+    /* display: flex; */
+    /* justify-content: space-between; */
   
 }
 
@@ -35,12 +36,11 @@ li{
 }
 
 p.p-friends {
-    padding-top:0px;
-    padding-bottom: 0px;
+   
     display: inline-block;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: 3px;
     color: gray;
+    font-size: 10px;
     
 }
 
@@ -53,8 +53,9 @@ p.p-friends {
     border: none;
     background-color:rgb(238, 238,238);
     display: inline-block;
-    margin-left: 70px;
-    color:gray
+    /* margin-left: 70px; */
+    color:gray;
+    font-size: 10px;
 }
 
 .firend-deleteBtn {
@@ -93,4 +94,8 @@ p.p-friends {
 .deleteBtn:hover {
     cursor: pointer;
     color: red;
+}
+
+.firend-deleteBtn:hover {
+    color:gray ;
 }

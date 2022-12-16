@@ -11,8 +11,6 @@ import { getAllExpenses } from '../../store/expense'
 const Dashboard = () => {
     const dispatch = useDispatch()
 
-
-
     let currentUser = useSelector(state => state.session.user)
 
     let myPayableExpenses = useSelector(state => state.expense.payableExpenses)
@@ -129,8 +127,8 @@ const Dashboard = () => {
                 </div>
                 <div className='right-side-bar-div'>
                     <div className='active-side-bar'>
-                        <div className='dashboard '><NavLink to="/dashboard">Dashboard</NavLink></div>
-                        <div className='all-expenses '><NavLink to="/expenses/all">All Expenses</NavLink></div>
+                        <div className='dashboard '><i class="fa-solid fa-house"></i>&nbsp; <NavLink className="dashboard-link" to="/dashboard">Dashboard</NavLink></div>
+                        <div className='all-expenses'><i class="fa-solid fa-list">&nbsp; </i><NavLink className="all-expenses-link" to="/expenses/all">All Expenses</NavLink></div>
                         <div className='group '><GroupsSidebar /></div>
                         <div className='friends '><FriendSideBar /></div>
                     </div>
@@ -139,7 +137,7 @@ const Dashboard = () => {
             <div className='middle-side'>
                 <div className='title'>
                     <div className='dashboard-top-expenses'>
-                        <h1 className='dashboard-header'>Dashboard</h1>
+                        <h1 id='dashboard-header'>Dashboard</h1>
                         <CreateExpenseModal />
                     </div>
                     <div className='dashboard-values-total-expenses-container'>
@@ -147,11 +145,11 @@ const Dashboard = () => {
                             <div className='dashboard-values-labels'>total balance</div>
                             <div id='dashboard-values-balance'>${(totalLentOut.toFixed(2) - totalOwed.toFixed(2)).toFixed(2)}</div>
                         </div>
-                        <div>
+                        <div className='dashboard-values-container'>
                             <div className='dashboard-values-labels'>you owe</div>
                             <div id='dashboard-values-owed'>${totalOwed.toFixed(2)}</div>
                         </div>
-                        <div>
+                        <div className='dashboard-values-container'>
                             <div className='dashboard-values-labels'>you are owed</div>
                             <div id='dashboard-values-owe'>${totalLentOut.toFixed(2)}</div>
                         </div>

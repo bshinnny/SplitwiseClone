@@ -70,6 +70,7 @@ const NavBar = () => {
           </button>
           {showMenu && (
             <ul className='profile-dropdown'>
+              <NavLink style={{ color: 'black', textDecoration: 'none'}} to='/dashboard'>Dashboard</NavLink>
               <li>Username: {user.username}</li>
               <li>Email: {user.email}</li>
               <li><LogoutButton /></li>
