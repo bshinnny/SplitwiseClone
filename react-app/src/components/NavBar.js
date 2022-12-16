@@ -70,11 +70,8 @@ const NavBar = () => {
           </button>
           {showMenu && (
             <ul className='profile-dropdown'>
-              <li>
-                <NavLink style={{ color: 'black', textDecoration: 'none'}} key='create a group' to='/groups/new'>
-                  Create a group
-                </NavLink>
-              </li>
+              <li>Username: {user.username}</li>
+              <li>Email: {user.email}</li>
               <li><LogoutButton /></li>
             </ul>
           )}

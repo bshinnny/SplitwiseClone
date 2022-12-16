@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import CommentsOfExpense from './components/Comment/Comment';
+import Dashboard from './components/Dashboard/Dashboard';
 
 import SplashPage from './components/SplashPage';
 import AllExpenses from './components/AllExpenses';
@@ -64,6 +65,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
+        </ProtectedRoute>
+        <ProtectedRoute path='/dashboard' exact={true}>
+          <Dashboard />
         </ProtectedRoute>
         {/* <ProtectedRoute path='/expenses/:expenseId/comments' exact={true} >
           <CommentsOfExpense />
