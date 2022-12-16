@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import {getAllFriends} from "../../store/friends";
 
 
+
 export default function AddingFriendForm({closeModal}){
     const [email, setEmail] = useState("")
     const [errors, setErrors] = useState()
@@ -45,14 +46,13 @@ export default function AddingFriendForm({closeModal}){
                 <div className="titleCloseBtn">
                     <button onClick={()=>{closeModal(false)}}> X </button>
                 </div>
-                <div className="title">
-                    <h1>Invite a Friend</h1>
+                <div className="addingFormtitle">
+                   <img src="https://s3.amazonaws.com/itunes-images/app-assets/458023433/80793600/458023433-80793600-circularArtwork-300.jpg" alt="logo"></img>&nbsp; <h2>Invite a Friend</h2>
                 </div>
                 <div className="body">
                     <form onSubmit={formSubmission}>
-                        <label>email</label>
-                        <input type="email" placeholder="email" onChange={(e)=>setEmail(e.target.value)} required></input>
-                        <button type="submit">add</button>
+                        <input className="inputEmail" type="email" placeholder="email address" onChange={(e)=>setEmail(e.target.value)} required></input>
+                        <p className="addButton"><button type="submit">Add friend</button></p>
                     </form>
                 </div>
             </div>

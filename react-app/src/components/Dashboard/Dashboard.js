@@ -164,8 +164,8 @@ const Dashboard = () => {
                             <div className='net-amounts-disclaimer'>*Net amounts may not add up to dashboard value </div>
                             {overlapping.filter((expense) => expense.amount < 0).map((expense) => {
                                 return (
-                                    <div className='dashboard-each-user-container'>
-                                        <i class="fa-solid fa-user"></i>
+                                    <div className='dashboard-each-user-container' key={`dash ${expense.id}`}>
+                                        <i className="fa-solid fa-user"></i>
                                         <div className='dashboard-each-user-right-side'>
                                         <div className="dashboard-expense-name">{expense.first_name}&nbsp;{expense.last_name}</div>
                                         <div className='dashboard-you-owe-text'>you owe {(expense.amount * -1).toFixed(2)}</div>
@@ -179,11 +179,18 @@ const Dashboard = () => {
                             <div className='net-amounts-disclaimer'>*Net amounts may not add up to dashboard value </div>
                             {overlapping.filter((expense) => expense.amount > 0).map((expense) => {
                                 return (
-                                    <div className='dashboard-each-user-container'>
-                                        <i class="fa-solid fa-user"></i>
+                                    <div className='dashboard-each-user-container' key={`dashboard ${expense.id}`}>
+                                        <i className="fa-solid fa-user"></i>
                                         <div className='dashboard-each-user-right-side'>
                                         <div className='dashboard-expense-name'>{expense.first_name}&nbsp;{expense.last_name}</div>
                                         <div className='dashboard-you-are-owed-text'>owes you {expense.amount.toFixed(2)}</div>
+                                        {Object.values(myReceivableExpenses).filter((exp) => exp.Recipient.id == expense.id).map((e) => {
+                                            return (
+                                                <div key={`dashboard ul ${e.id} `}>
+                                                    <li className='dashboard-list-item'>{e.Recipient.first_name} owes you {e.amount.toFixed(2)} for "{e.description}"</li>
+                                                </div>
+                                            )
+                                        })}
                                         </div>
                                     </div>
                                 )
@@ -195,10 +202,10 @@ const Dashboard = () => {
             </div>
             <div className='right-side'>
                 <div className='left-with-info'>
-                    <p>left with infor</p>
+                    <p></p>
                 </div>
                 <div className='right-empty'>
-                    <p>right-empty</p>
+                    <p></p>
                 </div>
             </div>
         </div>
