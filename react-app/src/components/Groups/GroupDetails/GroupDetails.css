@@ -20,7 +20,7 @@
     width: 150px;
     display: flex;
     align-self: center;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .group-expense-amount-frt {
@@ -47,6 +47,14 @@
 }
 
 .group-header {
+    padding-left: 0px;
+}
+
+.group-header-member {
+    padding-left: 10px;
+}
+
+.no-exp-group-text {
     padding-left: 10px;
 }
 
@@ -55,6 +63,7 @@
     /* border: 1px solid red; */
     align-items: center;
     padding-left: 10px;
+    padding-bottom: 10px;
 }
 
 .member-name {

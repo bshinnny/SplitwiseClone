@@ -28,7 +28,7 @@ function GroupDetails() {
     const dispatchDelete = (e) => {
         e.preventDefault();
         dispatch(groupActions.deleteAGroupThunk(groupId));
-        history.push(`/expenses/all`);
+        history.push(`/dashboard`);
     }
 
     const dispatchEdit = (e) => {
@@ -70,11 +70,12 @@ function GroupDetails() {
                     {group.type === 'Trip' && (<h2 className='group-header'><i class="fa-solid fa-plane-departure"></i> {group.name}</h2>)}
                     {group.type === 'Couple' && (<h2 className='group-header'><i class="fa-solid fa-user-group"></i> {group.name}</h2>)}
                     {group.type === 'Other' && (<h2 className='group-header'><i class="fa-solid fa-star"></i> {group.name}</h2>)}
-                    <CreateGroupExpenseModal />
+                    {/* <CreateGroupExpenseModal /> */}
                 </div>
                 <div className='content'>
+                    {Object.values(expenses).length === 0 && <h2 className='no-exp-group-text'>Group has no expenses. Add a new one to see it here!</h2>}
                 <div className='group-expenses-div'>
-                {/* <h2>Group Expenses</h2> */}
+                    {/* <h2>Group Expenses</h2> */}
                 {Object.values(expenses).map((expense) => {
                     if (user.id === expense.user_id) {
                         return (
@@ -121,7 +122,7 @@ function GroupDetails() {
                         <button className='group-button-clickable' onClick={dispatchAdd}><i className="fa-solid fa-plus"></i></button>
                     </div>
                 <div className='group-members-div'>
-                <h2 className='group-header'>Members</h2>
+                <h2 className='group-header-member'>Members</h2>
                 {Object.values(members).map((member) => {
                     return (
                         <div className='member-name-div'>
