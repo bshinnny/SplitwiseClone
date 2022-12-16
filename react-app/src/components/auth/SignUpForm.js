@@ -44,6 +44,9 @@ const SignUpForm = () => {
     if (password.length > 30) {
       errorsArr.push("Password length must be less than 30 characters")
     }
+    if (password !== repeatPassword){
+      errorsArr.push("Passwords do not match")
+    }
 
     if (errorsArr.length) {
       setErrors(errorsArr)
@@ -90,7 +93,7 @@ const SignUpForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/dashboard' />;
   }
 
   return (
@@ -129,6 +132,7 @@ const SignUpForm = () => {
               name='Nickname'
               onChange={updateNickname}
               value={nickname}
+              required={true}
             ></input>
           </div>
           <div className='signup_form_input_container'>

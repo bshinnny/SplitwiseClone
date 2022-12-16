@@ -44,6 +44,8 @@
 .group-expense-recipient {
     color: grey;
     font-size: 15px;
+    display: flex;
+    justify-content: right;
 }
 
 .group-header {

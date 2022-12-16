@@ -105,7 +105,7 @@ const FriendDetail = () => {
               <div className='right-balance-div'>
                 <h3 className='your-balance'>YOUR BALANCE</h3>
                 <div className='balance-content'>
-                {(friendDetail && expensesList) && !youPaid ? <p>You owe ${total}</p> :<p>You paid ${total}</p>}
+                {(friendDetail && expensesList) && !youPaid ? <p>You owe ${total}</p> :<p>You paid ${total * 2}</p>}
                 {friendDetail && !expensesList && <p>You are all settled up</p>}
                 </div>
               </div>
