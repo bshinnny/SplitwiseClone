@@ -1,0 +1,62 @@
+
+.title-information {
+    display: flex;
+    align-items: center;
+
+}
+
+
+.user-Profile-Image {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px ;
+
+}
+
+.friend-name {
+    display: inline-block;
+    padding-left: 10px;
+    color: black;
+
+}
+
+
+.expense-lists {
+    display: flex;
+    padding-left: 10px;
+    padding-right: 30px;
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
+    border-bottom: solid;
+    justify-content: space-between;
+    align-content: center;
+    border-color:  rgb(238, 238,238);
+}
+
+.owe-paid-div {
+ display: flex;
+ 
+}
+
+.payment-des {
+    padding-right: 20px;
+}
+
+.description-div {
+    display: flex;
+    align-items: center;
+}
+
+.paid-dollar {
+    color: black;
+    font-weight: bold;
+}
+
+.lent-dollar {
+    color:#FF652F;
+    font-weight: bold;
+}
+

@@ -62,19 +62,19 @@
 }
 
 
-.title > img {
+.addingFormtitle > img {
     height: 30px;
     width: 30px;
     position: relative;
     top:5px
 }
 
-.title > h2 {
+.addingFormtitle > h2 {
     display: inline-block;
     font-family: sans-serif;
 }
 
-div.title {
+div.addingFormtitle {
     background-color: rgb(255, 255,255);
     margin-top: 0;
     padding-top: 0;
