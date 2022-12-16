@@ -60,3 +60,14 @@
     font-weight: bold;
 }
 
+.nothing {
+    display: flex;
+
+}
+
+
+.p-nothing {
+    padding-top: 30px;
+    font-weight: bold;
+}
+
