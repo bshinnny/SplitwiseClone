@@ -125,23 +125,23 @@ export default function SplashPage() {
                     <img className='iphone-imgs' src={iphone5} alt='phone'/>
                 </div>
             </div>
-            <img src={info} alt='info'></img>
-            <div>
+            <img className='footer' id='info' src={info} alt='info'></img>
+            <div className='review-container'>
                 <div className='review-bar'>
-                    <a href='https://www.ft.com/content/8ccd6f0e-18bb-11e9-b93e-f4351a53f1c3'>
+                    <a className='each-review' href='https://www.ft.com/content/8ccd6f0e-18bb-11e9-b93e-f4351a53f1c3'>
                         <img src={review1} alt='review'/>
                     </a>
-                    <img src={review2} alt='review'/>
-                    <a href='https://www.nytimes.com/2018/08/28/smarter-living/money-finance-apps-tools.html'>
+                    <img className='each-review' src={review2} alt='review'/>
+                    <a className='each-review' href='https://www.nytimes.com/2018/08/28/smarter-living/money-finance-apps-tools.html'>
                         <img src={review3} alt='review'/>
                     </a>
                 </div>
                 <div className='review-bar'>
-                    <img src={review4} alt='review'/>
-                    <a href='https://www.businessinsider.com/best-apps-for-splitting-expenses-friends-2017-3'>
+                    <img className='each-review' src={review4} alt='review'/>
+                    <a className='each-review' href='https://www.businessinsider.com/best-apps-for-splitting-expenses-friends-2017-3'>
                         <img src={review5} alt='review'/>
                     </a>
-                    <img src={review6} alt='review'/>
+                    <img className='each-review' src={review6} alt='review'/>
                 </div>
             </div>
             <img className='footer' src={more} alt='more'></img>
