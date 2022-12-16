@@ -71,3 +71,12 @@
     font-weight: bold;
 }
 
+.your-balance {
+    margin-left: 20px;
+    width: max-content;
+}
+
+.balance-content {
+    margin-left: 20px;
+    color: #FF652F;
+}

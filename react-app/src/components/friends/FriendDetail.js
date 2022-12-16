@@ -39,21 +39,29 @@ const FriendDetail = () => {
     
     // console.log("friendDetail.shared_expenses",friendDetail.shared_expenses)
     let expensesList
-    let youPaid
-    let otherOwn
-    let total  
+    let youPaid = 0
+    let total = 0 
     if(friendDetail) {
       if((friendDetail.shared_expenses).length === 0) {
       expensesList = 0
       }
       else{
         expensesList = friendDetail.shared_expenses
-        // for()
+        for(let i = 0; i< expensesList.length; i++) {
+          let expense = expensesList[i];
+          let amount = expense.amount
+          total += amount
+          if(expense.user_id === userId){
+            youPaid += expense.amount
+          }
+        }
 
       }
     
     }
     console.log("expensesList",expensesList)
+    console.log("totalamout", total*2)
+    console.log("yourPaid", youPaid)
 
   return (
     <div className='outer-container'>
@@ -95,7 +103,11 @@ const FriendDetail = () => {
       <div className='right-side'> 
             <div className='left-with-info'>
               <div className='right-balance-div'>
-                <h1>YOUR BALANCE</h1>
+                <h3 className='your-balance'>YOUR BALANCE</h3>
+                <div className='balance-content'>
+                {(friendDetail && expensesList) && !youPaid ? <p>You owe ${total}</p> :<p>You paid ${total/2}</p>}
+                {friendDetail && !expensesList && <p>You are all settled up</p>}
+                </div>
               </div>
             </div>
             <div className='right-empty'>
