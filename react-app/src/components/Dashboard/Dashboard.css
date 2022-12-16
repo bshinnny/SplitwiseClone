@@ -81,3 +81,8 @@
     color: #318970;
     font-size: 14px;
 }
+
+.dashboard-list-item {
+    font-size: 12px;
+    color: gray;
+}

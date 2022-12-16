@@ -184,6 +184,13 @@ const Dashboard = () => {
                                         <div className='dashboard-each-user-right-side'>
                                         <div className='dashboard-expense-name'>{expense.first_name}&nbsp;{expense.last_name}</div>
                                         <div className='dashboard-you-are-owed-text'>owes you {expense.amount.toFixed(2)}</div>
+                                        {Object.values(myReceivableExpenses).filter((exp) => exp.Recipient.id == expense.id).map((e) => {
+                                            return (
+                                                <div key={`dashboard ul ${e.id} `}>
+                                                    <li className='dashboard-list-item'>{e.Recipient.first_name} owes you {e.amount.toFixed(2)} for "{e.description}"</li>
+                                                </div>
+                                            )
+                                        })}
                                         </div>
                                     </div>
                                 )
