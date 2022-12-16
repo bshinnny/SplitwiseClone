@@ -144,8 +144,8 @@ export default function SplashPage() {
                     <img src={review6} alt='review'/>
                 </div>
             </div>
-            <img src={more} alt='more'></img>
-            <img src={footer} alt='footer'></img>
+            <img className='footer' src={more} alt='more'></img>
+            <img className='footer' src={footer} alt='footer'></img>
         </div>
     )
 
