@@ -1,0 +1,96 @@
+
+
+
+
+.friends-side-bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
+}
+
+
+.add-friends-sign {
+    height: 20px;
+    padding-top:0px;
+    padding-bottom: 0px;
+    background-color:rgb(238, 238,238) ;
+    display: flex;
+    justify-content: space-between;
+  
+}
+
+
+.friend-name {
+    text-decoration: none;
+    color:grey; 
+    padding-left: 0;
+    margin-left: 0;
+}
+
+li{
+    list-style-type: none;
+    margin: 3px 0;  
+  
+
+}
+
+p.p-friends {
+    padding-top:0px;
+    padding-bottom: 0px;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: gray;
+    
+}
+
+/* .deleteBtn{
+    padding-left:px;
+} */
+
+.addBtn {
+    /* padding-left: 60px; */
+    border: none;
+    background-color:rgb(238, 238,238);
+    display: inline-block;
+    margin-left: 70px;
+    color:gray
+}
+
+.firend-deleteBtn {
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.friends-names{
+    display: inline-block;
+    width: 100px;
+    color:grey;
+}
+
+.deleBtndiv {
+    display: inline;
+    padding-left: 30px;
+}
+
+.deleteBtn {
+    border: none;
+    background-color:rgb(255, 255,255) ;
+    color: gray;
+}
+
+.p.p-friends:hover {
+    color:rgb(238, 238,238) ;
+}
+
+
+.addBtn:hover {
+    cursor: pointer;
+}
+
+
+.deleteBtn:hover {
+    cursor: pointer;
+    color: red;
+}
