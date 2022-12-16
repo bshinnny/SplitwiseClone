@@ -5,6 +5,7 @@ const GET_GROUP_EXPENSES = 'groups/GET_GROUP_EXPENSES';
 const GET_GROUP_DETAILS = 'groups/GET_GROUP_DETAILS';
 const CREATE_A_GROUP = 'groups/CREATE_A_GROUP';
 const ADD_GROUP_MEMBER = 'groups/ADD_GROUP_MEMBERS';
+const EDIT_A_GROUP = 'groups/EDIT_A_GROUP'
 const DELETE_A_GROUP = 'groups/DELETE_A_GROUP';
 
 // ACTIONS
@@ -54,6 +55,13 @@ export const deleteAGroup = (groupId) => {
     return {
         type: DELETE_A_GROUP,
         groupId
+    }
+}
+
+export const editAGroup = (group) => {
+    return {
+        type: EDIT_A_GROUP,
+        group
     }
 }
 
@@ -137,6 +145,20 @@ export const deleteAGroupThunk = (groupId) => async dispatch => {
     }
 }
 
+export const editAGroupThunk = (group, groupId) => async dispatch => {
+    const response = await fetch(`/api/groups/${groupId}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(group)
+    })
+
+    if (response.ok) {
+        const group = await response.json();
+        dispatch(editAGroup(group))
+        return group;
+    }
+}
+
 // Format initial data.
 const formatData = (array) => {
     const object = {};
@@ -187,6 +209,10 @@ export default function groupsReducer(state = initialState, action) {
         case DELETE_A_GROUP:
             newState = {...state, userGroups: {...state.userGroups}};
             delete newState.userGroups[action.groupId];
+            return newState;
+        case EDIT_A_GROUP:
+            newState = {...state, userGroups: {...state.userGroups}};
+            newState.userGroups[action.group.id] = action.group;
             return newState;
         default:
             return state;
