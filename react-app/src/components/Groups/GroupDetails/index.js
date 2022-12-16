@@ -51,8 +51,6 @@ function GroupDetails() {
         <div className='outer-container'>
             <div className='left-side'>
                 <div className='left-empty-div'>
-                    <p>left-empty-div</p>
-                    <p>right-side-bar-div</p>
                 </div>
                 <div className='right-side-bar-div'>
                     <div className='active-side-bar'>
@@ -131,7 +129,6 @@ function GroupDetails() {
             </div>
                 </div>
                 <div className='right-empty'>
-                    <p>right-empty</p>
                 </div>
             </div>
         </div>
