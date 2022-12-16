@@ -54,6 +54,12 @@ export const createComment = (expenseId, payload) => async dispatch => {
         dispatch(create(comment));
         return comment
     }
+    else {
+        const data = await response.json()
+        if(data.errors){
+            return data
+        }
+    }
 };
 
 export const updateComment = (commentId, payload) => async dispatch => {
@@ -68,6 +74,12 @@ export const updateComment = (commentId, payload) => async dispatch => {
         const comment = await response.json();
         dispatch(update(comment));
         return comment
+    }
+    else {
+        const data = await response.json()
+        if(data.errors){
+            return data
+        }
     }
 }
 

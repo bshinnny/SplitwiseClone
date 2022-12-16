@@ -19,9 +19,9 @@ function GroupsSidebar() {
     return (
         <div className='groups-sidebar-div'>
             <div className='sidebar-heading-create'>
-                <div className='sidebar-heading'>GROUPS</div>
+                <div className='sidebar-heading'>GROUPS</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <NavLink className='create-group-link' to={`/groups/new`}>
-                    <div className='add-link'>+ Add</div>
+                    <div className='add-link'>+ add</div>
                 </NavLink>
             </div>
             <div className='groups-sidebar-link'>
