@@ -1,14 +1,19 @@
+.outer-container {
+    width: 100%;
+}
+
 .dashboard-top-expenses {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-left: 5%;
 }
 
 .dashboard-values-total-expenses-container {
-    margin-top: 20px;
     display: flex;
     justify-content: space-evenly;
     border-top: 1px solid lightgray;
-    padding: 10px 5px;
+
 }
 
 
@@ -101,4 +106,22 @@
 .dashboard {
     display: flex;
 
+}
+.individual-charge-button {
+    font-size: 16px;
+    width: 160px;
+    margin: 20px;
+    cursor: pointer;
+    position: relative;
+    bottom: 2px;
+}
+
+.individual-charge-button:hover {
+    box-shadow: none;
+    bottom: 0;
+}
+
+.dashboard-values-container {
+    font-size: 14px;
+    padding: 5px 5px;
 }
