@@ -30,6 +30,7 @@
 li{
     list-style-type: none;
     margin: 3px 0;  
+  
 
 }
 
@@ -39,6 +40,7 @@ p.p-friends {
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;
+    color: gray;
     
 }
 
@@ -52,6 +54,7 @@ p.p-friends {
     background-color:rgb(238, 238,238);
     display: inline-block;
     margin-left: 70px;
+    color:gray
 }
 
 .firend-deleteBtn {
@@ -62,7 +65,8 @@ p.p-friends {
 
 .friends-names{
     display: inline-block;
-    width: 100px
+    width: 100px;
+    color:grey;
 }
 
 .deleBtndiv {
@@ -73,6 +77,7 @@ p.p-friends {
 .deleteBtn {
     border: none;
     background-color:rgb(255, 255,255) ;
+    color: gray;
 }
 
 .p.p-friends:hover {
