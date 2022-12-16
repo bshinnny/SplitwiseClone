@@ -1,3 +1,120 @@
 .expense-row {
     padding: 10px;
+    border-bottom: lightgray 1px solid;
+    padding-bottom: 20px;
+}
+
+
+/* .expense-row:hover {
+    background-color: lightgray;
+    cursor: pointer;
+    text-decoration: underline;
+} */
+
+.header-all-expenses {
+    text-align: center;
+}
+
+.create-buttons {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px lightgray solid;
+}
+
+.individual-charge-button {
+    color: white;
+    background-color: #ff652f;
+    text-shadow: 0 -1px 0 #c83400;
+    padding: 10px 15px 10px;
+    box-shadow: 0px 3px 3px grey;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    bottom: 2px;
+    width: 120px;
+    margin-right: 5px;
+}
+
+.individual-charge-button:hover {
+    background-color: #e65d2b;
+}
+
+.group-charge-button:hover {
+    background-color: #52b197;
+}
+
+.group-charge-button {
+    color: white;
+    background-color: #5bc5a7;
+    text-shadow: 0 -1px 0 #318970;
+    padding: 10px 15px 10px;
+    box-shadow: 0px 3px 3px grey;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    bottom: 2px;
+    width: 120px;
+    margin-left: 5px;
+}
+
+.expense-details-button {
+    color: blue;
+    text-decoration: underline;
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+#expense-date {
+    font-size: 14px;
+    color: gray;
+    letter-spacing: -1px;
+}
+
+#expense-recipient-name {
+    font-weight: 600;
+}
+
+#expense-recipient-amount {
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+.expense-green {
+    color: #318970;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.expense-red {
+    color: #ff652f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#expense-fronter-name {
+    font-weight: 600;
+}
+
+#expense-fronter-amount {
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+.expense-delete-button {
+    border: none;
+    margin-top: 20px;
+    padding: 5px;
+    background-color: rgba(253, 114, 114, 0.985);
+    color: white;
+    font-size: 12px;
+}
+
+.expense-delete-button:hover {
+    cursor: pointer;
+    background-color: rgba(253, 67, 67, 0.985);
 }

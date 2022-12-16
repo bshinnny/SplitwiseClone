@@ -66,16 +66,20 @@ def get_friend_detail(friend_id):
     """
     Get details of a friend from id
     """
-
+    print("id",friend_id)
+    print("hitted backend routtttttttte")
     friend_id = friend_id
-
+    print("backend friend_iddddddddddddddd",friend_id)
     current_user_id = int(current_user.get_id())
+    print("backend current userrrrrrrrrrrrrr",current_user_id)
+    
 
 
-
-    friendship = Friend.query.filter((Friend.user_id == current_user_id),(Friend.friend_id == friend_id)).all()
-
-
+    friendship1 = Friend.query.filter((Friend.user_id == current_user_id),(Friend.friend_id == friend_id)).all()
+    friendship2 = Friend.query.filter((Friend.user_id == friend_id),(Friend.friend_id == current_user_id)).all()
+    friendship = friendship1 + friendship2
+    print("friendshippppppppppp",friendship)
+    print("backend length of friendship&&&&&&&&",len(friendship) )
     if len(friendship) == 0:
         return {"message": "Friend couldn't be found"},404
 

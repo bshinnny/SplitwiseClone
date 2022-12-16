@@ -60,6 +60,8 @@ export const getAllFriends = () => async (dispatch) =>{
 
 //get friend detail
 export const getFriendDetail = (id) => async (dispatch) =>{
+  console.log("thunk IDDDDDDD",id)
+  console.log("TYPE of ID", typeof(id))
   const response = await fetch(`/api/friends/${id}`)
 
   const info = await response.json()
@@ -108,7 +110,7 @@ export const createFriend = (email) => async (dispatch) => {
 //delete a friend from the backend
 export const deletingFriend = (id)=>async (dispatch)=> {
   console.log("thunk friend_id",id)
-  const response = await fetch(`api/friends/${id}`,{
+  const response = await fetch(`/api/friends/${id}`,{
     method:"DELETE",
     headers:{
       "Content-Type":"application/json"

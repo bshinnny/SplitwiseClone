@@ -1,0 +1,44 @@
+.one-expense-total-container {
+    margin: auto
+}
+.one-expense-container {
+    display: flex;
+    justify-content: flex start;
+}
+
+.one-expense-text {
+    text-align: center;
+}
+
+.note-image {
+    display: flex;
+    align-items: center;
+}
+
+.fa-note-sticky {
+    padding: 10px;
+    font-size: 50px;
+}
+
+#one-expense-description {
+    font-size: 16px;
+    font-weight: 600px;
+    padding-top: 5px;
+    letter-spacing: -1px;
+    padding-right: 5px;
+}
+
+#one-expense-amount {
+    font-size: 28px;
+    font-weight: 700px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    letter-spacing: -1px;
+    padding-right: 5px;
+}
+
+#one-expense-added-by {
+    font-size: 12px;
+    color: gray;
+    padding-right: 5px;
+}

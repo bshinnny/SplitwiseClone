@@ -18,6 +18,8 @@ import GroupsSidebar from './components/Groups/GroupsSidebar';
 import GroupDetails from './components/Groups/GroupDetails';
 import CreateGroupForm from './components/Groups/CreateGroupForm';
 import Template from './components/Template/Template';
+import AddGroupMemberForm from './components/Groups/AddGroupMemberForm';
+import DeleteWarning from './components/friends/DeleteWarning';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -50,18 +52,21 @@ function App() {
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path='/current' exact={true} >
+        <ProtectedRoute path='/friends/current' exact={true} >
           <FriendSideBar/>
         </ProtectedRoute>
         <ProtectedRoute path='/friends/:friendId' exact={true} >
           <FriendDetail/>
         </ProtectedRoute>
+        <ProtectedRoute path='/friends/delete' exact={true} >
+          <DeleteWarning/>
+        </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/expenses/:expenseId/comments' exact={true} >
+        {/* <ProtectedRoute path='/expenses/:expenseId/comments' exact={true} >
           <CommentsOfExpense />
-        </ProtectedRoute>
+        </ProtectedRoute> */}
         <Route path='/' exact={true} >
           <SplashPage />
         </Route>
@@ -76,6 +81,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/groups/:groupId' exact={true}>
           <GroupDetails />
+        </ProtectedRoute>
+        <ProtectedRoute path='/groups/:groupId/members/add' exact={true}>
+          <AddGroupMemberForm />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

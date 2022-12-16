@@ -51,10 +51,10 @@ function CreateGroupForm() {
             return;
         }
 
-        console.log('ADDITIONAL EMAILS', additionalEmails)
+        // console.log('ADDITIONAL EMAILS', additionalEmails)
 
         const newGroup = {
-            memberEmail,
+            // memberEmail,
             name,
             type,
             // additionalEmails
@@ -64,8 +64,8 @@ function CreateGroupForm() {
             .then((group) => {
                 setName('')
                 setType('')
-                setMemberEmail('')
-                // history.push(`/groups/${group.id}`);
+                // setMemberEmail('')
+                history.push(`/groups/${group.id}/members/add`);
             })
     };
 
@@ -102,7 +102,7 @@ function CreateGroupForm() {
                         <option value='Other'>Other</option>
                     </select>
                 </label>
-                <label>
+                {/* <label>
                     <input
                         type='email'
                         onChange={(e) => setMemberEmail(e.target.value)}
@@ -134,7 +134,7 @@ function CreateGroupForm() {
                         </div>
                     )
                 })}
-                <button onClick={handleAddClick}>Add additional member.</button>
+                <button onClick={handleAddClick}>Add additional member.</button> */}
                 <button className='submit-button clickable' type='submit'>Submit New Group</button>
             </form>
         </div>

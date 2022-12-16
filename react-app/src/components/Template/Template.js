@@ -1,20 +1,22 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
+import AllExpenses from '../AllExpenses'
+import GroupsSidebar from '../Groups/GroupsSidebar'
 import "./Template.css"
+import FriendSideBar from '../friends/SideBar'
 
 const Template = () => {
   return (
     <div className='outer-container'>
       <div className='left-side'>
             <div className='left-empty-div'>
-                <p>left-empty-div</p>
-                <p>right-side-bar-div</p>
             </div>
             <div className='right-side-bar-div'>
                 <div className='active-side-bar'>
-                    <div className='dashboard'>dashboard</div>
-                    <div className='all-expenses'>all expenses</div>
-                    <div className='group'>group</div>
-                    <div className='friends'>friends</div>
+                    <div className='dashboard '>dashboard</div>
+                    <div className='all-expenses '><NavLink to="/expenses/all">All Expenses</NavLink></div>
+                    <div className='group '><GroupsSidebar/></div>
+                    <div className='friends '><FriendSideBar/></div>
                 </div>
             </div>
       </div>
