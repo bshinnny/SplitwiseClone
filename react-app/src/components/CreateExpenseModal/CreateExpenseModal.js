@@ -55,7 +55,7 @@ export default function CreateExpense({ setShowModal, expense, setHasSubmitted }
 
     return (
         <div className="modal-expense-entire">
-            <h1 className="modal-expense-header">Add New Expense</h1>
+            <div className="modal-expense-header">Add New Expense</div>
             <div>
                 {errors && (
                     <ul>{errors}</ul>
@@ -63,32 +63,36 @@ export default function CreateExpense({ setShowModal, expense, setHasSubmitted }
             </div>
             <form onSubmit={onSubmit} className="expense-form">
 
+                <div className="expense-form-input">Description</div>
                 <input required
                     type="text"
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
                     placeholder="Description"></input>
 
-
+                <div className="expense-form-input">Request Amount</div>
                 <input required
                     type="number" min="0" step="0.01"
                     onChange={(e) => setAmount(e.target.value)}
                     value={amount}
                     placeholder="Amount"></input>
 
+                <div className="expense-form-input">Note</div>
                 <input required
                     type="text"
                     onChange={(e) => setNote(e.target.value)}
                     value={note}
                     placeholder="Note"></input>
 
+                <div className="expense-form-input">Recipient Email</div>
                 <input required
                     type="text"
                     onChange={(e) => setRecipientEmail(e.target.value)}
                     value={recipientEmail}
-                    placeholder="Recipient Email"></input>
+                    placeholder="Recipient Email"
+                    className="expenses-last-form-element"></input>
 
-                <button type="submit">Create Charge</button>
+                <button type="submit" className="expense-form-submit-button">Create Expense</button>
             </form>
         </div>
 

@@ -1,0 +1,48 @@
+.create-group-form-div {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-group-form {
+    width: 30%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color:white;
+    border-radius: 16px;
+    box-shadow: 0px 4px 8px rgb(0 0 0 / 12%);
+    padding: 10px 60px;
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.grp-form-container > input {
+    height: 20px;
+    width: 95%;
+    font-size: 16px;
+}
+
+.grp-form-container > select {
+    height: 25px;
+    width: 97%;
+    font-size: 16px;
+}
+
+.submit-button {
+    font-weight: 600;
+    font-size: 18px;
+    width: 98%;
+    color: white;
+    background-color: #1cc29f;
+    padding: 10px 10px 10px;
+    box-shadow: 0px 3px 3px grey;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    bottom: 2px;
+    margin-top: 20px;
+}

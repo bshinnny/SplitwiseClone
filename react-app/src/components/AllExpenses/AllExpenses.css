@@ -2,6 +2,7 @@
     padding: 10px;
     border-bottom: lightgray 1px solid;
     padding-bottom: 20px;
+    font-size: large;
 }
 
 
@@ -117,4 +118,31 @@
 .expense-delete-button:hover {
     cursor: pointer;
     background-color: rgba(253, 67, 67, 0.985);
+}
+
+.total-balance-header {
+    color: rgba(136, 124, 124, 0.864);
+    margin: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.you-are-owed {
+    color: #318970;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.you-owe {
+    color: #ff652f;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.your-net-expenses {
+    font-size: 24px;
+    font-weight: 600
+    ;
 }

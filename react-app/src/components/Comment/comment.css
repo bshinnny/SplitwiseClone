@@ -21,6 +21,7 @@
 
 .each-comment-container button:hover {
     background-color: #ff8158;
+    cursor: pointer;
 }
 
 #comment-description {
@@ -59,8 +60,10 @@
 
 #post-review-button:hover {
     background-color: #f75920;
+    cursor: pointer;
 }
 
 #update-review-button:hover {
     background-color: #f75920;
+    cursor: pointer;
 }
