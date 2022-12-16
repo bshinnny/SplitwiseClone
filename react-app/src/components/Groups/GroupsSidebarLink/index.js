@@ -10,7 +10,7 @@ function GroupsSidebarLink({ group }) {
     return (
         <div className='group-link-div'>
             <NavLink className='group-link' to={`/groups/${group.id}`} key={group.id} >
-                <i className="fa-solid fa-tag"></i>
+                <i className="fa-solid fa-tag"></i> &nbsp;
                 <p className='navlink-text'>{group.name}</p>
             </NavLink>
         </div>
