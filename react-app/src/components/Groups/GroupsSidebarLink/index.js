@@ -2,6 +2,7 @@
 // import * as groupActions from '../../../store/groups';
 // import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import './GroupsSidebarLink.css';
 
 function GroupsSidebarLink({ group }) {
     // const dispatch = useDispatch();
@@ -9,7 +10,8 @@ function GroupsSidebarLink({ group }) {
     return (
         <div className='group-link-div'>
             <NavLink className='group-link' to={`/groups/${group.id}`} key={group.id} >
-                <p>{group.name}</p>
+                <i className="fa-solid fa-tag"></i>
+                <p className='navlink-text'>{group.name}</p>
             </NavLink>
         </div>
     )

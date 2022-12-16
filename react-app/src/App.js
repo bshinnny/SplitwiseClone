@@ -20,6 +20,7 @@ import CreateGroupForm from './components/Groups/CreateGroupForm';
 import Template from './components/Template/Template';
 import AddGroupMemberForm from './components/Groups/AddGroupMemberForm';
 import DeleteWarning from './components/friends/DeleteWarning';
+import EditGroupForm from './components/Groups/EditGroupForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -84,6 +85,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/groups/:groupId/members/add' exact={true}>
           <AddGroupMemberForm />
+        </ProtectedRoute>
+        <ProtectedRoute path='/groups/:groupId/edit' exact={true}>
+          <EditGroupForm />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

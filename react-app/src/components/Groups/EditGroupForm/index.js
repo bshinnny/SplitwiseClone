@@ -1,39 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import * as groupActions from '../../../store/groups';
-import './CreateGroupForm.css';
+// import './CreateGroupForm.css';
 
-function CreateGroupForm() {
+function EditGroupForm() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const { groupId } = useParams();
 
     const [name, setName] = useState('');
     const [type, setType] = useState('');
-    const [memberEmail, setMemberEmail] = useState('');
-    const [additionalEmails, setAdditionalEmails] = useState('')
-    const [counter, setCounter] = useState(0);
+    // const [memberEmail, setMemberEmail] = useState('');
+    // const [additionalEmails, setAdditionalEmails] = useState('')
+    // const [counter, setCounter] = useState(0);
     const [errors, setErrors] = useState([]);
 
-    // console.log('TYPE IS:', type)
+    const group = useSelector(state => state.groups.groupDetails);
 
-    const handleAddClick = (e) => {
-        e.preventDefault();
-        // console.log('ADD', counter)
-        setCounter(counter + 1)
-    }
+    useEffect(() => {
+        dispatch(groupActions.getGroupDetailsThunk(groupId))
+    }, [dispatch, groupId])
 
-    const handleDeleteClick = (e) => {
-        e.preventDefault();
-        // console.log('DELETE', counter)
-        setCounter(counter - 1)
-    }
-
-    const handleOnChange = (e) => {
-        const emailArr = [];
-        emailArr.push(e.target.value);
-        setAdditionalEmails([...additionalEmails, ...emailArr])
-    }
+    useEffect(() => {
+        if (group) {
+            setName(group.name);
+            setType(group.type);
+        }
+    }, [group])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -42,8 +36,6 @@ function CreateGroupForm() {
 
         if (name.length > 49) errors.push('Name must be less than 50 characters.');
         if (type !== 'Home' && type !== 'Trip' && type !== 'Couple' && type !== 'Other') errors.push('Please select one of the following types.');
-        // for (const )
-        // if (memberEmail.length > 254) errors.push('Email must be less than 255 characters.')
 
         setErrors(errors);
 
@@ -52,28 +44,23 @@ function CreateGroupForm() {
             return;
         }
 
-        // console.log('ADDITIONAL EMAILS', additionalEmails)
-
-        const newGroup = {
-            // memberEmail,
+        const editedGroup = {
             name,
             type,
-            // additionalEmails
         };
 
-        return dispatch(groupActions.createAGroupThunk(newGroup))
+        return dispatch(groupActions.editAGroupThunk(editedGroup, groupId))
             .then((group) => {
                 setName('')
                 setType('')
-                // setMemberEmail('')
-                history.push(`/groups/${group.id}/members/add`);
+                history.push(`/groups/${groupId}`);
             })
     };
 
     return (
         <div className='create-group-form-div'>
             <form className='create-group-form' onSubmit={handleSubmit}>
-                <h2>START A NEW GROUP</h2>
+                <h2>EDIT YOUR GROUP</h2>
                 <ul className="errors">
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
@@ -136,10 +123,10 @@ function CreateGroupForm() {
                     )
                 })}
                 <button onClick={handleAddClick}>Add additional member.</button> */}
-                <button className='submit-button' type='submit'>Submit New Group</button>
+                <button className='submit-button' type='submit'>Submit Group Edit</button>
             </form>
         </div>
     )
 }
 
-export default CreateGroupForm;
+export default EditGroupForm;

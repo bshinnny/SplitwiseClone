@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import * as groupActions from '../../../store/groups';
+import './AddGroupMemberForm.css'
 
 function AddGroupMemberForm() {
     const dispatch = useDispatch();
@@ -132,7 +133,7 @@ function AddGroupMemberForm() {
                 <ul className="errors">
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
-                <label>
+                <div className='grp-form-container'>
                     <input
                         type='email'
                         onChange={(e) => setMemberEmail(e.target.value)}
@@ -141,11 +142,11 @@ function AddGroupMemberForm() {
                         required
                         className='input'
                     />
-                </label>
+                </div>
                 {[...Array(counter).keys()].map((num) => {
                     // console.log('RENDER', additionalEmails)
                     return (
-                        <div key={`additional-email-${num}`}>
+                        <div key={`additional-email-${num}`} className='dynamic-form-container'>
                             <input
                                 type='email'
                                 onChange={handleOnChange}
@@ -155,12 +156,12 @@ function AddGroupMemberForm() {
                                 required
                                 className={num}
                             />
-                            <button onClick={handleDeleteClick}>X</button>
+                            <button className= 'add-grp-delete-button' onClick={handleDeleteClick}>X</button>
                         </div>
                     )
                 })}
-                <button onClick={handleAddClick}>Add additional member.</button>
-                <button type='submit'>Submit Group Members.</button>
+                <button className= 'add-grp-submit-button' onClick={handleAddClick}>Add Additional Member</button>
+                <button className= 'add-grp-submit-button' type='submit'>Submit Group Members</button>
             </form>
         </div>
     )
