@@ -7,6 +7,10 @@ import { getFriendDetail } from '../../store/friends';
 import GroupsSidebar from "../Groups/GroupsSidebar";
 import { NavLink } from "react-router-dom";
 import FriendSideBar from './SideBar';
+import userImg from '../../assets/profileImg.png'
+import "./FriendDetail.css";
+import nothingImg from "../../assets/person.png"
+
 
 
 
@@ -35,17 +39,29 @@ const FriendDetail = () => {
     
     // console.log("friendDetail.shared_expenses",friendDetail.shared_expenses)
     let expensesList
+    let youPaid = 0
+    let total = 0 
     if(friendDetail) {
       if((friendDetail.shared_expenses).length === 0) {
       expensesList = 0
       }
       else{
         expensesList = friendDetail.shared_expenses
+        for(let i = 0; i< expensesList.length; i++) {
+          let expense = expensesList[i];
+          let amount = expense.amount
+          total += amount
+          if(expense.user_id === userId){
+            youPaid += expense.amount
+          }
+        }
 
       }
     
     }
     console.log("expensesList",expensesList)
+    console.log("totalamout", total*2)
+    console.log("yourPaid", youPaid)
 
   return (
     <div className='outer-container'>
@@ -65,22 +81,36 @@ const FriendDetail = () => {
       </div>
       <div className='middle-side'>
             <div className='title'>
-                <p>title</p>
+              <div className='title-information'>
+               <img className='user-Profile-Image' src={userImg} alt="user Profile Image"/> {friendDetail && <h2 className='friend-name'>{friendDetail.first_name + " "}{friendDetail.last_name}</h2>}
+            </div>
             </div>
             <div className='content'>
             <div>
       {friendDetail && expensesList ? expensesList.map(
-        (expense)=>expense.user_id === userId ? <li key ={expense.id} id ={expense.id}>{expense.description} you paid:{expense.amount*2} </li> : <li id ={expense.id}>{expense.description}  you owe:{expense.amount}</li>) : <p>You don't have any expenses yet</p>}
+        (expense)=>expense.user_id === userId ? 
+        <li className='expense-lists' key ={expense.id} id ={expense.id}><div className='description-div'><i class="fa-solid fa-receipt"></i>&nbsp;
+        {"   " + expense.description}</div> <div className='owe-paid-div'><span className='payment-des'>you paid<p className='paid-dollar'>${expense.amount*2}</p></span><span className='payment-des'>{friendDetail.first_name} lent you <p className='lent-dollar'>${expense.amount}</p></span></div></li> 
+        : <li className='expense-lists' id ={expense.id}><div className='description-div'><i class="fa-solid fa-receipt"></i>&nbsp;{"   "+expense.description}</div>
+        <div className='owe-paid-div'><span className='payment-des'>{friendDetail.first_name} paid <p className='paid-dollar'>${expense.amount*2}</p></span> <span className='payment-des'> you lent {friendDetail.first_name}<p className='lent-dollar'>${expense.amount}</p></span></div></li>) :<div className='nothing'><img src={nothingImg}/><p className='p-nothing'>You don't have any expenses yet</p></div>}
       {/* {friendDetail && expensesList.map(expense=><li id ={expense.id}>{expense.description} {expense.amount}</li>) } */}
     </div>
             </div>
       </div>
-      <div className='right-side'>
+
+
+
+      <div className='right-side'> 
             <div className='left-with-info'>
-                <p>left with infor</p>
+              <div className='right-balance-div'>
+                <h3 className='your-balance'>YOUR BALANCE</h3>
+                <div className='balance-content'>
+                {(friendDetail && expensesList) && !youPaid ? <p>You owe ${total}</p> :<p>You paid ${total/2}</p>}
+                {friendDetail && !expensesList && <p>You are all settled up</p>}
+                </div>
+              </div>
             </div>
             <div className='right-empty'>
-                <p>right-empty</p>
             </div>
       </div>
     </div>
