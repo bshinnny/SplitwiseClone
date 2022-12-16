@@ -1,0 +1,78 @@
+
+
+
+
+.friends-side-bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
+}
+
+
+.add-friends-sign {
+    padding-top:0px;
+    padding-bottom: 0px;
+  
+}
+
+
+.friend-name {
+    text-decoration: none;
+    color:grey;  
+}
+
+li{
+    list-style-type: none;
+    margin: 3px 0;  
+
+}
+
+p.p-friends {
+    padding-top:0px;
+    padding-bottom: 0px;
+}
+
+/* .deleteBtn{
+    padding-left:px;
+} */
+
+.addBtn {
+    /* padding-left: 60px; */
+    border: none;
+    background-color:rgb(255, 255,255)
+}
+
+.firend-deleteBtn {
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.friends-names{
+    display: inline-block;
+    width:85px
+}
+
+.deleBtndiv {
+    display: inline;
+    padding-left: 10px;
+}
+
+.deleteBtn {
+    border: none;
+    background-color:rgb(255, 255,255) ;
+}
+
+.p.p-friends:hover {
+    color:rgb(238, 238,238) ;
+}
+
+
+.addBtn:hover {
+    cursor: pointer;
+}
+
+
+.deleteBtn:hover {
+    cursor: pointer;
+}

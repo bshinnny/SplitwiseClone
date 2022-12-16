@@ -10,6 +10,7 @@ import FriendSideBar from './SideBar';
 
 
 
+
 const FriendDetail = () => {
     const {friendId} = useParams();
     const dispatch = useDispatch()
@@ -77,10 +78,8 @@ const FriendDetail = () => {
       </div>
       <div className='right-side'>
             <div className='left-with-info'>
-                <p>left with infor</p>
             </div>
             <div className='right-empty'>
-                <p>right-empty</p>
             </div>
       </div>
     </div>

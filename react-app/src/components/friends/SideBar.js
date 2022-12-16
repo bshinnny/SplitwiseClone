@@ -4,6 +4,11 @@ import {getAllFriends,deletingFriend} from "../../store/friends";
 import AddingFriendForm from './AddingFriendForm'
 import {Link} from 'react-router-dom';
 import DeleteWarning from "./DeleteWarning";
+import { Modal } from '../../context/Modal';
+
+
+
+import "./SideBar.css"
 
 
 
@@ -37,13 +42,18 @@ export default function FriendSideBar(){
     return (
         
         <div className="friends-side-bar">
-        <div className="add friends sign">
-            <p>FRIENDS <button onClick={()=>setOpenModal(true)}>&#x2795; add</button></p>
-            {openModal && <AddingFriendForm closeModal={setOpenModal} />}
+        <div className="add-friends-sign">
+            <p className="p-friends">FRIENDS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onClick={()=>setOpenModal(true)} className="addBtn"><i class="fa-duotone fa-plus"></i> add</button></p>
+            {openModal && 
+                <Modal onClose={() => setOpenModal(false)}>
+                <AddingFriendForm closeModal={setOpenModal} />
+                </Modal>
+            }
             
         </div>
         {!friends.length && <p>You have not added any friend yet</p>}
-        {friends.length && friends.map(friend =>(<li key={friend.id}><Link to={`/friends/${friend.id}`}>{friend.first_name} {friend.last_name}</Link> <button id={friend.id} onClick={handleDelete}>X</button></li>)) }
+        {friends.length && friends.map(friend =>(<div className="firend-deleteBtn"><li key={friend.id}><Link to={`/friends/${friend.id}`} className="friend-name">
+        <div className="friends-names"><i class="fa-solid fa-user"></i>&nbsp;{friend.first_name} {friend.last_name}</div></Link> <div className="deleBtndiv"><button id={friend.id} onClick={handleDelete} className="deleteBtn">x</button></div></li></div>)) }
         </div>
     )
 }

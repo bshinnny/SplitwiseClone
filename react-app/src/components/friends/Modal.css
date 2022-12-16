@@ -1,15 +1,8 @@
-.modalBackground {
-    width: 100px;
-    height: 100px;
-    background-color: rgba(200, 200,200);
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .modalContainer {
     width: 500px;
-    height: 500px;
+    height: 200px;
     border-radius: 12px;
     background-color: white;
     box-shadow: rgba(0,0,0,0.35) 0px 5px 15px;
@@ -19,9 +12,9 @@
 }
 
 .modalContainer .title {
-    display: inline-block;
-    text-align: center;
-    margin-top: 10px;
+    /* display: inline-block; */
+    text-align: left;
+    margin-top: 0px;
 }
 
 .titleCloseBtn {
@@ -66,4 +59,65 @@
 
 .modalContainer .errors {
     color: red;
+}
+
+
+.title > img {
+    height: 30px;
+    width: 30px;
+    position: relative;
+    top:5px
+}
+
+.title > h2 {
+    display: inline-block;
+    font-family: sans-serif;
+}
+
+div.title {
+    background-color: rgb(255, 255,255);
+    margin-top: 0;
+    padding-top: 0;
+    height: 1px;
+
+}
+
+div.modalContainer {
+    margin-top: 0;
+}
+
+div.titleCloseBtn {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.addButton {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-bottom: 0;
+    position: relative;
+    left: 150px;
+    top:25px;
+}
+
+.addButton > button {
+    width: 200px;
+    height: 40px ;
+    border-radius: 5px;
+    border-width: thin;
+    border-color: rgb(238, 238,238);
+    background-color:rgb(255,101,47) ;
+    font-size: 18px;
+    color: aliceblue;
+}
+
+.inputEmail {
+    width: 490px;
+    height: 40px;
+    margin-top: 30px;
+    border-radius: 5px;
+    border-width: thin;
+    border-color: rgb(238, 238,238);
+    
 }
