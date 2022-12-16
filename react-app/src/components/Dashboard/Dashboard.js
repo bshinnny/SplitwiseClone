@@ -130,7 +130,7 @@ const Dashboard = () => {
                 <div className='right-side-bar-div'>
                     <div className='active-side-bar'>
                         <div className='dashboard '><NavLink className="dashboard-link" to="/dashboard">Dashboard</NavLink></div>
-                        <div className='all-expenses '><NavLink to="/expenses/all">All Expenses</NavLink></div>
+                        <div className='all-expenses'><i class="fa-solid fa-list">&nbsp; </i><NavLink className="all-expenses-link" to="/expenses/all">All Expenses</NavLink></div>
                         <div className='group '><GroupsSidebar /></div>
                         <div className='friends '><FriendSideBar /></div>
                     </div>
