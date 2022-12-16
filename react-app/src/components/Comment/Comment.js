@@ -83,6 +83,7 @@ function CommentsOfExpense ({expense}) {
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <textarea
+                    style={{resize: 'none'}}
                     placeholder="Add a comment"
                     type='text'
                     value={description}

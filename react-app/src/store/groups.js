@@ -5,6 +5,7 @@ const GET_GROUP_EXPENSES = 'groups/GET_GROUP_EXPENSES';
 const GET_GROUP_DETAILS = 'groups/GET_GROUP_DETAILS';
 const CREATE_A_GROUP = 'groups/CREATE_A_GROUP';
 const ADD_GROUP_MEMBER = 'groups/ADD_GROUP_MEMBERS';
+const EDIT_A_GROUP = 'groups/EDIT_A_GROUP'
 const DELETE_A_GROUP = 'groups/DELETE_A_GROUP';
 
 // ACTIONS
@@ -43,17 +44,24 @@ export const createAGroup = (group) => {
     }
 }
 
-// export const addGroupMember = (member) => {
-//     return {
-//         type: ADD_GROUP_MEMBER,
-//         member
-//     }
-// }
+export const addGroupMember = (userGroup) => {
+    return {
+        type: ADD_GROUP_MEMBER,
+        userGroup
+    }
+}
 
 export const deleteAGroup = (groupId) => {
     return {
         type: DELETE_A_GROUP,
         groupId
+    }
+}
+
+export const editAGroup = (group) => {
+    return {
+        type: EDIT_A_GROUP,
+        group
     }
 }
 
@@ -96,39 +104,35 @@ export const getGroupDetailsThunk = (groupId) => async dispatch => {
 }
 
 export const createAGroupThunk = (group) => async dispatch => {
-    const { memberEmail, ...newGroup } = group;
+    // const { memberEmail, ...newGroup } = group;
     const response = await fetch(`/api/groups`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(newGroup)
+        body: JSON.stringify(group)
     })
 
     if (response.ok) {
         const group = await response.json();
-        const userGroup = await fetch(`/api/groups/${group.id}/members`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({memberEmail})
-        })
-        
         dispatch(createAGroup(group))
         return group;
     }
 }
 
-// export const addGroupMemberThunk = () => async dispatch => {
-//     const response = await fetch(`/api/groups`, {
-//         method: 'POST',
-//         headers: {'Content-Type': 'application/json'},
-//         body: JSON.stringify(group)
-//     })
+export const addGroupMemberThunk = (email, groupId) => async dispatch => {
+    const response = await fetch(`/api/groups/${groupId}/members`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({'memberEmail': email})
+    })
 
-//     if (response.ok) {
-//         const group = await response.json();
-//         dispatch(createAGroup(group))
-//         return group;
-//     }
-// }
+    if (response.ok) {
+        const userGroup = await response.json();
+        dispatch(addGroupMember(userGroup))
+        return userGroup;
+    } else {
+        throw response;
+    }
+}
 
 export const deleteAGroupThunk = (groupId) => async dispatch => {
     const response = await fetch(`/api/groups/${groupId}`, {
@@ -138,6 +142,20 @@ export const deleteAGroupThunk = (groupId) => async dispatch => {
     if (response.ok) {
         // console.log('Deleted spot from database.')
         dispatch(deleteAGroup(groupId))
+    }
+}
+
+export const editAGroupThunk = (group, groupId) => async dispatch => {
+    const response = await fetch(`/api/groups/${groupId}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(group)
+    })
+
+    if (response.ok) {
+        const group = await response.json();
+        dispatch(editAGroup(group))
+        return group;
     }
 }
 
@@ -184,10 +202,18 @@ export default function groupsReducer(state = initialState, action) {
             newState = {...state, userGroups: {...state.userGroups}};
             newState.userGroups[action.group.id] = action.group;
             return newState;
+        case ADD_GROUP_MEMBER:
+            newState = {...state, groupMembers: {...state.groupMembers}};
+            newState.newUserGroup = action.userGroup;
+            return newState;
         case DELETE_A_GROUP:
             newState = {...state, userGroups: {...state.userGroups}};
             delete newState.userGroups[action.groupId];
-            return newState
+            return newState;
+        case EDIT_A_GROUP:
+            newState = {...state, userGroups: {...state.userGroups}};
+            newState.userGroups[action.group.id] = action.group;
+            return newState;
         default:
             return state;
     }

@@ -28,7 +28,7 @@
     background-color:rgb(255, 255,255);
     flex:1.5;
     box-shadow: -8px 0 10px -6px #000000;
-    box-shadow: 6px 0 4px -4px rgba(0, 0, 0, 0.24), -6px 0 4px -4px rgba(0, 0, 0, 0.24); 
+    box-shadow: 6px 0 4px -4px rgba(0, 0, 0, 0.24), -6px 0 4px -4px rgba(0, 0, 0, 0.24);
 }
 
 
@@ -42,7 +42,7 @@
 
 .left-empty-div {
     flex-grow: 80%;
-    background-color:rgb(255, 255,255);   
+    background-color:rgb(255, 255,255);
     flex:1
 }
 
@@ -55,7 +55,7 @@
     padding-top: 20px;
 
 
-    
+
 }
 
 .active-side-bar {
@@ -73,11 +73,11 @@
 
 .left-with-info {
     flex-grow: 80%;
-    background-color: rgb(255, 255,255);   
+    background-color: rgb(255, 255,255);
     flex:1;
     box-shadow: -8px 0 10px -6px #000000;
-    box-shadow:-6px 0 4px -4px rgba(0, 0, 0, 0.24),6px 0 4px -4px rgba(0, 0, 0, 0.24) ; 
-    
+    box-shadow:-6px 0 4px -4px rgba(0, 0, 0, 0.24),6px 0 4px -4px rgba(0, 0, 0, 0.24) ;
+
 }
 
 .right-empty{
@@ -100,7 +100,7 @@
     background-color: rgb(255, 255,255);
     color: black;
     width: max-content;
-    
+
 
 
 }
@@ -112,7 +112,7 @@
     width: max-content;
 
 
-    
+
 }
 
 .friends {
@@ -121,7 +121,7 @@
     width: max-content;
 
 
-    
+
 }
 
 
@@ -151,8 +151,5 @@
     background-color:rgb(238, 238,238);
 }
 
-/* .friends:hover {
-    background-color:rgb(238, 238,238);
-} */
 
 

@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
 import './SplashPage.css'
 import background from '../../assets/background.png'
 import iphone1 from '../../assets/iphone/iphone1.png'
@@ -18,41 +19,49 @@ import review6 from '../../assets/review6.png'
 
 export default function SplashPage() {
 
-    let bigText;
-    let text = [
-        <div style={{ color: '#70caae' }} className="rotating-text big-text">on trips.</div>,
-        <div style={{ color: 'rgb(92, 0, 162)' }}  className="rotating-text big-text">with housemates.</div>,
-        <div style={{ color: '#b4032b' }} className="rotating-text big-text">with your partner.</div>,
-        <div style={{ color: '#70caae' }} className="rotating-text big-text">with anyone.</div>
-    ];
+     //sets and clear interval that changes active image and words on top row
+     useEffect(() => {
+        const icons = document.querySelectorAll(".big-image")
+        const text = document.querySelectorAll(".rotating-text")
+        const left_icons = document.querySelectorAll(".rotating-image")
+        let idx = 0
+        function next() {
+            icons[idx].classList.remove("active")
+            text[idx].classList.remove("active")
+            left_icons[idx].classList.remove("left_active")
+            if (idx < 3) {
+                icons[idx + 1].classList.add("active")
+                text[idx + 1].classList.add("active")
+                left_icons[idx + 1].classList.add("left_active")
+                idx = idx + 1
+            } else {
+                icons[0].classList.add("active")
+                text[0].classList.add("active")
+                left_icons[0].classList.add("left_active")
+                idx = 0
+            }
+        }
+        //sets and clear interval
+        let intervalID;
+        intervalID = setInterval(next, 4000)
+        return () => clearInterval(intervalID);
 
-    let index = 0;
-    const textContainer = document.querySelector('rotating-text-container');
-    console.log('+++++++++', textContainer)
-
-    function change() {
-        textContainer.appendChild(text[index])
-        index = 3 ? index = 0 : index++;
-    }
-
-    window.onload = function () {
-        setInterval(change, 3000);
-    };
+    },[])
 
     return (
         <div className="entire-page-container">
             <div className="white-container" style={{ backgroundImage: `url(${background})`}}>
                 <div className="white-left-container">
-                    <div className='big-text'>Less stress when</div>
-                    <div className='big-text'>sharing expenses</div>
+                    <div className='title-text'>Less stress when</div>
+                    <div className='title-text'>sharing expenses</div>
                     <div className="rotating-text-container">
-                        {/* <div style={{ color: '#70caae' }} className="rotating-text big-text">on trips.</div>
-                        <div style={{ color: 'rgb(92, 0, 162)' }}  className="rotating-text big-text">with housemates.</div>
-                        <div style={{ color: '#b4032b' }} className="rotating-text big-text">with your partner.</div>
-                        <div style={{ color: '#70caae' }} className="rotating-text big-text">with anyone.</div> */}
+                        <div style={{ color: '#70caae' }} className="rotating-text active">on trips.</div>
+                        <div style={{ color: 'rgb(92, 0, 162)' }}  className="rotating-text">with housemates.</div>
+                        <div style={{ color: '#b4032b' }} className="rotating-text">with your partner.</div>
+                        <div style={{ color: '#70caae' }} className="rotating-text">with anyone.</div>
                     </div>
                     <div className="rotating-images-container">
-                        <div style={{ color: '#70caae' }} className="rotating-image"><i className="fa-solid fa-plane-departure"></i></div>
+                        <div style={{ color: '#70caae' }} className="rotating-image left-active"><i className="fa-solid fa-plane-departure"></i></div>
                         <div style={{ color: 'rgb(92, 0, 162)'}}  className="rotating-image"><i className="fa-solid fa-house"></i></div>
                         <div style={{ color: '#b4032b' }} className="rotating-image"><i className="fa-solid fa-heart"></i></div>
                         <div style={{ color: 'grey' }} className="rotating-image"><i className="fa-solid fa-asterisk"></i></div>
@@ -68,10 +77,10 @@ export default function SplashPage() {
                     <div>Free for <i className="fa-brands fa-apple"></i> iPhone, <i className="fa-solid fa-robot"></i> Android, and web.</div>
                 </div>
                 <div className="white-right-container">
-                    <div style={{ color: '#70caae' }} className="rotating-image"><i className="fa-solid fa-plane-departure"></i></div>
-                    {/* <div style={{ color: 'rgb(92, 0, 162)' }}  className="rotating-image"><i className="fa-solid fa-house"></i></div>
-                    <div style={{ color: '#b4032b' }} className="rotating-image"><i className="fa-solid fa-heart"></i></div>
-                    <div style={{ color: 'grey' }} className="rotating-image"><i className="fa-solid fa-asterisk"></i></div> */}
+                    <div style={{ color: '#70caae' }} className="big-image active"><i className="fa-solid fa-plane-departure"></i></div>
+                    <div style={{ color: 'rgb(92, 0, 162)' }}  className="big-image"><i className="fa-solid fa-house"></i></div>
+                    <div style={{ color: '#b4032b' }} className="big-image"><i className="fa-solid fa-heart"></i></div>
+                    <div style={{ color: 'grey' }} className="big-image"><i className="fa-solid fa-asterisk"></i></div>
                 </div>
             </div>
             <div className="row-container" style={{ backgroundImage: `url(${background})`}}>
@@ -135,11 +144,8 @@ export default function SplashPage() {
                     <img src={review6} alt='review'/>
                 </div>
             </div>
-            <img src={more} alt='more'></img>
-            <img src={footer} alt='footer'></img>
+            <img className='footer' src={more} alt='more'></img>
+            <img className='footer' src={footer} alt='footer'></img>
         </div>
     )
-
-
-
 }

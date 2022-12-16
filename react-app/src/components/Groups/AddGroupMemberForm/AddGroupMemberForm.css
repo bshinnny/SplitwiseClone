@@ -1,11 +1,11 @@
-.create-group-form-div {
-    height: 400px;
+.add-group-member-form-div {
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.create-group-form {
+.add-group-member-form {
     width: 30%;
     height: 80%;
     display: flex;
@@ -25,13 +25,13 @@
     font-size: 16px;
 }
 
-.grp-form-container > select {
-    height: 25px;
-    width: 97%;
+.dynamic-form-container > input {
+    height: 20px;
+    width: 87%;
     font-size: 16px;
 }
 
-.submit-button {
+.add-grp-submit-button {
     font-weight: 600;
     font-size: 18px;
     width: 98%;
@@ -44,5 +44,21 @@
     border-radius: 5px;
     position: relative;
     bottom: 2px;
-    margin-top: 20px;
+    margin-top: 5px;
+}
+
+.add-grp-delete-button {
+    font-weight: 600;
+    color: red;
+    background-color: transparent;
+    padding: 5px 5px 5px 10px;
+    /* box-shadow: 0px 3px 3px grey; */
+    border: none;
+    cursor: pointer;
+}
+
+.group-settings {
+    display: flex;
+    height: 70px;
+    align-items: center;
 }

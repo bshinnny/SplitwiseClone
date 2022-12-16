@@ -1,0 +1,16 @@
+.group-link-div {
+    display: flex;
+    /* border: 1px red solid; */
+}
+
+.group-link {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    text-align: center;
+}
+
+.navlink-text {
+    margin: 0;
+    padding: 0 2px;
+}

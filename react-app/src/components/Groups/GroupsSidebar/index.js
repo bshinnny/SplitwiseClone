@@ -18,10 +18,12 @@ function GroupsSidebar() {
 
     return (
         <div className='groups-sidebar-div'>
-            <h2>Groups</h2>
-            <NavLink className='create-group-link' to={`/groups/new`}>
-                <p>Create a new group!</p>
-            </NavLink>
+            <div className='sidebar-heading-create'>
+                <div className='sidebar-heading'>GROUPS</div>
+                <NavLink className='create-group-link' to={`/groups/new`}>
+                    <div className='add-link'>+ Add</div>
+                </NavLink>
+            </div>
             <div className='groups-sidebar-link'>
                 {Object.values(groups).map((group) => {
                     return (
