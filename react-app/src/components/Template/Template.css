@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     background-color:rgb(255, 255,255);
-    flex:1.5;
+    flex:2;
     box-shadow: -8px 0 10px -6px #000000;
     box-shadow: 6px 0 4px -4px rgba(0, 0, 0, 0.24), -6px 0 4px -4px rgba(0, 0, 0, 0.24);
 }
@@ -43,7 +43,7 @@
 .left-empty-div {
     flex-grow: 80%;
     background-color:rgb(255, 255,255);
-    flex:1
+    flex:0.5
 }
 
 .right-side-bar-div{
@@ -83,7 +83,7 @@
 .right-empty{
     flex-grow: 20%;
     background-color: rgb(255, 255,255);
-    flex:1
+    flex:0.5
 }
 
 
