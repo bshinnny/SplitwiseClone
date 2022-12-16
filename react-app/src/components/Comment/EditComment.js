@@ -14,6 +14,11 @@ function UpdateComment ( {comment} ) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (description.length > 254){
+            return setErrors(["Description must be less than 255 characters"])
+        }
+
         setShowModal(false)
         const payload = { description };
 
@@ -25,6 +30,15 @@ function UpdateComment ( {comment} ) {
         }
         if (data && (data.errors || data.message)) setErrors([data.errors? data.errors : data.message]);
         });
+
+        // let updatedComment = await dispatch(updateComment(comment.id, payload))
+        // if(updatedComment.errors) {
+        //     await setErrors(updatedComment.errors)
+        // }
+        // else {
+        //     setShowModal(false)
+        // }
+
     }
 
     return (

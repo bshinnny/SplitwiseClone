@@ -18,6 +18,8 @@ function CommentsOfExpense ({expense}) {
     const comments = useSelector(state => Object.values(state.comment))
     const user = useSelector(state => Object.values(state.session)[0])
 
+    console.log(errors, '------------------errors')
+
     useEffect(() => {
         dispatch(getComments(expenseId))
     }, [dispatch, expenseId])
@@ -47,17 +49,27 @@ function CommentsOfExpense ({expense}) {
         const newComment = await dispatch(createComment(expenseId, payload))
         .catch(async (res) => {
         const data = await res.json();
-        if (data && typeof data.errors === 'object') {
+        if (data && typeof data.errors === 'object' ) {
             setErrors(Object.values(data.errors))
         }
-        if (data && (data.errors || data.message)) setErrors([data.errors? data.errors : data.message]);
+        if (data && (data.errors || data.message)) {
+            setErrors([data.errors? data.errors : data.message]);
+        }
         });
 
-        if (newComment) {
-            setErrors([])
-            // history.push(`/expenses/${expenseId}/comments`)
-            setDescription('');
+        if (newComment.errors){
+            setErrors(newComment.errors)
         }
+        else if (newComment){
+            setErrors([])
+            setDescription('')
+        }
+
+        // if (newComment) {
+        //     setErrors([])
+        //     // history.push(`/expenses/${expenseId}/comments`)
+        //     setDescription('');
+        // }
     }
 
     return (
