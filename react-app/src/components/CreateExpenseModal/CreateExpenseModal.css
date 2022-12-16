@@ -1,7 +1,5 @@
 .modal-expense-entire {
-    background-color: #5cc5a7;
-    border: 1px black solid;
-
+    border: 1px lightgray solid;
 }
 
 .expense-form {
@@ -12,6 +10,29 @@
 
 .modal-expense-header {
     color: white;
-    margin-bottom: 10px;
+    font-size: 24px;
+    padding: 20px 50px;
+    background-color: #5cc5a7;
+}
+
+.expense-form-input {
+    background-color: white;
+    padding-top: 10px;
+    font-weight: 600;
+}
+
+.expense-form-submit-button {
+    background-color: none;
     padding: 5px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.expense-form-submit-button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.expenses-last-form-element {
+    margin-bottom: 15px;
 }

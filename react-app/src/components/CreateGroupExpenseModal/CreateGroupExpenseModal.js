@@ -58,39 +58,43 @@ export default function CreateGroupExpense({ setShowModal }) {
 
     console.log(groupId, 'GROUP IDDDD')
     return (
-        <div>
-            <h1>Create New Expense</h1>
+        <div className="modal-expense-entire">
+            <div className="modal-expense-header">Create New Group Expense</div>
             <div>
                 {errors && (
                     <ul>{errors}</ul>
                 )}
             </div>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className="expense-form">
 
+                <div className="expense-form-input">Description</div>
                 <input required
                     type="text"
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
                     placeholder="Description"></input>
 
-
+                <div className="expense-form-input">Total Amount</div>
                 <input required
                     type="number" min="0" step="0.01"
                     onChange={(e) => setAmount(e.target.value)}
                     value={amount}
                     placeholder="Total Amount"></input>
 
+                <div className="expense-form-input">Note</div>
                 <input required
                     type="text"
                     onChange={(e) => setNote(e.target.value)}
                     value={note}
                     placeholder="Note"></input>
 
+                <div className="expense-form-input">Your Groups</div>
                 <select required
                     name="group"
                     type="text"
                     onChange={(e) => setGroupId(e.target.value)}
                     value={groupId}
+                    className="expenses-last-form-element"
                     >
 
                     <option style={{color:"gray"}}>Select A Group</option>
@@ -99,14 +103,7 @@ export default function CreateGroupExpense({ setShowModal }) {
                     </select>
 
 
-
-                {/* <input required
-                    type="text"
-                    onChange={(e) => setRecipientEmail(e.target.value)}
-                    value={recipientEmail}
-                    placeholder="Recipient Email"></input> */}
-
-                <button type="submit">Create Expense</button>
+                <button type="submit" className="expense-form-submit-button">Create Expense</button>
             </form>
         </div>
                     //     {user_groups && user_groups.groups.map(group =>

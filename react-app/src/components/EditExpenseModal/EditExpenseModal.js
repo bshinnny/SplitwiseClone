@@ -60,33 +60,36 @@ export default function EditExpense({ setShowModal, expense, setHasSubmitted }) 
     }
 
     return (
-        <div>
-            <h1>Update Your Expense</h1>
+        <div className="modal-expense-entire">
+            <div className="modal-expense-header">Update Your Expense</div>
             <ul>
                 {Object.values(errors).map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className="expense-form">
 
+                <div className="expense-form-input">Description</div>
                 <input required
                     type="text"
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
                     placeholder="Description"></input>
 
-
+                <div className="expense-form-input">Total Amount</div>
                 <input required
                     type="number" min="0" step="0.01"
                     onChange={(e) => setAmount(e.target.value)}
                     value={amount}
                     placeholder="Amount"></input>
 
+                <div className="expense-form-input">Note</div>
                 <input required
                     type="text"
                     onChange={(e) => setNote(e.target.value)}
                     value={note}
-                    placeholder="Note"></input>
+                    placeholder="Note"
+                    className="expenses-last-form-element"></input>
 
-                <button type="submit" className="edit-submit-button">Save Changes</button>
+                <button type="submit" className="expense-form-submit-button">Save Changes</button>
             </form>
         </div>
 
