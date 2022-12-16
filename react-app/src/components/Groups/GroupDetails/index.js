@@ -5,6 +5,8 @@ import { useParams, useHistory, NavLink } from 'react-router-dom';
 import GroupsSidebar from '../GroupsSidebar';
 import './GroupDetails.css'
 import FriendSideBar from '../../friends/SideBar';
+// import CreateExpenseModal from '../../CreateExpenseModal';
+import CreateGroupExpenseModal from '../../CreateGroupExpenseModal';
 
 function GroupDetails() {
     const dispatch = useDispatch();
@@ -52,8 +54,6 @@ function GroupDetails() {
         <div className='outer-container'>
             <div className='left-side'>
                 <div className='left-empty-div'>
-                    <p>left-empty-div</p>
-                    <p>right-side-bar-div</p>
                 </div>
                 <div className='right-side-bar-div'>
                     <div className='active-side-bar'>
@@ -65,11 +65,12 @@ function GroupDetails() {
                 </div>
             </div>
             <div className='middle-side'>
-                <div className='title'>
+                <div className='title group-exp-title'>
                     {group.type === 'Home' && (<h2 className='group-header'><i class="fa-solid fa-house-user"></i> {group.name} </h2>)}
                     {group.type === 'Trip' && (<h2 className='group-header'><i class="fa-solid fa-plane-departure"></i> {group.name}</h2>)}
                     {group.type === 'Couple' && (<h2 className='group-header'><i class="fa-solid fa-user-group"></i> {group.name}</h2>)}
                     {group.type === 'Other' && (<h2 className='group-header'><i class="fa-solid fa-star"></i> {group.name}</h2>)}
+                    <CreateGroupExpenseModal />
                 </div>
                 <div className='content'>
                 <div className='group-expenses-div'>
@@ -132,7 +133,6 @@ function GroupDetails() {
             </div>
                 </div>
                 <div className='right-empty'>
-                    <p>right-empty</p>
                 </div>
             </div>
         </div>
