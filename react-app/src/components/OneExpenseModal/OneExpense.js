@@ -11,7 +11,7 @@ export default function OneExpense({ expense, setHasSubmitted }) {
 
     useEffect(() => {
         dispatch(getOneExpense(expense.id))
-    }, [dispatch])
+    }, [dispatch, expense.id])
 
     return (
         <div className="one-expense-total-container">
