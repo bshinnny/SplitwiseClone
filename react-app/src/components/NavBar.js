@@ -56,7 +56,7 @@ const NavBar = () => {
     content = (
       <>
       <div className='nav2-container'>
-        <NavLink style={{ color: 'black', textDecoration: 'none'}} to='/' exact={true} activeClassName='active'>
+        <NavLink style={{ color: 'black', textDecoration: 'none'}} to='/dashboard' exact={true} activeClassName='active'>
             <div id='logo-name-2'>
               <img id='logo-2' src='https://s3.amazonaws.com/itunes-images/app-assets/458023433/80793600/458023433-80793600-circularArtwork-300.jpg' alt='logo'/>
               <h1>Smartsplit</h1>
