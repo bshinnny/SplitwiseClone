@@ -92,3 +92,10 @@ def delete_comment(commentId):
     db.session.delete(comment)
     db.session.commit()
     return {'message': f'Sucessfully deleted comment {comment.id}'}, 200
+
+# for fix bug
+@comments_routes.route('/comments', methods=['GET'])
+@login_required
+def all_comments() :
+    comments = ExpenseComment.query.options(joinedload(ExpenseComment.user)).all()
+    return {'Comments': [comment.to_dict() for comment in comments]}, 200
