@@ -37,7 +37,7 @@ export default function CreateGroupExpense({ setShowModal }) {
         e.preventDefault()
 
         if(groupId === 0 || groupId ==="Select A Group"){
-            setErrors("Please select a group")
+            setErrors(["Please select a group"])
         }
         else{
             let newGroupExpense = await dispatch(createGroupExpense(info))
@@ -62,7 +62,10 @@ export default function CreateGroupExpense({ setShowModal }) {
             <div className="modal-expense-header">Create New Group Expense</div>
             <div>
                 {errors && (
-                    <ul>{errors}</ul>
+                    <ul>
+                        {/* {errors} */}
+                        {Object.values(errors).map((error, idx) => <li key={idx} className="newexpense-error-list">{error}</li>)}
+                    </ul>
                 )}
             </div>
             <form onSubmit={onSubmit} className="expense-form">

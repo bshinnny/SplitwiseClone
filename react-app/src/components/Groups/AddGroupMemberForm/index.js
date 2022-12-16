@@ -8,10 +8,9 @@ function AddGroupMemberForm() {
     const dispatch = useDispatch();
     const history = useHistory();
     const { groupId } = useParams();
-    // console.log(groupId)
 
     const [memberEmail, setMemberEmail] = useState('');
-    const [additionalEmails, setAdditionalEmails] = useState([])
+    const [additionalEmails, setAdditionalEmails] = useState({})
     const [counter, setCounter] = useState(0);
     const [errors, setErrors] = useState([]);
     const [users, setUsers] = useState([]);
@@ -25,7 +24,7 @@ function AddGroupMemberForm() {
         fetchData();
     }, []);
 
-    console.log('USERS ARRAY:', users)
+    // console.log('USERS ARRAY:', users)
     const userEmailsArr = [];
     for (const user of users) {
         userEmailsArr.push(user.email)
@@ -41,9 +40,9 @@ function AddGroupMemberForm() {
 
     const handleDeleteClick = (e) => {
         e.preventDefault();
-        // console.log('DELETE', counter)
-        setCounter(counter - 1)
-
+        setAdditionalEmails({})
+        // setCounter(counter - 1)
+        setCounter(0)
     }
 
     const handleOnChange = (e) => {
@@ -51,32 +50,41 @@ function AddGroupMemberForm() {
         const emailsObj = {};
         emailsObj[e.target.className] = e.target.value;
         setAdditionalEmails({...additionalEmails, ...emailsObj})
-        console.log('THESE ARE THE ADDITIONAL EMAILS:', additionalEmails)
+        // console.log('THESE ARE THE ADDITIONAL EMAILS:', additionalEmails)
+    }
+
+    const handleMemberEmail = (e) => {
+        e.preventDefault();
+        setMemberEmail(e.target.value)
+        // setAdditionalEmails({})
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const emailsArr = Object.values(additionalEmails);
-        emailsArr.push(memberEmail)
+        // setAdditionalEmails({})
+        // setAdditionalEmails({...additionalEmails, firstEmail: memberEmail})
 
-        const errorsArr = [];
+        const emailsArr = Object.values(additionalEmails);
+        emailsArr.push(memberEmail);
+        console.log('EMAILS:', emailsArr);
+
+        const errors = [];
 
         for (let i = 0; i < emailsArr.length; i++) {
             if (!userEmailsArr.includes(emailsArr[i])) {
-                errorsArr.push(`${emailsArr[i]} doesn't belong to any user.`)
+                errors.push(`${emailsArr[i]} doesn't belong to any user.`)
             }
         }
 
+        // console.log('ERRORS ARRAY', errors)
         // Comment in after.
-        // setErrors(errorsArr)
+        setErrors(errors)
 
-        // if (errors.length) {
-        //     console.log(errors)
-        //     return;
-        // }
+        if (errors.length) {
+            return;
+        }
 
-        // setErrors([])
 
         for (let i = 0; i < emailsArr.length; i++) {
             dispatch(groupActions.addGroupMemberThunk(emailsArr[i], groupId))
@@ -95,48 +103,20 @@ function AddGroupMemberForm() {
         dispatch(groupActions.getGroupMembersThunk(groupId))
         dispatch(groupActions.getGroupExpensesThunk(groupId))
         history.push(`/groups/${groupId}`)
-
-
-        // if(additionalEmails.length > 0) {
-        //     Object.values(additionalEmails).map((additionalEmail) => {
-        //         dispatch(groupActions.addGroupMemberThunk(additionalEmail, groupId))
-        //             .catch(
-        //                 async (response) => {
-        //                     const data = await response.json();
-        //                     if(data && data.error) {
-        //                         setErrors(data.error)
-        //                     }
-        //                 }
-        //             )
-        //     })
-        // }
-
-        // return dispatch(groupActions.addGroupMemberThunk(memberEmail, groupId))
-        //     .then(() => {
-        //         setMemberEmail('')
-        //         history.push(`/groups/${groupId}`)
-        //     })
-        //     .catch(
-        //         async (response) => {
-        //             const data = await response.json();
-        //             if(data && data.error) {
-        //                 setErrors(data.error)
-        //             }
-        //         }
-        //     )
-
     }
 
     return (
         <div className='add-group-member-form-div'>
             <form className='add-group-member-form' onSubmit={handleSubmit}>
+                <h2>Add Group Members</h2>
                 <ul className="errors">
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <div className='grp-form-container'>
                     <input
                         type='email'
-                        onChange={(e) => setMemberEmail(e.target.value)}
+                        // onChange={(e) => setMemberEmail(e.target.value)}
+                        onChange={handleMemberEmail}
                         value={memberEmail}
                         placeholder='Member Email'
                         required
@@ -156,11 +136,11 @@ function AddGroupMemberForm() {
                                 required
                                 className={num}
                             />
-                            <button className= 'add-grp-delete-button' onClick={handleDeleteClick}>X</button>
                         </div>
                     )
                 })}
                 <button className= 'add-grp-submit-button' onClick={handleAddClick}>Add Additional Member</button>
+                <button className= 'add-grp-delete-button' onClick={handleDeleteClick}>Delete Additional Member Emails</button>
                 <button className= 'add-grp-submit-button' type='submit'>Submit Group Members</button>
             </form>
         </div>

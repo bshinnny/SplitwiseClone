@@ -14,11 +14,11 @@
     flex-direction: column;
     padding-left: 15%;
     padding-top: 30px;
-    max-width: 50%;
+    width: 50%;
 }
 
 .white-right-container {
-    max-width: 50%;
+    width: 50%;
     font-size: 400px;
 }
 
