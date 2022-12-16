@@ -11,7 +11,7 @@ export default function OneExpense({ expense, setHasSubmitted }) {
 
     useEffect(() => {
         dispatch(getOneExpense(expense.id))
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="one-expense-total-container">
@@ -29,7 +29,6 @@ export default function OneExpense({ expense, setHasSubmitted }) {
                 <button onClick={() => dispatch(deleteExpense(expense.id))} className="expense-delete-button">Delete Expense</button>
             </div>
         </div>
-
 
     )
 }
