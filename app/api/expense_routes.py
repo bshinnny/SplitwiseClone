@@ -142,7 +142,7 @@ def create_expense():
     recipient_user = User.query.filter(User.email == recipient_email).first()
 
     if(not recipient_user):
-        return {"errors": "Recipient not found"}, 404
+        return {"errors": ["Recipient not found"]}, 404
 
     id_of_user = current_user.id #user is an integer
 

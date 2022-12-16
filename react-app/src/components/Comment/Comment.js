@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getComments, createComment, removeComment } from "../../store/comments";
 import UpdateComment from "./EditComment";
 import './comment.css'
 
 function CommentsOfExpense ({expense}) {
-    // let { expenseId } = useParams()
     const dispatch = useDispatch()
-    const history = useHistory()
-    console.log(expense, 'EXPENSEEEEEEE')
+    // console.log('EXPENSEEEEEEE', expense.id)
     const expenseId = expense.id
 
     const [description, setDescription] = useState('');
     const [errors, setErrors] = useState([]);
 
-    const comments = useSelector(state => Object.values(state.comment))
+    //fix bug
+    const allComments = useSelector(state => Object.values(state.comment))
+    const comments = allComments.filter(comment => comment.expense_id === expenseId)
+
     const user = useSelector(state => Object.values(state.session)[0])
 
+    // useEffect(() => {
+    //     dispatch(getComments(expenseId))
+    // }, [dispatch, expenseId])
     useEffect(() => {
-        dispatch(getComments(expenseId))
+        dispatch(getComments())
     }, [dispatch, expenseId])
 
     if (!comments) return null;
@@ -47,17 +50,27 @@ function CommentsOfExpense ({expense}) {
         const newComment = await dispatch(createComment(expenseId, payload))
         .catch(async (res) => {
         const data = await res.json();
-        if (data && typeof data.errors === 'object') {
+        if (data && typeof data.errors === 'object' ) {
             setErrors(Object.values(data.errors))
         }
-        if (data && (data.errors || data.message)) setErrors([data.errors? data.errors : data.message]);
+        if (data && (data.errors || data.message)) {
+            setErrors([data.errors? data.errors : data.message]);
+        }
         });
 
-        if (newComment) {
-            setErrors([])
-            // history.push(`/expenses/${expenseId}/comments`)
-            setDescription('');
+        if (newComment.errors){
+            setErrors(newComment.errors)
         }
+        else if (newComment){
+            setErrors([])
+            setDescription('')
+        }
+
+        // if (newComment) {
+        //     setErrors([])
+        //     // history.push(`/expenses/${expenseId}/comments`)
+        //     setDescription('');
+        // }
     }
 
     return (

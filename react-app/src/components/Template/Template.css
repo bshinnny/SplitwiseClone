@@ -10,7 +10,7 @@
     position: relative;
     /* top: 32px; */
     font-family: sans-serif;
-    font-size: 11px;
+    font-size: 10px;
    
 }
 
@@ -147,9 +147,9 @@
     background-color:rgb(238, 238,238);
 }
 
-.group:hover {
+/* .group:hover {
     background-color:rgb(238, 238,238);
-}
+} */
 
 
 

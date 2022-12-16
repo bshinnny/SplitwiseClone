@@ -25,8 +25,16 @@ const remove = (commentId) => ({
 
 
 //thunk action creators
-export const getComments = (expenseId) => async dispatch => {
-    const response = await fetch(`/api/expenses/${expenseId}/comments`);
+// export const getComments = (expenseId) => async dispatch => {
+//     const response = await fetch(`/api/expenses/${expenseId}/comments`);
+//     if (response.ok) {
+//         const comments = await response.json();
+//         dispatch(load(comments.Comments))
+//     }
+// };
+
+export const getComments = () => async dispatch => {
+    const response = await fetch(`/api/comments`);
     if (response.ok) {
         const comments = await response.json();
         dispatch(load(comments.Comments))
@@ -46,6 +54,12 @@ export const createComment = (expenseId, payload) => async dispatch => {
         dispatch(create(comment));
         return comment
     }
+    else {
+        const data = await response.json()
+        if(data.errors){
+            return data
+        }
+    }
 };
 
 export const updateComment = (commentId, payload) => async dispatch => {
@@ -60,6 +74,12 @@ export const updateComment = (commentId, payload) => async dispatch => {
         const comment = await response.json();
         dispatch(update(comment));
         return comment
+    }
+    else {
+        const data = await response.json()
+        if(data.errors){
+            return data
+        }
     }
 }
 

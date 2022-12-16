@@ -58,7 +58,10 @@ export default function CreateExpense({ setShowModal, expense, setHasSubmitted }
             <div className="modal-expense-header">Add New Expense</div>
             <div>
                 {errors && (
-                    <ul>{errors}</ul>
+                    <ul>
+                        {/* {errors} */}
+                        {Object.values(errors).map((error, idx) => <li key={idx} className="newexpense-error-list">{error}</li>)}
+                    </ul>
                 )}
             </div>
             <form onSubmit={onSubmit} className="expense-form">
