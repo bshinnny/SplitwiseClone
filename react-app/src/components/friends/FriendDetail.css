@@ -74,6 +74,7 @@
 .your-balance {
     margin-left: 20px;
     width: max-content;
+    color: gray;
 }
 
 .balance-content {
