@@ -1,6 +1,7 @@
 .entire-page-container {
     font-size: 18px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
 }
 
 .white-container {
@@ -11,13 +12,13 @@
 .white-left-container {
     display: flex;
     flex-direction: column;
-    padding-left: 18%;
+    padding-left: 15%;
     padding-top: 30px;
-    width: 50%;
+    max-width: 50%;
 }
 
 .white-right-container {
-    width: 50%;
+    max-width: 50%;
     font-size: 400px;
 }
 
@@ -130,6 +131,10 @@
     margin: 10px;
 }
 
+.each-review {
+    max-width: 33%;
+}
+
 #purple-left-block{
     display: flex;
     flex-direction: column;
@@ -191,4 +196,9 @@
     to {
         opacity: 1;
     }
+}
+
+
+.footer {
+    max-width: 100%;
 }
