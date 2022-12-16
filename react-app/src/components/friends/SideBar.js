@@ -15,7 +15,7 @@ import "./SideBar.css"
 
 
 export default function FriendSideBar(){
-    const history = useHistory
+    const history = useHistory()
     const dispatch = useDispatch()
     const [openModal, setOpenModal] = useState(false)
     const [errors, setErrors] = useState()
@@ -37,7 +37,7 @@ export default function FriendSideBar(){
         const friend_id = e.target.id
         console.log("friend id",friend_id)
         dispatch(deletingFriend(friend_id))
-        // history.push("/")
+        history.push('/dashboard' )
 
     }
 

@@ -53,7 +53,7 @@ p.p-friends {
     border: none;
     background-color:rgb(238, 238,238);
     display: inline-block;
-    margin-left: 70px;
+    /* margin-left: 70px; */
     color:gray
 }
 
