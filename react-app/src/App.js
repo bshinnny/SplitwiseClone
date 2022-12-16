@@ -54,11 +54,11 @@ function App() {
         <ProtectedRoute path='/friends/current' exact={true} >
           <FriendSideBar/>
         </ProtectedRoute>
-        <ProtectedRoute path='/friends/:friendId' exact={true} >
-          <FriendDetail/>
-        </ProtectedRoute>
         <ProtectedRoute path='/friends/delete' exact={true} >
           <DeleteWarning/>
+        </ProtectedRoute>
+        <ProtectedRoute path='/friends/:friendId' exact={true} >
+          <FriendDetail/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />

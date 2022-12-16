@@ -8,7 +8,7 @@
     padding-right: 0;
     margin-top: 0;
     position: relative;
-    top: 32px;
+    /* top: 32px; */
     font-family: sans-serif;
     font-size: 11px;
    
@@ -67,6 +67,7 @@
     position:relative;
     padding-left: 45px;
     color:grey; 
+    margin-right: 10px;
     
 }
 
