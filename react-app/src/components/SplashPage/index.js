@@ -148,7 +148,4 @@ export default function SplashPage() {
             <img className='footer' src={footer} alt='footer'></img>
         </div>
     )
-
-
-
 }
