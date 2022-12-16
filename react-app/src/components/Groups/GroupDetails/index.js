@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import * as groupActions from '../../../store/groups';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, NavLink } from 'react-router-dom';
 import GroupsSidebar from '../GroupsSidebar';
 import './GroupDetails.css'
+import FriendSideBar from '../../friends/SideBar';
 
 function GroupDetails() {
     const dispatch = useDispatch();
@@ -56,10 +57,10 @@ function GroupDetails() {
                 </div>
                 <div className='right-side-bar-div'>
                     <div className='active-side-bar'>
-                        <div className='dashboard'>dashboard</div>
-                        <div className='all-expenses'>all expenses</div>
+                        <div className='dashboard '><NavLink to="/dashboard">Dashboard</NavLink></div>
+                        <div className='all-expenses'><NavLink to="/expenses/all">All Expenses</NavLink></div>
                         <div className='group'><GroupsSidebar/></div>
-                        <div className='friends'>friends</div>
+                        <div className='friends'><FriendSideBar/></div>
                     </div>
                 </div>
             </div>
