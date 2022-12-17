@@ -2,7 +2,7 @@
 
 //action
 const LOAD_FRIENDS = 'friends/DISPLAY_FRIENDS'
-const displayFriends = (data)=> { 
+const displayFriends = (data)=> {
   return {
     type: LOAD_FRIENDS,
     payload: data
@@ -36,6 +36,13 @@ const deleteFriend = (firendId) => {
   }
 }
 
+const CLEAR_FRIENDS = "friends/CLEAR_FRIENDS"
+export const clearFriends = () => {
+  return {
+    type: CLEAR_FRIENDS
+  }
+}
+
 
 
 
@@ -52,7 +59,7 @@ export const getAllFriends = () => async (dispatch) =>{
         const data = await response.json();
         console.log("+++++data at get all friends",data)
         dispatch(displayFriends(data.currentUserFriends))
-        
+
     }
 }
 
@@ -96,13 +103,13 @@ export const createFriend = (email) => async (dispatch) => {
       const data = await response.json()
       if(data.error) {
         return data;
-      
+
     }
     else {
       return {"error":'something just happened,please try again'}
     }
-    
-    
+
+
     }
 }
 
@@ -153,6 +160,10 @@ export default function friendReducer(state = initialState, action) {
         newState = {...state};
         delete newState[action.payload];
         return newState;
+      case CLEAR_FRIENDS:
+        newState = {...state}
+        newState = {}
+        return newState;
       default:
         return state;
     }
@@ -169,6 +180,3 @@ export default function friendReducer(state = initialState, action) {
         return state;
     }
   }
-  
-
-  

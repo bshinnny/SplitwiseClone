@@ -72,7 +72,7 @@ def get_friend_detail(friend_id):
     print("backend friend_iddddddddddddddd",friend_id)
     current_user_id = int(current_user.get_id())
     print("backend current userrrrrrrrrrrrrr",current_user_id)
-    
+
 
 
     friendship1 = Friend.query.filter((Friend.user_id == current_user_id),(Friend.friend_id == friend_id)).all()
@@ -86,8 +86,12 @@ def get_friend_detail(friend_id):
 
     friend = User.query.filter(User.id == friend_id).one()
 
-    expense1 = Expense.query.filter(Expense.user_id== friend_id).all()
-    expense2 = Expense.query.filter(Expense.recipient_id== friend_id).all()
+    # expense1 = Expense.query.filter(Expense.user_id== friend_id).all()
+    # expense2 = Expense.query.filter(Expense.recipient_id== friend_id).all()
+    # expenses = expense1 + expense2
+
+    expense1 = Expense.query.filter((Expense.user_id == current_user_id),(Expense.recipient_id == friend_id)).all()
+    expense2 = Expense.query.filter((Expense.user_id == friend_id),(Expense.recipient_id == current_user_id)).all()
     expenses = expense1 + expense2
 
 
@@ -201,7 +205,7 @@ def delete_friendship(friend_id):
 
     friendship_id_a = Friend.query.filter((Friend.user_id ==curr_user_id),(Friend.friend_id ==friend_id)).all()
     friendship_id_b = Friend.query.filter((Friend.user_id ==friend_id),(Friend.friend_id ==curr_user_id)).all()
-    friendship_id = friendship_id_a + friendship_id_b 
+    friendship_id = friendship_id_a + friendship_id_b
 
     friend_primary_id=friendship_id[0].id
 
@@ -211,4 +215,3 @@ def delete_friendship(friend_id):
     db.session.commit()
 
     return{"message":"Friend are successfully deleted"}, 200
-

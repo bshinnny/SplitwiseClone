@@ -6,8 +6,8 @@ from ..models.groups import Group
 
 def description_len_check(form, field):
     description = field.data
-    if len(description) > 254:
-        raise ValidationError("Description must be less than 255 characters")
+    if len(description) > 40:
+        raise ValidationError("Description must be less than 40 characters")
 
 def note_len_check(form, field):
     note = field.data
