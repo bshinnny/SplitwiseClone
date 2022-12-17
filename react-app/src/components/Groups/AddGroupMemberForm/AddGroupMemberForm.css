@@ -3,7 +3,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 30px;
 }
 
 .add-group-member-form {
@@ -68,23 +67,4 @@
     display: flex;
     height: 70px;
     align-items: center;
-}
-
-.grp-form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.x-button {
-    background-color: transparent;
-    font-size: 15px;
-    height: 30px;
-    width: 30px;
-    color: red;
-    border: none;
-    cursor: pointer;
-    padding: none;
-    /* display: flex; */
-    /* align-self: center; */
 }

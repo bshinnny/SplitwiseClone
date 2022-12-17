@@ -30,17 +30,7 @@ function AddGroupMemberForm() {
         userEmailsArr.push(user.email)
     }
 
-    useEffect(() => {
-        dispatch(groupActions.getGroupMembersThunk(groupId))
-    }, [dispatch, groupId])
-
-    // Adding validations for if user is already in the group.
-    const members = useSelector(state => state.groups.groupMembers)
-
-    const groupMembersArr = []
-    for (const member of Object.values(members)) {
-        groupMembersArr.push(member.email)
-    }
+    // console.log('USER EMAILS:', userEmailsArr)
 
     const handleAddClick = (e) => {
         e.preventDefault();
@@ -69,11 +59,6 @@ function AddGroupMemberForm() {
         // setAdditionalEmails({})
     }
 
-    const handleExit = (e) => {
-        e.preventDefault();
-        history.push('/dashboard')
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -89,9 +74,6 @@ function AddGroupMemberForm() {
         for (let i = 0; i < emailsArr.length; i++) {
             if (!userEmailsArr.includes(emailsArr[i])) {
                 errors.push(`${emailsArr[i]} doesn't belong to any user.`)
-            }
-            if (groupMembersArr.includes(emailsArr[i])) {
-                errors.push(`${emailsArr[i]} is already in this group.`)
             }
         }
 
@@ -123,14 +105,10 @@ function AddGroupMemberForm() {
         history.push(`/groups/${groupId}`)
     }
 
-
     return (
         <div className='add-group-member-form-div'>
             <form className='add-group-member-form' onSubmit={handleSubmit}>
-                <div className='grp-form-header'>
-                    <h2 className='grp-create-header'>Add Group Members</h2>
-                    <button className='x-button' onClick={handleExit}>X</button>
-                </div>
+                <h2>Add Group Members</h2>
                 <ul className="errors">
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>

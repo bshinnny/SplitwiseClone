@@ -21,7 +21,6 @@ export default function OneExpense({ expense, setHasSubmitted }) {
                     <div id="one-expense-description">{`${expense.description}`}</div>
                     <div id="one-expense-amount">{`$${expense.amount}`}</div>
                     <div id="one-expense-added-by">{`Added by ${expense.Fronter.first_name} on ${expense.date.slice(0, 16)}`}</div>
-                    <div id="one-expense-added-by">Note: {expense?.note}</div>
                 </div>
             </div>
             <CommentsOfExpense expense={expense} />

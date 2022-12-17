@@ -8,6 +8,7 @@ import iphone3 from '../../assets/iphone/iphone3.png'
 import iphone4 from '../../assets/iphone/iphone4.png'
 import iphone5 from '../../assets/iphone/iphone5.png'
 import footer from '../../assets/footer.png'
+import more from '../../assets/more.png'
 import info from '../../assets/info.png'
 import review1 from '../../assets/review1.png'
 import review2 from '../../assets/review2.png'
@@ -15,7 +16,6 @@ import review3 from '../../assets/review3.png'
 import review4 from '../../assets/review4.png'
 import review5 from '../../assets/review5.png'
 import review6 from '../../assets/review6.png'
-import github from '../../assets/github.png'
 
 export default function SplashPage() {
 
@@ -144,30 +144,7 @@ export default function SplashPage() {
                     <img className='each-review' src={review6} alt='review'/>
                 </div>
             </div>
-            {/* <img className='footer' src={more} alt='more'></img> */}
-            <div className='developers-bar'>
-                <div>Developers:</div>
-                <div className='each-developer'>Brandon Shin
-                    <a href='https://github.com/bshinnny'>
-                        <img className='github-img' src={github} alt='github'></img>
-                    </a>
-                </div>
-                <div className='each-developer'>Edmund Ju
-                    <a href='https://github.com/edmundj0'>
-                        <img className='github-img' src={github} alt='github'></img>
-                    </a>
-                </div>
-                <div className='each-developer'>Lijuan Xu
-                    <a href='https://github.com/XU1204'>
-                        <img className='github-img' src={github} alt='github'></img>
-                    </a>
-                </div>
-                <div className='each-developer'>Vivian Wang
-                    <a href='https://github.com/MangoPie888'>
-                        <img className='github-img' src={github} alt='github'></img>
-                    </a>
-                </div>
-            </div>
+            <img className='footer' src={more} alt='more'></img>
             <img className='footer' src={footer} alt='footer'></img>
         </div>
     )
