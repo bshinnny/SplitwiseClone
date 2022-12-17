@@ -35,6 +35,11 @@ function CreateGroupForm() {
         setAdditionalEmails([...additionalEmails, ...emailArr])
     }
 
+    const handleExit = (e) => {
+        e.preventDefault();
+        history.push('/dashboard')
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -73,7 +78,10 @@ function CreateGroupForm() {
     return (
         <div className='create-group-form-div'>
             <form className='create-group-form' onSubmit={handleSubmit}>
-                <h2>START A NEW GROUP</h2>
+                <div className='grp-form-header'>
+                    <h2 className='grp-create-header'>START A NEW GROUP</h2>
+                    <button className='x-button' onClick={handleExit}>X</button>
+                </div>
                 <ul className="errors">
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>

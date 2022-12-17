@@ -202,3 +202,33 @@
 .footer {
     max-width: 100%;
 }
+
+.developers-bar {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 40px 0;
+    padding: 10px 0;
+    align-items: center;
+    font-family: fantasy;
+    font-size: 24px;
+}
+
+.review-container {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.each-developer {
+    display: flex;
+
+}
+
+.github-img {
+    height: 30px;
+    position: relative;
+    bottom: 2px;
+}
+
+.github-img:hover {
+    bottom: 0
+}
