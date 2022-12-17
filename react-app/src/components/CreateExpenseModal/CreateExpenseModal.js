@@ -13,6 +13,7 @@ export default function CreateExpense({ setShowModal, expense, setHasSubmitted }
     const [recipientEmail, setRecipientEmail] = useState("")
     const [errors, setErrors] = useState([])
 
+    let currentUserEmail = useSelector(state => state.session.user.email)
     let currentUserId = useSelector(state => state.session.user.id)
     const history = useHistory()
 
@@ -32,6 +33,11 @@ export default function CreateExpense({ setShowModal, expense, setHasSubmitted }
 
     const onSubmit = async (e) => {
         e.preventDefault()
+
+        if(currentUserEmail === recipientEmail){
+            setErrors(['You really tried creating an expense on yourself?'])
+            return
+        }
 
         let updatedExpense = await dispatch(createExpense(info))
             // .then(()=> setShowModal(false))

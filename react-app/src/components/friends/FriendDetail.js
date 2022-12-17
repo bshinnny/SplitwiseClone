@@ -28,7 +28,7 @@ const FriendDetail = () => {
     console.log("UserID",userId)
     const info = useSelector(state=>state.friendDetail)
     console.log("info",info)
-   
+
     const detailList = Object.values(info)
     console.log("frontend friend detail", detailList)
     const thisFriend = detailList.filter((detail)=>detail.id == friendId)
@@ -36,11 +36,11 @@ const FriendDetail = () => {
     console.log("))))))",thisFriend)
     const friendDetail = thisFriend[0]
     console.log("*********frienddetail",friendDetail)
-    
+
     // console.log("friendDetail.shared_expenses",friendDetail.shared_expenses)
     let expensesList
     let youPaid = 0
-    let total = 0 
+    let total = 0
     if(friendDetail) {
       if((friendDetail.shared_expenses).length === 0) {
       expensesList = 0
@@ -57,7 +57,7 @@ const FriendDetail = () => {
         }
 
       }
-    
+
     }
     console.log("expensesList",expensesList)
     console.log("totalamout", total*2)
@@ -88,9 +88,9 @@ const FriendDetail = () => {
             <div className='content'>
             <div>
       {friendDetail && expensesList ? expensesList.map(
-        (expense)=>expense.user_id === userId ? 
+        (expense)=>expense.user_id === userId ?
         <li className='expense-lists' key ={expense.id} id ={expense.id}><div className='description-div'><i class="fa-solid fa-receipt"></i>&nbsp;
-        {"   " + expense.description}</div> <div className='owe-paid-div'><span className='payment-des'>you paid<p className='paid-dollar'>${expense.amount*2}</p></span><span className='payment-des'>{friendDetail.first_name} lent you <p className='lent-dollar'>${expense.amount}</p></span></div></li> 
+        {"   " + expense.description}</div> <div className='owe-paid-div'><span className='payment-des'>you paid<p className='paid-dollar'>${expense.amount*2}</p></span><span className='payment-des'>{friendDetail.first_name} lent you <p className='lent-dollar'>${expense.amount}</p></span></div></li>
         : <li className='expense-lists' id ={expense.id}><div className='description-div'><i class="fa-solid fa-receipt"></i>&nbsp;{"   "+expense.description}</div>
         <div className='owe-paid-div'><span className='payment-des'>{friendDetail.first_name} paid <p className='paid-dollar'>${expense.amount*2}</p></span> <span className='payment-des'> you lent {friendDetail.first_name}<p className='lent-dollar'>${expense.amount}</p></span></div></li>) :<div className='nothing'><img src={nothingImg}/><p className='p-nothing'>You don't have any expenses yet</p></div>}
       {/* {friendDetail && expensesList.map(expense=><li id ={expense.id}>{expense.description} {expense.amount}</li>) } */}
@@ -100,12 +100,12 @@ const FriendDetail = () => {
 
 
 
-      <div className='right-side'> 
+      <div className='right-side'>
             <div className='left-with-info'>
               <div className='right-balance-div'>
                 <h3 className='your-balance'>YOUR BALANCE</h3>
                 <div className='balance-content'>
-                {(friendDetail && expensesList) && !youPaid ? <p>You owe ${total *2}</p> :<p>You paid ${total/2}</p>}
+                {(friendDetail && expensesList) && !youPaid ? <p>You owe ${total}</p> :<p>You paid ${total * 2}</p>}
                 {friendDetail && !expensesList && <p>You are all settled up</p>}
                 </div>
               </div>
@@ -114,11 +114,11 @@ const FriendDetail = () => {
             </div>
       </div>
     </div>
-  
-    
-    
 
-    
+
+
+
+
   )
 }
 

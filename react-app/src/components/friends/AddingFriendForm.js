@@ -31,7 +31,7 @@ export default function AddingFriendForm({closeModal}){
             console.log(error)
         }
 
-        
+
     }
 
 
@@ -52,7 +52,7 @@ export default function AddingFriendForm({closeModal}){
                 <div className="body">
                     <form onSubmit={formSubmission}>
                         <input className="inputEmail" type="email" placeholder="email address" onChange={(e)=>setEmail(e.target.value)} required></input>
-                        <p className="addButton"><button type="submit">Add friend</button></p>
+                        <p className="addButton"><button type="submit" className="add-friend-button">Add friend</button></p>
                     </form>
                 </div>
             </div>
