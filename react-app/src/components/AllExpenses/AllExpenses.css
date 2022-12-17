@@ -5,7 +5,6 @@
     font-size: large;
 }
 
-
 /* .expense-row:hover {
     background-color: lightgray;
     cursor: pointer;
@@ -18,7 +17,8 @@
 
 .create-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
     border-bottom: 1px lightgray solid;
 }
 
@@ -26,14 +26,13 @@
     color: white;
     background-color: #ff652f;
     text-shadow: 0 -1px 0 #c83400;
-    padding: 10px 15px 10px;
+    padding: 10px 5px 10px;
     box-shadow: 0px 3px 3px grey;
     cursor: pointer;
     border: none;
     border-radius: 5px;
     position: relative;
     bottom: 2px;
-    width: 120px;
     margin-right: 5px;
 }
 
@@ -43,21 +42,23 @@
 
 .group-charge-button:hover {
     background-color: #52b197;
+    bottom: 0px;
 }
 
 .group-charge-button {
     color: white;
-    background-color: #5bc5a7;
+    background-color: #79d3ba;
     text-shadow: 0 -1px 0 #318970;
-    padding: 10px 15px 10px;
+    border: none;
+    height: fit-content;
     box-shadow: 0px 3px 3px grey;
     cursor: pointer;
-    border: none;
+    padding: 10px 10px 10px;
+    height: fit-content;
     border-radius: 5px;
     position: relative;
     bottom: 2px;
-    width: 120px;
-    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .expense-details-button {
@@ -151,5 +152,5 @@
 .all-expenses-link {
     text-decoration: none;
     color: gray;
-    
+
 }
