@@ -17,7 +17,7 @@ const Dashboard = () => {
     let myReceivableExpenses = useSelector(state => state.expense.receivableExpenses)
 
     let allExpenses = { ...myPayableExpenses, ...myReceivableExpenses }
-    console.log(allExpenses, '--------------allexpenses')
+    // console.log(allExpenses, '--------------allexpenses')
 
     useEffect(() => {
         dispatch(getAllExpenses())
@@ -60,7 +60,7 @@ const Dashboard = () => {
 
     }
 
-    console.log(youOweUsers, 'youoweusers-----------------------------------')
+    // console.log(youOweUsers, 'youoweusers-----------------------------------')
 
     let othersOweYou = []
     for (let expense of Object.values(myReceivableExpenses)){
@@ -81,7 +81,7 @@ const Dashboard = () => {
         }
     }
 
-    console.log(othersOweYou, 'othersOweYou-----------------------------------')
+    // console.log(othersOweYou, 'othersOweYou-----------------------------------')
 
     let overlapping = []
     for (let expense of Object.values(allExpenses)){
@@ -118,7 +118,7 @@ const Dashboard = () => {
         }
     }
 
-    console.log(overlapping, 'overlapping --------------------------------')
+    // console.log(overlapping, 'overlapping --------------------------------')
 
     return (
         <div className='outer-container'>
