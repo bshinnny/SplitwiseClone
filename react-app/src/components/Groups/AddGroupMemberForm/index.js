@@ -67,7 +67,7 @@ function AddGroupMemberForm() {
 
         const emailsArr = Object.values(additionalEmails);
         emailsArr.push(memberEmail);
-        console.log('EMAILS:', emailsArr);
+        // console.log('EMAILS:', emailsArr);
 
         const errors = [];
 

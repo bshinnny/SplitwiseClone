@@ -102,7 +102,7 @@ export const createExpense = (info) => async (dispatch) => {
     }
     else{
         const data = await response.json()
-        console.log(data, 'dataaaaaaaaaaaaaaaaa')
+        // console.log(data, 'dataaaaaaaaaaaaaaaaa')
         if(data.errors){
             return data
         }
