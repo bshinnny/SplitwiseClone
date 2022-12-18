@@ -25,9 +25,10 @@ const FriendDetail = () => {
     },[dispatch,getFriendDetail,friendId])
 
     const userId = useSelector(state => state.session.user.id)
+  
    
     const info = useSelector(state=>state.friendDetail)
-  
+    
 
     const detailList = Object.values(info)
    
@@ -115,8 +116,7 @@ const FriendDetail = () => {
               <div className='right-balance-div'>
                 <h3 className='your-balance'>FRIEND INFORMATION</h3>
                 <div className='balance-content'>
-                {friendDetail &&<> <p  >Email:<p className='email-address'> {friendDetail.email}</p></p><p>You are firend with {friendDetail.first_name} {
-                  friendDetail.last_name} since: <p className='created-year'> {(friendDetail.createdAt).substring(0,17)}</p> </p></> }
+                {friendDetail &&<><p>Frist name: <p className='name-info'>{friendDetail.first_name}</p></p><p>Last name: <p className='name-info'>{friendDetail.last_name}</p></p> <p>Email:<p className='email-address'> {friendDetail.email}</p></p> </> }
                 
                 {/* {(friendDetail && expensesList) && {youOwnFriends} > 0 && <p>{friendDetail.first_name} owe you {friendOweYou}</p>}
                 {(friendDetail && expensesList) && {youOwnFriends} < 0 && <p>You own {friendDetail.first_name} {Math.abs(youOwnFriends)}</p>}
