@@ -79,5 +79,14 @@
 
 .balance-content {
     margin-left: 20px;
+    color:black;
+}
+
+
+.email-address {
+    color:#FF652F
+}
+
+.name-info {
     color: #FF652F;
 }

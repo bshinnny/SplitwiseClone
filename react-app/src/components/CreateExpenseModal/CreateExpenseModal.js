@@ -48,7 +48,7 @@ export default function CreateExpense({ setShowModal, expense, setHasSubmitted }
             // })
             if (updatedExpense.errors){
                 await setErrors(updatedExpense.errors)
-                console.log(errors, 'errors')
+             
             }
             else{
                 setShowModal(false)
