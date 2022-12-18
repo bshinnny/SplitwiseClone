@@ -52,12 +52,12 @@ export const clearFriends = () => {
 //thunk
 //get all the friends from the backend
 export const getAllFriends = () => async (dispatch) =>{
-    console.log("thunk 3")
+  
     const response = await fetch("/api/friends/current");
 
     if(response.ok){
         const data = await response.json();
-        console.log("+++++data at get all friends",data)
+
         dispatch(displayFriends(data.currentUserFriends))
 
     }
@@ -67,12 +67,11 @@ export const getAllFriends = () => async (dispatch) =>{
 
 //get friend detail
 export const getFriendDetail = (id) => async (dispatch) =>{
-  console.log("thunk IDDDDDDD",id)
-  console.log("TYPE of ID", typeof(id))
+ 
   const response = await fetch(`/api/friends/${id}`)
 
   const info = await response.json()
-  console.log("thunk firend detail ", info)
+
   dispatch(fetchFriendDetail(info))
 
   return info
@@ -82,9 +81,7 @@ export const getFriendDetail = (id) => async (dispatch) =>{
 
 //create a friends by sending the data to backend
 export const createFriend = (email) => async (dispatch) => {
-  // console.log("start create friend thunk")
-  // console.log("email on thunk", email)
-  // console.log("email type", typeof(email))
+ 
 
   const response = await fetch("/api/friends",{
     method:"post",
@@ -96,7 +93,7 @@ export const createFriend = (email) => async (dispatch) => {
 
     if(response.ok) {
       const friend = await response.json()
-      console.log("friend___at thunk", friend)
+  
       dispatch(addFriend(friend))
       return friend
     } else if(response.status < 500) {
@@ -116,7 +113,7 @@ export const createFriend = (email) => async (dispatch) => {
 
 //delete a friend from the backend
 export const deletingFriend = (id)=>async (dispatch)=> {
-  console.log("thunk friend_id",id)
+
   const response = await fetch(`/api/friends/${id}`,{
     method:"DELETE",
     headers:{

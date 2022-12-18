@@ -56,7 +56,7 @@ export default function CreateGroupExpense({ setShowModal }) {
     }
 
 
-    console.log(groupId, 'GROUP IDDDD')
+  
     return (
         <div className="modal-expense-entire">
             <div className="modal-expense-header">Create New Group Expense</div>
