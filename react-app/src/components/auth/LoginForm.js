@@ -5,7 +5,7 @@ import { login } from '../../store/session';
 import background from '../../assets/background.png'
 import './auth.css'
 import footer from '../../assets/footer.png'
-import github from '../../assets/github.png'
+import more from '../../assets/more.png'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -53,7 +53,7 @@ const LoginForm = () => {
           <div htmlFor='email'>Email address:</div>
           <input
             name='email'
-            type='email'
+            type='text'
             placeholder='Email'
             value={email}
             onChange={updateEmail}
@@ -75,29 +75,7 @@ const LoginForm = () => {
         <button id='demo-user-button' type='submit' onClick={() => demoLogin()}>Log in with demo user</button>
       </form>
     </div>
-    <div className='developers-bar'>
-        <div>Developers:</div>
-        <div className='each-developer'>Brandon Shin
-            <a href='https://github.com/bshinnny'>
-                <img className='github-img' src={github} alt='github'></img>
-            </a>
-        </div>
-        <div className='each-developer'>Edmund Ju
-            <a href='https://github.com/edmundj0'>
-                <img className='github-img' src={github} alt='github'></img>
-            </a>
-        </div>
-        <div className='each-developer'>Lijuan Xu
-            <a href='https://github.com/XU1204'>
-                <img className='github-img' src={github} alt='github'></img>
-            </a>
-        </div>
-        <div className='each-developer'>Vivian Wang
-            <a href='https://github.com/MangoPie888'>
-                <img className='github-img' src={github} alt='github'></img>
-            </a>
-        </div>
-    </div>
+    <img className='footer' src={more} alt='more'></img>
     <img className='footer' src={footer} alt='footer'></img>
     </>
   );

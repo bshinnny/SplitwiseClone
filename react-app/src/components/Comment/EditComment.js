@@ -10,16 +10,13 @@ function UpdateComment ( {comment} ) {
 
     const [description, setDescription] = useState(comment.description);
     const [errors, setErrors] = useState([]);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (description.length > 254){
             return setErrors(["Description must be less than 255 characters"])
-        }
-
-        if (description.trim().length === 0) {
-            return setErrors(["Description should not contain only spaces"])
         }
 
         setShowModal(false)

@@ -10,7 +10,7 @@ export default function CreateExpenseModal({expense, setHasSubmitted}){
 
     return (
         <>
-        <button onClick={()=>setShowModal(true)} className="individual-charge-button">Add Individual Expense</button>
+        <button onClick={()=>setShowModal(true)} className="individual-charge-button">Add an indivdual expense</button>
         {showModal && (
             <Modal onClose={()=>setShowModal(false)}>
                 <CreateExpense setShowModal={setShowModal} expense={expense} setHasSubmitted={setHasSubmitted} />
