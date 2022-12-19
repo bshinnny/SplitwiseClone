@@ -100,7 +100,7 @@ function GroupDetails() {
                                     <div className='group-expense-name'>{expense.description}</div>
                                     <div className='exp-amt-rec'>
                                         <div className='group-expense-recipient'>
-                                            {`${expense.Fronter.first_name} lent you`}
+                                            {`${expense.Fronter.first_name} lent ${expense.Recipient.first_name}`}
                                         </div>
                                         <div className='group-expense-amount-rec'>
                                             {`$${expense.amount}`}
