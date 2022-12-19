@@ -1,6 +1,6 @@
 .outer-container {
     height: 100vh;
-    background-color: aqua;
+    background-color:rgb(255, 255,255);
     display: flex;
     margin-left: 0;
     margin-right: 0;
@@ -24,6 +24,8 @@
 
 
 .middle-side {
+    padding-bottom: 50px;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     background-color:rgb(255, 255,255);
