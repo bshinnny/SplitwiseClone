@@ -17,7 +17,7 @@ export default function CreateGroupExpense({ setShowModal }) {
     let currentUserId = useSelector(state => state.session.user.id)
     let userGroups = useSelector(state => state.groups.userGroups)
     let userGroupsArr = Object.values(userGroups)
-    console.log(userGroupsArr, 'arrrrrrrrrrrrrr')
+    // console.log(userGroupsArr, 'arrrrrrrrrrrrrr')
 
     useEffect(() => {
         dispatch(getUserGroupsThunk())
@@ -56,7 +56,7 @@ export default function CreateGroupExpense({ setShowModal }) {
     }
 
 
-    console.log(groupId, 'GROUP IDDDD')
+
     return (
         <div className="modal-expense-entire">
             <div className="modal-expense-header">Create New Group Expense</div>

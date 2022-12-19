@@ -20,48 +20,59 @@ const FriendDetail = () => {
     const [noShared,setNoshared] = useState(false)
 
     useEffect(()=>{
-      console.log("friendId on useEffect",friendId)
+      
         dispatch(getFriendDetail(friendId))
     },[dispatch,getFriendDetail,friendId])
 
     const userId = useSelector(state => state.session.user.id)
-    console.log("UserID",userId)
+  
+   
     const info = useSelector(state=>state.friendDetail)
-    console.log("info",info)
+    
 
     const detailList = Object.values(info)
-    console.log("frontend friend detail", detailList)
+   
     const thisFriend = detailList.filter((detail)=>detail.id == friendId)
 
-    console.log("))))))",thisFriend)
+    
     const friendDetail = thisFriend[0]
-    console.log("*********frienddetail",friendDetail)
+    
 
-    // console.log("friendDetail.shared_expenses",friendDetail.shared_expenses)
+
     let expensesList
-    let youPaid = 0
-    let total = 0
+    // let youPaid = 0
+    // let total = 0
+    // let friendPaid = 0
+    let fullDate
     if(friendDetail) {
       if((friendDetail.shared_expenses).length === 0) {
       expensesList = 0
       }
       else{
         expensesList = friendDetail.shared_expenses
-        for(let i = 0; i< expensesList.length; i++) {
-          let expense = expensesList[i];
-          let amount = expense.amount
-          total += amount
-          if(expense.user_id === userId){
-            youPaid += expense.amount
-          }
-        }
+        // for(let i = 0; i< expensesList.length; i++) {
+        //   let expense = expensesList[i];
+        //   let amount = expense.amount
+        //   total += amount
+        //   if(expense.user_id === userId){
+        //     youPaid += (expense.amount) *2
+        //   }
+        //   if(expense.user_id !== userId) {
+        //     friendPaid += (expense.amount) *2
+        //   }
+        // }
 
       }
 
     }
-    console.log("expensesList",expensesList)
-    console.log("totalamout", total*2)
-    console.log("yourPaid", youPaid)
+    // let friendOweYou = total - youPaid
+    // let youOwnFriends = total - friendPaid
+    // console.log("expensesList",expensesList)
+    // console.log("totalamout", total*2)
+    // console.log("yourPaid", youPaid)
+    // console.log("friendPaid", friendPaid)
+    // console.log("friendoweYOu",friendOweYou)
+    // console.log("you own Friens",youOwnFriends)
 
   return (
     <div className='outer-container'>
@@ -103,10 +114,13 @@ const FriendDetail = () => {
       <div className='right-side'>
             <div className='left-with-info'>
               <div className='right-balance-div'>
-                <h3 className='your-balance'>YOUR BALANCE</h3>
+                <h3 className='your-balance'>FRIEND INFORMATION</h3>
                 <div className='balance-content'>
-                {(friendDetail && expensesList) && !youPaid ? <p>You owe ${total}</p> :<p>You paid ${total * 2}</p>}
-                {friendDetail && !expensesList && <p>You are all settled up</p>}
+                {friendDetail &&<><p>Frist name: <p className='name-info'>{friendDetail.first_name}</p></p><p>Last name: <p className='name-info'>{friendDetail.last_name}</p></p> <p>Email:<p className='email-address'> {friendDetail.email}</p></p> </> }
+                
+                {/* {(friendDetail && expensesList) && {youOwnFriends} > 0 && <p>{friendDetail.first_name} owe you {friendOweYou}</p>}
+                {(friendDetail && expensesList) && {youOwnFriends} < 0 && <p>You own {friendDetail.first_name} {Math.abs(youOwnFriends)}</p>}
+                {friendDetail && !expensesList && <p>You are all settled up</p>} */}
                 </div>
               </div>
             </div>
