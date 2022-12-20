@@ -4,6 +4,8 @@
 ## What's this?
 Smartsplit is a full-stack clone project that is originally cloned from Splitwise. It helps users to add expenses and split their bills among friends and groups. This project aims for developers to practice using different technologies and build their web application from scratch.
 
+Live site: https://smart-split-group.onrender.com/
+
 
 ## Languages and technology of Development
 - Frontend: React, Redux , JavaScript
